@@ -1,0 +1,19 @@
+.programColor{
+    color:rgb(98, 169, 29);
+}
+
+  
+  /* Position text in the middle of the page/image */
+  
+  /* .bg-text {
+    background-image: url(src\Images\image.jpeg);  
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top:95%;
+    left: 50%;
+    text-align: center; 
+  } */

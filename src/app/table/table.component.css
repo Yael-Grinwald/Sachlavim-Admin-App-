@@ -1,0 +1,15 @@
+p {
+    font-family: Lato;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  .header {
+    padding: 5px;
+  }
+  
+  .filter {
+    display: block;
+  }

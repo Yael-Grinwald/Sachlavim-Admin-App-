@@ -1,0 +1,86 @@
+.body{
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(29,203,193,0.9363095580028886) 48%, rgba(63,252,116,0.8578781854538691) 100%);
+    /* Full height */
+    height: 100%; 
+  
+    /* Center and scale the image nicely */
+    /* background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(src\Images\CBGOrchidsMarch2018-4323-Edit-550x367.jpg);  */
+}
+
+.form-container{
+  text-align:center;
+  margin: auto;
+  /* margin-bottom: 10%; */
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  /* padding: 30px; */
+  max-width: 450px;
+  position: relative;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  background-color: white;
+   width: 25%;
+height: 80%;
+}
+input{
+    font-weight: 400;
+}
+
+
+
+
+
+#cover {
+    background: #222 url(src\assets\Images\CBGOrchidsMarch2018-4323-Edit-550x367.jpg) center center no-repeat;
+    background-size: cover;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#cover-caption {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+label{
+    font-size: 200%;
+    font-weight: 600;
+    
+}
+/* only used for background overlay not needed for centering */
+form:before {
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,1) 27%, rgba(255,255,255,0.6365896700477065) 68%);
+      z-index: -1;
+    /* border-radius: 10px; */
+ border: double 15px rgba(255,255,255,0.7);
+    background-clip: padding-box;
+}
+.b{
+    margin-top: 7%;
+}
+.row{
+    height: 570px;
+}
+
+mat-form-field{
+text-align: right;
+}
+
+/* button{
+    cursor: pointer;
+} */
+

@@ -1,0 +1,93 @@
+
+mat-form-field {
+    font-size: 14px;
+    width: 80px;
+  } 
+
+th.mat-header-cell {
+
+    /* text-align: left;
+    max-width: 50px; */
+}
+/* .mat-sort-header{
+  display: inline;
+}
+input.matInput{
+  direction: rtl;
+} */ 
+
+.operatorColor{
+  color:rgb(236, 116, 19);
+
+}
+.container-{
+  padding-top: 50px;
+}
+.addMsg{
+  text-align: center;
+  margin-bottom: 10px;
+}
+.addMsg button{
+  background-color: white;
+  margin-left: 20px;
+  color:rgb(192, 31, 31) ;
+  font-family: inherit;
+
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 80%;
+}
+table {
+
+  width: 100%;
+}
+
+.header {
+  padding: 5px;
+  font-size: 14px;
+
+}
+
+.filter  {
+  width: 80%;
+  display: block;
+}
+/* 
+.mat-table__wrapper .mat-table {
+  min-width: auto !important;
+  width: 100% !important;
+}
+
+.mat-header-row {
+  width: 100%;
+}
+
+.mat-row {
+  width: 100%;
+}
+
+.mat-column-iOperatorType {
+  flex: 0 0 10% !important;
+  min-width: 104px !important;
+}
+
+.mat-column-nvCompanyName {
+  flex: 0 0 10% !important;
+  min-width: 104px !important;
+}
+
+.mat-column-nvOperatorName {
+  flex: 0 0 10% !important;
+  min-width: 104px !important;
+}
+
+.mat-column-nvActivityies {
+  flex: 0 0 10% !important;
+  min-width: 104px !important;
+} */

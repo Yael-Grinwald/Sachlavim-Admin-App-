@@ -1,0 +1,192 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
+@import '~https://fonts.googleapis.com/icon?family=Material+Icons';    
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';   
+@import "~angular2-multiselect-dropdown/themes/default.theme.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-dropdowns/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-lists/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-angular-dropdowns/styles/material.css';
+
+/* for schedule*/
+@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-calendars/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-dropdowns/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-lists/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-angular-schedule/styles/material.css';
+
+/* Add application styles & imports to this file! */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+* {
+  box-sizing: border-box;
+}
+
+mat-sort-header-button{
+display: none;
+}
+button{
+    cursor: pointer;
+}
+
+.imageBackground{
+    background-color: aquamarine;
+    /* url('/assets/Images/two-daisies-in-the-grass.jpg') no-repeat center center fixed; */
+    
+      /* Full height */
+      height: 100%;
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    
+/* for multi select */
+.mu-hero-overlay,
+.mu-video-overlay {
+	background-color: #41B6E6;/* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #003A70, #F6BE00);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #003A70, #F6BE00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+.cdk-overlay-container, .cdk-overlay-pane {
+    z-index: 9999 !important;
+}
+
+.mu-primary-btn:hover,
+.mu-primary-btn:focus,
+.mu-copy-right a:hover,
+.mu-copy-right a:focus,
+.mu-send-msg-btn:hover,
+.mu-send-msg-btn:focus,
+.mu-faq-content .panel-title a:hover,
+.mu-faq-content .panel-title a:focus,
+.mu-faq-content .panel-title a[aria-expanded="true"],
+.mu-faq-content .panel-title a>span,
+.mu-menu ul li a:hover,
+.mu-menu ul li a:focus,
+.mu-single-speakers-info p,
+.mu-single-speakers-social li a:hover,
+.mu-single-speakers-social li a:focus,
+.mu-logo,
+.mu-logo:hover,
+.mu-logo:focus,
+#mu-hero .navbar-default .navbar-brand,
+.mu-navbar .mu-menu li a:hover,
+.mu-navbar .mu-menu li a:focus,
+.mu-single-event .mu-event-time {
+	color: #F6BE00;
+}
+
+.mu-speakers-slider .slick-next,
+.mu-speakers-slider .slick-prev,
+#mu-venue,
+.mu-popular-price .mu-price-tag,
+.mu-navbar .navbar-toggle,
+.mu-navbar .navbar-toggle:hover,
+.mu-navbar .navbar-toggle:focus,
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:focus, 
+.navbar-default .navbar-nav > .active > a:hover,
+.mu-schedule-menu li a:hover,
+.mu-schedule-menu li a:focus,
+.mu-schedule-menu li.active a,
+.mu-schedule-menu li.active a:hover,
+.mu-schedule-menu li.active a:focus {
+	background-color: #003A70;
+}
+
+.mu-social-media a:hover,
+.mu-social-media a:focus {
+	border: 1px solid #003A70;
+	color: #003A70;
+}
+
+.mu-contact-form .form-control:focus,
+.mu-schedule-menu li a {
+	border: 1px solid #003A70;    
+} 
+
+.mu-send-msg-btn,
+.mu-send-msg-btn:focus,
+.mu-register-btn:hover,
+.mu-register-btn:focus,
+.mu-popular-price .mu-register-btn {
+	border: 1px solid #003A70;
+	background-color: #003A70;
+}
+
+.mu-faq-content .panel-default > .panel-heading + .panel-collapse > .panel-body {
+	border-top-color: #003A70;
+
+}
+
+.mu-reg-submit-btn:hover,
+.mu-reg-submit-btn:focus {
+	background-color: #003A70;
+	border: 2px solid #003A70;
+}
+
+.mat-card {    
+    text-align: -webkit-center;    
+}    
+    
+.custom-font-size .multiselect-dropdown .dropdown-btn {
+    font-size:12px !important;
+ }
+
+.demo-toolbar {    
+    display: flex;    
+    align-items: center;    
+    width: 100%;    
+}    
+    
+.demo-form {    
+    min-width: 150px;    
+    max-width: 500px;    
+    width: 100%;    
+}    
+    
+.demo-full-width {    
+    width: 100%;    
+}    
+    
+body {    
+    margin: 0;    
+    font-family: Roboto, sans-serif;    
+}    
+    
+mat-card {    
+    max-width: 80%;    
+    margin: 2em auto;    
+    text-align: center;    
+}    
+    
+mat-toolbar-row {    
+    justify-content: space-between;    
+}    
+    
+.done {    
+    position: fixed;    
+    bottom: 20px;    
+    right: 20px;    
+    color: white;    
+}    
+    
+.content-center {    
+    text-align: -webkit-center;    
+}    

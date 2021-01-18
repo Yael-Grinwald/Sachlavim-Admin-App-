@@ -1,0 +1,33 @@
+<div class="menu">
+    <nav style="direction: rtl;" class="navbar navbar-expand-lg navbar-light bg-light">
+        <a routerLink="afternoon-details" class="navbar-brand">
+            <div *ngIf="idProgram!=-1">
+                <mat-icon class="mat-18">create</mat-icon> עריכת צהרון
+            </div>
+            <div *ngIf="idProgram==-1">
+                <mat-icon class="mat-18">create</mat-icon> צהרון חדש
+            </div>
+        </a>
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button> -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a routerLink="afternoon-schedule/{{idProgram}}" routerLinkActive="activeLink" class="nav-link ">יומן</a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="programs-schedule" routerLinkActive="activeLink" class="nav-link ">מערכת שבועית</a>
+                </li>
+                <li style="position: absolute; left: 10px; size: 20px;">
+                    <a [routerLink]="['/header-menu/afternoon/afternoon-table']" class="navbar-brand" active>
+                        <mat-icon class="mat-18">west</mat-icon>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+
+<router-outlet></router-outlet>

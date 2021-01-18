@@ -1,0 +1,306 @@
+<div class="form-group"  >
+    <form operator="ngform" (ngSubmit)="save()">
+        <h2 *ngIf="!operator.nvOperatorName" >הוספת מפעיל חדש</h2>
+
+        <section class="example-section">
+            <label class="example-margin">סוג:</label>
+            <mat-radio-group [(ngModel)]="operator.iOperatorType" name="iOperatorType">
+                <mat-radio-button class="example-margin" value="5" [checked]="operator.iOperatorType==5">פרטי
+                </mat-radio-button>
+                <mat-radio-button class="example-margin" value="6" [checked]="operator.iOperatorType==6">חברה
+                </mat-radio-button>
+                <mat-radio-button class="example-margin" value="7" [checked]="operator.iOperatorType==7">שכיר
+                </mat-radio-button>
+            </mat-radio-group>
+        </section>
+        <br>
+        <mat-form-field class="example-form-field">
+            <mat-label>שם מפעיל</mat-label>
+            <input matInput type="text" [(ngModel)]="operator.nvOperatorName" name="nvOperatorName" >
+            <button mat-button type="button"  matSuffix mat-icon-button aria-label="Clear" (click)="operator.nvOperatorName=''">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field><br>
+
+        <mat-form-field class="example-form-field">
+            <mat-label>שם חברה</mat-label>
+            <input matInput type="text" [(ngModel)]="operator.nvCompanyName" name="nvCompanyName">
+            <button mat-button type="button"   matSuffix mat-icon-button aria-label="Clear" (click)="operator.nvCompanyName=''">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field><br>
+
+        <mat-form-field class="example-form-field">
+            <mat-label>ת.ז</mat-label>
+            <input matInput type="text" [(ngModel)]="operator.nvIdentity" name="nvIdentity">
+            <button mat-button type="button"   matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field><br>
+
+        <mat-form-field class="example-form-field">
+            <mat-label>שם איש קשר</mat-label>
+            <input matInput type="text" [(ngModel)]="operator.nvContactPerson" name="nvContactPerson">
+            <button mat-button type="button"   matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field><br>
+
+        <mat-form-field class="example-form-field">
+            <mat-label>טלפון איש קשר</mat-label>
+            <input matInput type="text" [(ngModel)]="operator.nvContactPersonPhone" name="nvContactPersonPhone">
+            <button mat-button type="button"   matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field><br>
+
+        <mat-form-field class="example-form-field">
+            <mat-label> מייל איש קשר</mat-label>
+            <input matInput type="text" [(ngModel)]="operator.nvContactPersonMail" name="nvContactPersonMail">
+            <button mat-button type="button"   matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field><br>
+
+        <mat-form-field class="example-form-field">
+            <mat-label>מספר מדריכים</mat-label>
+            <input matInput type="text" [(ngModel)]="operator.iNumLeaders" name="iNumLeaders" >
+            <button mat-button type="button"   matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field><br>
+
+        <mat-form-field class="example-form-field">
+            <mat-label>הגבלת מספר חוגים ביום</mat-label>
+            <input matInput type="number" [(ngModel)]="operator.iNumOperationsDay" name="iNumOperationsDay">
+            <button mat-button type="button"   matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field><br>
+
+        <mat-form-field class="example-form-field">
+            <mat-label>הגבלת מספר חוגים בשבוע</mat-label>
+            <input matInput type="number" [(ngModel)]="operator.iNumOperationsWeek" name="NumActivityWeek">
+            <button mat-button type="button"   matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field><br>
+
+
+        <mat-form-field appearance="fill" style="direction: rtl;">
+            <mat-label>תנאי תשלום</mat-label>
+            <mat-select [value]="operator.iOperatorPaymentType" matNativeControl required name="iOperatorPaymentType">
+                <mat-option value="8">30 + שוטף</mat-option>
+                <mat-option value="9"> שוטף + 60</mat-option>
+                <mat-option value="10">מזומן</mat-option>
+            </mat-select>
+        </mat-form-field><br>
+
+        <mat-form-field class="example-form-field">
+            <mat-label>מספר ספק</mat-label>
+            <input matInput type="text" [(ngModel)]="operator.nvIdentity" name="nvIdentity">
+            <button mat-button type="button"   matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field><br>
+
+        <mat-form-field class="example-form-field">
+            <mat-label>מספר הנהלת חשבונות</mat-label>
+            <input matInput type="text" [(ngModel)]="operator.iNumBookkeeping" name="iNumBookkeeping">
+            <button mat-button type="button"   matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field><br>
+
+        <section style="direction: rtl;" class="example-section">
+            <mat-checkbox [(ngModel)]="operator.bActivityPriority" [checked]="operator.bActivityPriority"
+                name="ActivityPriority" class="example-margin">עדיפות בשיבוץ</mat-checkbox>
+        </section>
+
+        <section style="direction: rtl;" class="example-section">
+            <mat-checkbox [checked]="operator.bInProgramPool" class="example-margin">קיים במאגר התוכניות</mat-checkbox>
+        </section>
+
+        <div id="TalanSchool" style="border: solid;width: 40%; margin: auto; padding: 30px; ">
+
+            <section style="direction: rtl;" class="example-section">
+                <mat-checkbox [(ngModel)]="operator.bTalan" [checked]="operator.bTalan" name="TalanCheckbox"
+                    class="example-margin">מפעיל בחוגי תל"ן</mat-checkbox>
+            </section>
+            <!-- talan schools settings -->
+            <div *ngIf="schoolListforTalan.length">
+                <ng-multiselect-dropdown name="talanSchools" [(ngModel)]="lschool" [placeholder]="'בתי ספר'"
+                    [data]="schoolListforTalan" [settings]="dropdownSettings" 
+                    (onSelect)="onItemSelect($event,'talanSchool')"
+                    (onSelectAll)="onSelectAll('talanSchool')" 
+                    (onDeSelectAll)="onDeSelectAll('talanSchool')" 
+                    (onDeSelect)="OnItemDeSelect($event,'talanSchool')"
+                    [disabled]="!operator.bTalan">
+                </ng-multiselect-dropdown>
+            </div>
+        </div>
+
+        <div id="TalanSchool" style="border: solid;width: 40%; margin: auto; padding: 30px; ">
+
+            <!--  לטפל! רשימת שכונות -->
+            <section style="direction: rtl;" class="example-section">
+                <mat-checkbox [checked]="blNeighborhoods" (change)="blNeighborhoods=!blNeighborhoods"
+                    class="example-margin">פעיל באזורים מסוימים</mat-checkbox>
+            </section>
+
+
+            <!-- Neighborhoods -->
+            <div *ngIf="NeighborhoodsList.length">
+                <ng-multiselect-dropdown name="neighborhoods" 
+                [settings]="dropdownNeighborhoods"
+                    [(ngModel)]="operatorNeighborhoods"
+                     [data]="NeighborhoodsList"
+                      [placeholder]="'איזורים'"
+                    (onSelect)="onSelectNeighborhood($event)"
+                    (onSelectAll)="onSelectAll('neighberhoods')" 
+                    (onDeSelectAll)="onDeSelectAll('neighberhoods')" 
+                    (onDeSelect)="onDeSelectNeighborhood($event)"
+                    [disabled]="!blNeighborhoods">
+                </ng-multiselect-dropdown>
+            </div>
+        </div>
+
+
+        <div id="SettingslsExclude" style="border: solid;width: 40%; margin: auto; padding: 30px; ">
+            <!-- לשלוף מטבלת מסגרות -->
+            <section style="direction: rtl;" class="example-section">
+                <mat-checkbox [checked]="bSettingslsExclude" (change)="bSettingslsExclude=!bSettingslsExclude"
+                    class="example-margin">לא פעיל במסגרות מסויימות</mat-checkbox>
+            </section>
+
+
+            <div *ngIf="settingsList.length">
+                <ng-multiselect-dropdown name="schoolExclude"
+                 [(ngModel)]="schoolsExcludeList"
+                  [placeholder]="'מסגרות'"
+                    [data]="settingsList" 
+                    [settings]="dropdownSettings" 
+                    (onSelect)="onItemSelect($event,'settings')"
+                    (onSelectAll)="onSelectAll('settings')" 
+                    (onDeSelectAll)="onDeSelectAll('settings')" 
+                    (onDeSelect)="OnItemDeSelect($event,'settings')"
+                    [disabled]="!bSettingslsExclude">
+                </ng-multiselect-dropdown>
+            </div>
+        </div>
+
+        <div class="a">
+            <section style="direction: rtl;  " class="example-section">
+                <mat-checkbox [(ngModel)]="operator.bActiveAfternoon" [checked]="operator.bActiveAfternoon"
+                    name="ActiveAfternoon" class="example-margin">עובד בצהרונים</mat-checkbox>
+            </section>
+            <a data-toggle="modal" data-target="#modalCart"> עריכת לו"ז צהרונים</a>
+        </div>
+
+        <div class="b">
+            <section style="direction: rtl;" class="example-sction">
+                <mat-checkbox [(ngModel)]="operator.bActiveChanukahCamp" [checked]="operator.bActiveChanukahCamp"
+                    name="ActiveChanukahCamp" class="example-margin">עובד בקייטנת חנוכה</mat-checkbox>
+            </section>
+            <a data-toggle="modal" data-target="#modalCart"> עריכת לו"ז קייטנת חנוכה</a>
+
+        </div>
+
+
+        <div class="c">
+            <section style="direction: rtl;" class="example-section">
+                <mat-checkbox [(ngModel)]="operator.bActivePassoverCamp" [checked]="operator.bActivePassoverCamp"
+                    name="ActivePassoverCamp" class="example-margin">עובד בקייטנת פסח</mat-checkbox>
+            </section>
+            <a data-toggle="modal" data-target="#modalCart"> עריכת לו"ז קייטנת פסח</a>
+        </div>
+
+        <div class="d">
+            <section style="direction: rtl;" class="example-section">
+                <mat-checkbox [(ngModel)]="operator.bActiveSummerCamp" [checked]="operator.bActiveSummerCamp"
+                    name="ActiveSummerCamp" class="example-margin">עובד בקייטנת קיץ</mat-checkbox>
+            </section>
+            <a data-toggle="modal" data-target="#modalCart">עריכת לו"ז קייטנת קיץ</a>
+        </div>
+
+
+        <button type="submit" class="btn btn-success">save</button>
+    </form>
+</div>
+
+
+<div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 style="text-align: center;" class="modal-title" id="myModalLabel">לו"ז צהרונים</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <!--Body-->
+              
+            <div class="modal-body" style="text-align:right;" dir="rtl">
+                <div id="Sunday">
+
+                    <section style="direction: rtl;" class="example-section">
+                        <mat-checkbox name="sunday" class="example-margin">ראשון</mat-checkbox>
+                    </section>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>מספר מדריכים</mat-label>
+                        <input type="number" min="0" matInput placeholder="הכנס מיספר">
+                    </mat-form-field>
+
+                </div>
+
+                <div id="Monday">
+                    <section style="direction: rtl;" class="example-section">
+                        <mat-checkbox name="monday" class="example-margin">שני</mat-checkbox>
+                    </section>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>מספר מדריכים</mat-label>
+                        <input min="0" type="number" matInput placeholder="הכנס מיספר">
+                    </mat-form-field>
+                </div>
+
+                <div id="Tuesday">
+                    <section style="direction: rtl;" class="example-section">
+                        <mat-checkbox name="tuesday" class="example-margin">שלישי</mat-checkbox>
+                    </section>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>מספר מדריכים</mat-label>
+                        <input type="number" min="0" matInput placeholder="הכנס מיספר">
+                    </mat-form-field>
+                </div>
+
+                <div id="Wednesday">
+                    <section style="direction: rtl;" class="example-section">
+                        <mat-checkbox name="wednesday" class="example-margin">רביעי</mat-checkbox>
+                    </section>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>מספר מדריכים</mat-label>
+                        <input type="number" min="0" matInput placeholder="הכנס מיספר">
+                    </mat-form-field>
+                </div>
+
+
+                <div id="Thursday">
+                    <section style="direction: rtl;" class="example-section">
+                        <mat-checkbox name="אhursday" class="example-margin">חמישי</mat-checkbox>
+                    </section>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>מספר מדריכים</mat-label>
+                        <input type="number" min="0" matInput placeholder="הכנס מיספר">
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <button mat-icon-button color="warn" aria-label="Example icon button with a home icon">
+                <mat-icon>שמור</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

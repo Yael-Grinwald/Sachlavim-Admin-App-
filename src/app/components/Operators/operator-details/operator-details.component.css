@@ -1,0 +1,60 @@
+.example-additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+  }
+
+  ng-multiselect-dropdown /deep/ .multiselect-dropdown > .dropdown-btn{
+    font-size:12px !important;
+ }
+
+.a section,a{
+   display: inline-block;
+   padding: 10px;
+
+ }
+ a{
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+
+ }
+ .b section,a{
+  display: inline-block;
+  padding: 10px;
+
+}
+.c section,a{
+  display: inline-block;
+  padding: 10px;
+
+}
+.d section,a{
+  display: inline-block;
+  padding: 10px;
+
+}
+
+.example-section{
+  padding-top: 40px;
+
+}
+
+
+
+form {
+      width: 60%;
+      margin: auto;
+      text-align: center;
+      direction: rtl; 
+     background-color: #ffffffcf;
+}
+.form-group{
+  width: 100%;
+  overflow-y: auto;
+  height: 670px;
+  scrollbar-width: none;  
+
+}
+::-webkit-scrollbar {
+  display: none;
+}

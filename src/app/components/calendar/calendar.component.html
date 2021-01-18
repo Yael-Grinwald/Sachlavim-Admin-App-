@@ -1,0 +1,58 @@
+<div style="width: 90%;background: transparent;margin: auto;">
+    <mwl-demo-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate" [locale]="locale">
+    </mwl-demo-utils-calendar-header>
+
+
+    <ng-template #customCellTemplate let-day="day" let-locale="locale">
+        <div class="cal-cell-top">
+            <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+            <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+            <span style="float: left; padding-left: 10px;" class="cal-day-number">{{ day.date | hebrewDate }}</span>
+        </div>
+        <!-- <small *ngIf="day.events.length" style="margin:5px;">ישנם {{ day.events.length }} אירועים ביום זה</small> -->
+        <a *ngIf="day.badgeTotal > 0" style="text-align: center;" data-toggle="modal" data-target="#modalCart">פירוט
+            האירועים</a>
+    </ng-template>
+
+    <div [ngSwitch]="view">
+        <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events"
+            [cellTemplate]="customCellTemplate" [locale]="locale" [weekStartsOn]="weekStartsOn"
+            [weekendDays]="weekendDays">
+        </mwl-calendar-month-view>
+
+        <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" [locale]="locale"
+            [weekStartsOn]="weekStartsOn" [weekendDays]="weekendDays">
+        </mwl-calendar-week-view>
+
+        <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [locale]="locale">
+        </mwl-calendar-day-view>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header" style="text-align:center;">
+                <h4 style="width: 100%;" class="modal-title" id="myModalLabel">bbb</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <!--Body-->
+
+            <div class="modal-body" style="text-align:right;" dir="rtl">
+
+            </div>
+
+            <div mat-dialog-actions style="margin: auto;margin-bottom: 10px;">
+                <button mat-raised-button color="accent">שלח</button>
+            </div>
+        </div>
+    </div>
+</div>

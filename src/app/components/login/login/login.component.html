@@ -1,0 +1,70 @@
+
+<section id="cover" class="min-vh-100" dir="rtl">
+    <div id="cover-caption">
+        <div class="container">
+            <div class="row ">
+                <div class="col-xl-4 col-lg-5 col-md-7 col-sm-8 mx-auto text-center form p-4">
+                    <div>
+                        <img height="130px" width="210px" src="assets/Images/logo-JPG.jpg">
+                    </div>
+                    <label class="display-4 py-2 text-truncate">כניסה</label>
+                    <div class="px-2">
+
+                            <div *ngIf="forgot">
+                                <form [formGroup]="formLogin" (ngSubmit)="sentMailToResetPassword(nvMail.value)" class="justify-content-center">
+
+                                <mat-form-field style="width: 80%;" appearance="legacy">
+                                    <mat-label style="text-align:right">כתובת מייל לשחזור סיסמא</mat-label>
+                                    <input type="email" formControlName="nvMail" required name="nvMail" matInput
+                                        placeholder="מייל">
+                                    <mat-icon matSuffix>email</mat-icon>
+                                </mat-form-field>
+
+                                    <button style="width: 70%; font-size: 20px;" type="submit" mat-raised-button
+                                    color="black" >אישור</button>
+
+                                <div class="b">
+                                    <button style="font-size: 20px;" mat-button (click)="forgot=false">הכנס באמצעות שם משתמש וסיסמא</button>
+                                </div>
+                                </form>
+                            </div>
+
+                            <div *ngIf="!forgot">
+                                <form [formGroup]="formLogin" (ngSubmit)="Login()" class="justify-content-center">
+
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>שם משתמש</mat-label>
+                                    <input formControlName="nvUserName" required name="nvUserName" matInput
+                                        placeholder="שם משתמש">
+                                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>סיסמה</mat-label>
+                                    <input matInput type="password" formControlName="nvPassword" name="nvPassword"
+                                        placeholder="סיסמא" required [type]="hide ? 'password' : 'text'">
+                                    <mat-icon matSuffix mat-icon-button (click)="hide = !hide"
+                                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ?
+                                        'visibility_off' : 'visibility'}} </mat-icon>
+                                </mat-form-field>
+                                <br>
+                                <button style="width: 70%; font-size: 20px;" type="submit" mat-raised-button
+                                    color="black">כניסה</button>
+
+                                <div class="b">
+                                    <button style="font-size: 20px;" mat-button (click)="forgot=true">שכחתי
+                                        סיסמא</button>
+
+                                </div>                        </form>
+
+                            </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

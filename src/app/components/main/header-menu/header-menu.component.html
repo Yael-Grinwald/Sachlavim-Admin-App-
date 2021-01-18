@@ -1,0 +1,54 @@
+<div class="body" data-mdb-perfect-scrollbar='true' dir="rtl">
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="img col-3">
+                <a href="/">
+                    <img class="img-responsive" height="90px" width="150px" src="assets/Images/logo-JPG.jpg">
+                </a>
+            </div>
+
+            <div style="display: flex;justify-content: space-between;" class="middle col-6">
+
+                <a style="border-bottom: 3px solid rgb(192, 31, 31);" (click)="wel=false" routerLink="operators/operator-table" routerLinkActive="activeLink"
+                    value="operator">מפעילים</a>
+
+                <a style="border-bottom:3px solid rgb(51, 67, 211);" (click)="wel=false" routerLink="settings/setting-table" routerLinkActive="activeLink"
+                    value="setting">מסגרות</a>
+
+                <a style="border-bottom:3px solid rgb(89, 218, 72);" (click)="wel=false" routerLink="programs/programs-table" routerLinkActive="activeLink"
+                    value="program">תוכניות</a>
+
+                <a style="border-bottom:3px solid rgb(220, 255, 24);" (click)="wel=false" routerLink="afternoon/afternoon-table" routerLinkActive="activeLink"
+                    value="afternoon">צהרונים</a>
+
+                <a style="border-bottom:3px solid rgb(197, 36, 36);" (click)="wel=false" routerLink="management-menu/managers-table" routerLinkActive="activeLink"
+                    value="management">ניהול</a>
+            </div>
+
+            <div style="text-align: center;" class="col-3">
+                <p>שלום {{currentUser.nvUserName}}</p>
+                <a style="text-align: center;" href="/">התנתק</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="wel" class="welcome">
+        <h1 style="font-size: 90px;">ברוכים הבאים <br>
+            למנהלי העמותה</h1>
+        <div style="width: 80%;">
+            <p class="p">
+                אתר זה נועד בכדי להקל על ניהול תחומי פעילות העמותה, כמו
+                חוגים, קייטנות, גני ילדים, צהרונים, קונסרבטוריון, פעילויות ספורט עממיות ותחרותיות, פרויקטים קהילתיים,
+                פעילויות לבעלי צרכים מיוחדים, שהם רק חלק מהשירותים שמעניקה עמותת סחלבים לתושבי מודיעין מכבים רעות.
+                באפשרותך לצפות ולערוך את הפעילויות בצורה יעילה ופשוטה.
+                לכל שאלה בנוגע לאתר ניתן ליפנות אל: yaeli10@gmail.com
+            </p>
+        </div>
+
+    </div>
+    <router-outlet></router-outlet>
+
+</div>
