@@ -40,6 +40,8 @@ import { formatDate } from '@angular/common';
 import { MainServiceService } from 'src/app/services/MainService/main-service.service';
 import { th } from 'date-fns/locale';
 import { schedule } from 'src/app/Classes/schedule';
+import { CalendarEventActionsComponent } from 'angular-calendar/modules/common/calendar-event-actions.component';
+import { element } from 'protractor';
 
 const colors: any = {
   red: {
@@ -73,20 +75,21 @@ export class CalendarComponent implements OnInit {
 
 
   model: NgbDateStruct;
-
-  constructor(private mainService: MainServiceService, private calendar: NgbCalendar, public i18n: NgbDatepickerI18n) {
-    this.dayTemplateData = this.dayTemplateData.bind(this);
+  // constructor(private mainService: MainServiceService, private calendar: NgbCalendar, public i18n: NgbDatepickerI18n) {
+  //   this.dayTemplateData = this.dayTemplateData.bind(this);
+  // }
+  constructor(private mainService: MainServiceService) {
   }
 
-  dayTemplateData(date: NgbDate) {
-    return {
-      gregorian: (this.calendar as NgbCalendarHebrew).toGregorian(date)
-    };
-  }
+  // dayTemplateData(date: NgbDate) {
+  //   return {
+  //     gregorian: (this.calendar as NgbCalendarHebrew).toGregorian(date)
+  //   };
+  // }
 
-  selectToday() {
-    this.model = this.calendar.getToday();
-  }
+  // selectToday() {
+  //   this.model = this.calendar.getToday();
+  // }
 
 
   view: string = 'month';
@@ -103,7 +106,9 @@ export class CalendarComponent implements OnInit {
 
   viewDateChange = new EventEmitter<Date>();
 
-  events: CalendarEvent[];
+  events: CalendarEvent[] = [];
+
+  eventsFromSer: schedule[] = [];
 
   setView(view: CalendarView) {
     this.view = view;
@@ -117,37 +122,61 @@ export class CalendarComponent implements OnInit {
     iOperatorId: -1,
     iSettingId: -1,
     iProgramId: -1,
-    dDate: null 
+    dDate: null
+    // dDate:new Date('11/08/2020')
+
   };
 
   ngOnInit() {
-    this.types[this.type]=this.calendarId;
+    this.types[this.type] = this.calendarId;
 
     this.mainService.post("SchedulesGet", this.types)
       .then(
         res => {
-        let eventsFromSer = res;
-          debugger
+
+          this.eventsFromSer = res;
+
+          this.eventsFromSer.forEach(element => {
+            element.dtStartTime = new Date(parseInt(element.dtStartTime.substr(6))).toString();
+            this.events.push({
+              title: element.nvProgramValue,
+              start: new Date(element.dtStartTime),
+
+
+            });
+          });
+
+          console.log(this.events);
+
         },
         err => {
           alert("err SchedulesGet")
         }
       )
+  }
 
-      this.events= [
-        {
-          title: 'An all day event',
-          color: colors.yellow,
-          start: new Date(),
-          allDay: true,
-        },
-        {
-          title: 'A non all day event',
-          color: colors.blue,
-          start: new Date(),
-        },
-      ];
-      
+  eventsArrayByDate: schedule[] = [];
+  dayDetails: string;
+
+  getShortDate(date: Date) {
+    let mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+  }
+  createArrayForDetails(date: Date)//יצירת מערך להצגת פרטי אירועים ליום מסויים שנבחר
+  {
+    this.dayDetails = this.getShortDate(date);
+
+    this.eventsFromSer.forEach(element => {
+      console.log(new Date(element.dtStartTime));
+
+      if (this.getShortDate(new Date(element.dtStartTime)) == this.dayDetails)
+        this.eventsArrayByDate.push(element);
+
+    });
+
+    console.log(this.eventsArrayByDate);
+
   }
 
   dayViewHour({ date, locale }: DateFormatterParams): string {
@@ -157,4 +186,5 @@ export class CalendarComponent implements OnInit {
   weekViewHour({ date, locale }: DateFormatterParams): string {
     return this.dayViewHour({ date, locale });
   }
+
 }

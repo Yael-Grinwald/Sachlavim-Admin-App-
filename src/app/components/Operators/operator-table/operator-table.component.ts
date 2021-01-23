@@ -127,7 +127,7 @@ this.operatorTypes=this.mainService.SysTableList[2];
   createFilter(): (data: any, filter: string) => boolean {
     
     let filterFunction = function(data, filter): boolean {
-      let searchTerms = JSON.parse(filter);debugger
+      let searchTerms = JSON.parse(filter);
       return data.nvOperatorName.toLowerCase().indexOf(searchTerms.nvOperatorName) !== -1
          && data.nvContactPerson.toLowerCase().indexOf(searchTerms.nvContactPerson) !== -1
           //  && this.operatorTypes.get(data.iOperatorType).toLowerCase().indexOf(searchTerms.iOperatorType) !== -1

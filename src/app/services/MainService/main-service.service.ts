@@ -53,23 +53,20 @@ export class MainServiceService {
 
   //מערך של כל הטבלאות
   SysTableList: Array<Map<number, string>> = new Array<Map<number, string>>();
-  // http://qa.webit-track.com/SachlavimQA/Service/Service1.svc/ שרת בדיקות מרוחק
 
-  sahlavimUrl = "http://localhost:53070/Service1.svc/";//שרת מקומי
-  //sahlavimUrl = "http://qa.webit-track.com/SachlavimQA/Service/Service1.svc/";
+ sahlavimUrl = "http://localhost:53070/Service1.svc/";//שרת מקומי
+  //sahlavimUrl = "http://qa.webit-track.com/SachlavimQA/Service/Service1.svc/";//שרת מרוחק
  
  
   post(url: string, data: any): Promise<any> {
-    console.log(url);
     return this.http.post(`${this.sahlavimUrl}${url}`, data).toPromise();
   }
 
-  get(url: string): Promise<any> {
-    console.log(url);
-    return this.http.get(`${this.sahlavimUrl}${url}`).toPromise();
+  async get(url: string): Promise<any> {
+    return await this.http.get(`${this.sahlavimUrl}${url}`).toPromise();
   }
 
-  getPrograms() {
+   getPrograms() {
     //פונקציה המחזירה לתוך אובייקט את נתוני טבלת SysTable
     this.post("ProgramsGet", { bProgramAfternoon: false || null }).then(
       res => {
@@ -87,6 +84,7 @@ export class MainServiceService {
       }
     );
   }
+
   getAfternoon() {
     this.post("ProgramsGet", { bProgramAfternoon: true }).then(
       res => {

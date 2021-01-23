@@ -66,12 +66,13 @@ h1{
 }
 
 .middle a{
-    font-size: 20px;
+    font-size: 25px;
     cursor: pointer;
     height: 40px;
     text-decoration: none;
     outline: none;
     color: black;
+    font-weight: 600;
 }
 
 .container-fluid{

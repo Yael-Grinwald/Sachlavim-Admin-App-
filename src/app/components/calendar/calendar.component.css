@@ -1,0 +1,8 @@
+.row{
+    background-color: white;
+    width: 85%;
+    margin: auto;
+}
+#calendar{
+    width: 85%;height: 50%; background: transparent;margin: auto;
+}
