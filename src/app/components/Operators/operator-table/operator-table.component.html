@@ -3,10 +3,8 @@
     <div class="addMsg">
         <button  mat-stroked-button  data-toggle="modal" data-target="#modalCart"
             (click)="emailList()">שליחת הודעה</button>
-       <a routerLink="/header-menu/operators/new-operator">
-           <button  mat-stroked-button  >הוספת מפעיל</button>
-       </a> 
-    </div>
+           <button (click)="addOperator()" mat-stroked-button >הוספת מפעיל</button>
+        </div>
 
     <div style="width: 90%;margin: auto;" class="overflow-auto">
 

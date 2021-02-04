@@ -6,3 +6,15 @@
 #calendar{
     width: 85%;height: 50%; background: transparent;margin: auto;
 }
+mat-form-field {
+    margin-right: 12px;
+  }
+
+  .btnOp{
+    background-color: white;
+    color:rgb(192, 31, 31) ;
+    font-family: inherit;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 10px;
+    }

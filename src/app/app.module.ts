@@ -36,37 +36,31 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatCheckboxModule,
-  MatSlideToggleModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher,MatProgressSpinnerModule
+  MatSlideToggleModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher,MatProgressSpinnerModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS
 } from '@angular/material';
 
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { RoutModule } from './routing/rout.module';
+import { RoutModule } from './Routing/rout.module';
 import { MatExpansionModule} from '@angular/material/expansion';
 import { AfternoonDetailsComponent } from './components/Afternoons/afternoon-details/afternoon-details.component';
 import { AfternoonDetailsMenuComponent } from './components/Afternoons/afternoon-details-menu/afternoon-details-menu.component';
 import { AfternoonScheduleComponent } from './components/Afternoons/afternoon-schedule/afternoon-schedule.component';
-import { WeeklySchedulingComponent } from './components/Afternoons/weekly-scheduling/weekly-scheduling.component';
 import { LoginComponent } from './components/Login/login/login.component';
 import { HeaderMenuComponent } from './components/Main/header-menu/header-menu.component';
 import { MessageComponent } from './components/Main/message/message.component';
 import { ManagersTableComponent } from './components/Management/managers-table/managers-table.component';
 import { ManagementScheduleComponent } from './components/Management/management-schedule/management-schedule.component';
-import { ManagementSettingsClustersComponent } from './components/Management/management-settings-clusters/management-settings-clusters.component';
-import { ManagementSettingsJointComponent } from './components/Management/management-settings-joint/management-settings-joint.component';
 import { ManagementMenuComponent }from'./components/Management/management-menu/management-menu.component';
 import { OperatorActivityReportComponent } from './components/Operators/operator-activity-report/operator-activity-report.component';
-import { OperatorCreditComponent } from './components/Operators/operator-credit/operator-credit.component';
 import { OperatorDetailsComponent } from './components/Operators/operator-details/operator-details.component';
 import { OperatorMessagesComponent } from './components/Operators/operator-messages/operator-messages.component';
-import { OperatorReviewComponent } from './components/Operators/operator-review/operator-review.component';
 import { OperatorScheduleComponent } from './components/Operators/operator-schedule/operator-schedule.component';
 import { OperatorMenuComponent } from './components/Operators/operator-menu/operator-menu.component';
 import { ProgramDetailsComponent } from './components/Programs/program-details/program-details.component';
 import { ProgramDetailsMenuComponent } from './components/Programs/program-details-menu/program-details-menu.component';
-import { ProgramReportComponent } from './components/Programs/program-report/program-report.component';
 import { ProgramsComponent } from './components/Programs/programs/programs.component';
 import { ProgramScheduleComponent } from './components/Programs/program-schedule/program-schedule.component';
 import { SettingsComponent } from './components/Settings/settings/settings.component';
@@ -83,7 +77,6 @@ import { SettingsMessagesComponent } from './components/Settings/settings-messag
 import { ProgramsTableComponent } from './components/Programs/programs-table/programs-table.component';
 import { AfternoonComponent } from './components/Afternoons/afternoon/afternoon.component';
 import { AfternoonTableComponent } from './components/Afternoons/afternoon-table/afternoon-table.component';
-import { TableComponent } from './table/table.component';
 import * as XLSX from 'xlsx';
 import { CalendarHeaderComponent } from './components/calendar/calendar-header-component';
 
@@ -95,37 +88,35 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CommonModule } from '@angular/common';
-import { HebrewDatePipe } from './pipe/hebrew-date.pipe';
+import { HebrewDatePipe } from './Pipes/hebrew-date.pipe';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { StringPipe } from './Pipes/Validation/string.pipe';
+import { PhonePipe } from './Pipes/Validation/phone.pipe';
+import { IdNumberPipe } from './Pipes/Validation/id-number.pipe';
+import { RequiredPipe } from './Pipes/Validation/required.pipe';
+import { EmailPipe } from './Pipes/Validation/email.pipe';
 
 @NgModule({
   declarations: [
-    TableComponent,
     AppComponent,
     AppComponent,
     AppComponent,
     AfternoonDetailsComponent,
     AfternoonDetailsMenuComponent,
     AfternoonScheduleComponent,
-    WeeklySchedulingComponent,
     LoginComponent,
     HeaderMenuComponent,
     MessageComponent,
     ManagersTableComponent,
     ManagementScheduleComponent,
-    ManagementSettingsClustersComponent,
-    ManagementSettingsJointComponent,
     ManagementMenuComponent,
     OperatorActivityReportComponent,
-    OperatorCreditComponent,
     OperatorDetailsComponent,
     OperatorMessagesComponent,
-    OperatorReviewComponent,
     OperatorScheduleComponent,
     OperatorMenuComponent,
     ProgramDetailsComponent,
     ProgramDetailsMenuComponent,
-    ProgramReportComponent,
     ProgramsComponent,
     ProgramScheduleComponent,
     SettingsComponent,
@@ -140,10 +131,14 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     ProgramsTableComponent,
     AfternoonComponent,
     AfternoonTableComponent,
-    TableComponent,
     CalendarHeaderComponent,
     HebrewDatePipe,
     CalendarComponent,
+    StringPipe,
+    PhonePipe,
+    IdNumberPipe,
+    RequiredPipe,
+    EmailPipe,
   ],
   imports: [
 
@@ -203,7 +198,12 @@ import { CalendarComponent } from './components/calendar/calendar.component';
    AgGridModule
 
   ],
-  providers: [{ provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },DayService,WeekService,WorkWeekService,MonthService,MonthAgendaService],
+  providers: [
+
+
+      {provide: MAT_DATE_LOCALE, useValue: 'he-IL'},
+  
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },DayService,WeekService,WorkWeekService,MonthService,MonthAgendaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

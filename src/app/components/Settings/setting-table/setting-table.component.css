@@ -2,6 +2,8 @@
 .settingBtn{
     background-color:rgb(47, 50, 150);
     color:white;
+    float: left;
+    margin-left: 80px;
 }
 .settingColor{
     color: rgb(47, 50, 150);
@@ -37,4 +39,9 @@ mat-form-field {
 table {
 
   width: 100%;
+}
+element.style {
+  text-align: center;
+  margin-top: 0%;
+  direction: rtl;
 }

@@ -1,7 +1,8 @@
- 
+<div style="width: 100%;margin: auto;text-align: center;">
     <mwl-demo-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate" [locale]="locale">
     </mwl-demo-utils-calendar-header>
 
+    <button class="btnOp" data-toggle="modal" data-target="#addEvent" mat-stroked-button>הוספת פעילות</button>
 
     <ng-template #customCellTemplate let-day="day" let-locale="locale">
         <div class="cal-cell-top">
@@ -10,7 +11,9 @@
             <span style="float: left; padding-left: 10px;" class="cal-day-number">{{ day.date | hebrewDate }}</span>
         </div>
         <!-- <small *ngIf="day.events.length" style="margin:5px;">ישנם {{ day.events.length }} אירועים ביום זה</small> -->
-        <a (click)="createArrayForDetails(day.date)" *ngIf="day.badgeTotal > 0" style="cursor: pointer; text-align: center;  text-decoration: underline;" data-toggle="modal" data-target="#modalCart">פירוט
+        <a (click)="createArrayForDetails(day.date)" *ngIf="day.badgeTotal > 0"
+            style="cursor: pointer; text-align: center;  text-decoration: underline;" data-toggle="modal"
+            data-target="#eventDetails">פירוט
             האירועים</a>
     </ng-template>
 
@@ -28,37 +31,65 @@
         </mwl-calendar-day-view>
     </div>
 
+</div>
 
 
-<div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+
+
+<div class="modal fade" id="eventDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <!--Header-->
             <div class="modal-header" style="text-align:center;">
-                <h4 style="width: 100%;" class="modal-title" id="myModalLabel">{{dayDetails}} האירועים לתאריך</h4>
+                <h4 style="width: 100%;" class="modal-title" id="myModalLabel"> האירועים של {{objName}} <br> {{dayDetails}} </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
+                    <span aria-hidden="true" >×</span>
                 </button>
             </div>
 
             <!--Body-->
-
             <div class="modal-body" style="text-align:right;" dir="rtl">
+                <dl *ngFor="let event of eventsArrayByDate">
+                    <dt> {{event.dtStartTime| date:'shortTime'}} | מסגרת: {{event.nvSettingName}} </dt> <a
+                        style="cursor: pointer; text-align: center;  text-decoration: underline;">עריכה</a>
 
-            </div>
+                    <!-- <dd>תוכנית: {{event.nvProgramValue}}</dd> -->
 
-            <div mat-dialog-actions style="margin: auto;margin-bottom: 10px;">
-                <button mat-raised-button color="accent">שלח</button>
+                    <!-- public iOperatorId: number = -1,
+                    public iActivityId: number = -1,
+                    public iScheduleId: number = -1,
+                    public iSettingId: number = -1,
+                    public iProgramId: number = -1,
+                    public dtStartTime: string='',
+                    public nvProgramValue: string = '',
+                    public bClosedDay: boolean = false,
+                    public bLongDay: boolean = false,
+                    public dtDoneDate: Date = new Date(),
+                    public iActivityDetailsId: number = -1,
+                    public iCategoryType: number = -1,
+                    public iClusterId: number = -1,
+                    public iDayInWeek: number = -1,
+                    public iLeaderNumber: number = -1,
+                    public nvActivityName: string = '',
+                    public nvAddress: string = '',
+                    public nvCategoryValue: string = '',
+                    public nvComment: string='',
+                    public nvCompanyName: string='',
+                    public nvOperatingLocation: string='',
+                    public nvOperatorName: string='',
+                    public nvPhone: string='',
+                    public nvSettingName: string='' -->
+                </dl>
             </div>
         </div>
     </div>
 </div>
 
 
-<div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!--Header-->
             <div class="modal-header" style="text-align:center;">
@@ -69,14 +100,66 @@
             </div>
 
             <!--Body-->
+            <div class="modal-body" style="text-align:right;margin:auto;" dir="rtl">
 
-            <div class="modal-body" style="text-align:right;" dir="rtl">
+                <section *ngIf="types['iProgramId']==-1" class="example-section">
+                    <label class="example-margin">לתוכנית:</label><br>
+                    <mat-form-field>
+                        <mat-label>בחר תוכנית</mat-label>
+                        <mat-select [(ngModel)]="program" name="program" (click)="fillOperatorsList()">
+                            <mat-option *ngFor="let p of programsList" [value]="p">
+                                {{p.nvProgramName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </section>
+                <section *ngIf="types['iSettingId']==-1" class="example-section">
+                    <label class="example-margin">למסגרת:</label><br>
+                    <mat-form-field>
+                        <mat-label>בחר מיסגרת</mat-label>
+                        <mat-select name="setting" [(ngModel)]="settingId" (click)="fillOperatorsList()">
+                            <mat-option *ngFor="let s of settingsList" [value]="s.iSettingId">
+                                {{s.nvSettingName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </section>
+                <section *ngIf="types['iOperatorId']==-1" class="example-section">
+                    <label class="example-margin">למפעיל:</label><br>
+                    <mat-form-field>
+                        <mat-label>בחר מפעיל</mat-label>
+                        <mat-select [(ngModel)]="operator" name="operator">
+                            <mat-option *ngFor="let o of operatorList" [value]="o">
+                                {{o.nvOperatorName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </section>
 
+                <section class="example-section">
+                    <label class="example-margin">פעילות</label><br>
+                    <mat-form-field>
+                        <mat-label>בחר פעילות</mat-label>
+                        <mat-select [(ngModel)]="activity" name="activity">
+                            <mat-option *ngFor="let a of operator.lActivity" [value]="a.iActivityId">
+                                {{a.nvActivityName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </section>  
+                
+                <mat-form-field class="example-form-field">
+                <mat-label>שעה:</mat-label>
+                <input [(ngModel)]="time" matInput type="time" placeholder="00:00">
+            </mat-form-field>
             </div>
 
-            <div mat-dialog-actions style="margin: auto;margin-bottom: 10px;">
-                <button mat-raised-button color="accent">אישור</button>
-            </div>
+      <div style="margin: auto;" class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addEvent()">שמור</button>
         </div>
+
+        </div>
+
+        
     </div>
 </div>

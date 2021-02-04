@@ -2,3 +2,42 @@
     color:rgb(240, 236, 20, 0.904);
 
 }
+
+.saveIconBtn{
+    color: rgb(240, 236, 20, 0.904);
+      position: sticky;
+      position: -webkit-sticky;
+      height: 100px;
+      top: 20px;
+  
+      float: left;
+      margin-left: 30px;
+  }
+  form {
+    width: 60%;
+    height: 610px;
+    margin: auto;
+    text-align: center;
+    direction: rtl; 
+   background-color: #ffffffcf;
+   overflow-y: scroll;
+}
+mat-label{
+color: black;
+font-size: 20px;
+}
+mat-form-field{
+padding-bottom: 20px;
+}
+.form-group{
+width: 100%;
+
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+border-color: #c01f1f;
+}
+mat-icon{
+    font-size: 40px;
+    text-shadow: 10px 10px 20px #ffffff;
+  }

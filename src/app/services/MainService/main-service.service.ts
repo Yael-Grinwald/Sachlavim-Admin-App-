@@ -8,12 +8,12 @@ import { Setting } from 'src/app/Classes/setting';
 import { Program } from 'src/app/Classes/program';
 
 
-export class forSelect{
-  Key:number;
-  Value:string; 
-  constructor(key:number,value:string){
-    this.Key=key;
-    this.Value=value;
+export class forSelect {
+  Key: number;
+  Value: string;
+  constructor(key: number, value: string) {
+    this.Key = key;
+    this.Value = value;
   }
 }
 
@@ -28,11 +28,13 @@ export class MainServiceService {
   constructor(private router: Router, private http: HttpClient) {
 
     this.globalObj();
-
-    this.getAllOperators();
     this.getSettings();
+    this.getAllOperators();
     this.getPrograms();
     this.getAfternoon();
+    this.getUsers();
+
+    debugger
   }
 
   gItems: any = [];
@@ -41,6 +43,7 @@ export class MainServiceService {
   settingsList: Setting[] = [];
   programsList: Program[] = [];
   afternoonsList: Program[] = [];
+  usersList: User[] = [];
   //משתמש שנכנס למערכת
   currentUser: User = new User();
   // לעריכת מפעיל
@@ -54,10 +57,10 @@ export class MainServiceService {
   //מערך של כל הטבלאות
   SysTableList: Array<Map<number, string>> = new Array<Map<number, string>>();
 
- sahlavimUrl = "http://localhost:53070/Service1.svc/";//שרת מקומי
-  //sahlavimUrl = "http://qa.webit-track.com/SachlavimQA/Service/Service1.svc/";//שרת מרוחק
- 
- 
+  //sahlavimUrl = "http://localhost:53070/Service1.svc/";//שרת מקומי
+  sahlavimUrl = "http://qa.webit-track.com/SachlavimQA/Service/Service1.svc/";//שרת מרוחק
+
+
   post(url: string, data: any): Promise<any> {
     return this.http.post(`${this.sahlavimUrl}${url}`, data).toPromise();
   }
@@ -66,15 +69,15 @@ export class MainServiceService {
     return await this.http.get(`${this.sahlavimUrl}${url}`).toPromise();
   }
 
-   getPrograms() {
+  getPrograms() {
     //פונקציה המחזירה לתוך אובייקט את נתוני טבלת SysTable
     this.post("ProgramsGet", { bProgramAfternoon: false || null }).then(
       res => {
         if (res) {
           this.programsList = res;
           for (let p of this.programsList) {
-            p.dFromDate = new Date(parseInt(p.dFromDate.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toJSON().slice(0,10);
-            p.dToDate = new Date(parseInt(p.dToDate.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toJSON().slice(0,10);
+            p.dFromDate = new Date(parseInt(p.dFromDate.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toJSON().slice(0, 10);
+            p.dToDate = new Date(parseInt(p.dToDate.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toJSON().slice(0, 10);
             // p.tFromTimeAfternoon=new Date(parseInt(p.tFromTimeAfternoon.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toDateString();
           }
         }
@@ -91,8 +94,8 @@ export class MainServiceService {
         if (res) {
           this.afternoonsList = res;
           for (let p of this.afternoonsList) {
-            p.dFromDate = new Date(parseInt(p.dFromDate.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toJSON().slice(0,10);
-            p.dToDate =   new Date(parseInt(  p.dToDate.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toJSON().slice(0,10);
+            p.dFromDate = new Date(parseInt(p.dFromDate.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toJSON().slice(0, 10);
+            p.dToDate = new Date(parseInt(p.dToDate.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toJSON().slice(0, 10);
             //  alert(p.dToDate[1])
             //   if (this.YearTypeValue.get(p.iYearType) != p.dToDate[3]) {
 
@@ -106,7 +109,7 @@ export class MainServiceService {
         alert("getAfternoon err")
       }
     );
-  
+
   }
 
   //רשימת המפעילים
@@ -115,20 +118,33 @@ export class MainServiceService {
     this.post("GetOperators", {})
       .then(
         res => {
-          if (res) {
-            this.operatorsList = res;    
-            
-          }
-          else
-            alert("get all operators error")
+          this.operatorsList = res;
+
+          //Delete duplicates valus from schollexcude list in every operator
+          this.operatorsList.forEach(element => {
+            element.lSchoolsExcude = element.lSchoolsExcude.filter(
+              function (elem, index, self) {
+                return index === self.indexOf(elem)
+              });
+          });
+
+          //Delete duplicates valus from neighborhoods list in every operator
+          this.operatorsList.forEach(element => {
+            element.lNeighborhoods = element.lNeighborhoods.filter(
+              function (elem, index, self) {
+                return index === self.indexOf(elem)
+              });
+          });
+
         }
         , err => {
           alert("err");
         }
       );
+
+
   }
 
-   
 
   //רשימת המיסגרות
   getSettings() {
@@ -141,7 +157,27 @@ export class MainServiceService {
       }
     );
   }
-
+  getUsers() {
+    this.post("GetUsers", {})
+      .then(
+        res => {
+          //if (res) {
+            this.usersList = res;
+            // this.usersList.forEach(element => {
+            //   switch(element.iUserType)
+            //   {
+            //     case 1:
+            //   }
+            // });
+          //}
+          // else
+          //   alert("GetUsers management error");
+        },
+        err => {
+          alert("error");
+        }
+      );
+  }
   serviceNavigate(path: string) {
     this.router.navigate([path]);
   }

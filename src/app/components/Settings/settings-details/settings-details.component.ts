@@ -33,6 +33,8 @@ export class SettingsDetailsComponent implements OnInit {
   //מקור הנתונים לטבלה של הרכזות
   dataSource: MatTableDataSource<coordinator>;
 
+  newSe:boolean=true;
+
   constructor(private mainService: MainServiceService) {
     this.lNeighborhoodTypeValue = mainService.SysTableList[4];
     this.lSettingTypeValue = mainService.SysTableList[5];
@@ -45,12 +47,19 @@ export class SettingsDetailsComponent implements OnInit {
     this.CoordinatorsGet();
     this.lSettingAgegroupsValue = this.mainService.gItems[6].dParams;
 
+//אתחול הרשימות רק אם אניו מסגרת חדשה
+    if(this.currentSetting.iSettingId!=-1)
+  {
+    this.newSe=false;
     // איתחול רשימת הגילאים של התוכנית 
     if (this.currentSetting.lSettingAgegroups.length > 0) {
       for (let nlId of this.currentSetting.lSettingAgegroups) {
         this.SettingAgegroupsListNg.push(this.lSettingAgegroupsValue.find(x => x.Key == nlId));
       }
     }
+
+  }
+    
     debugger
     //הגדרות ה multi select
     this.dropdownSettingAgegroups = {
@@ -69,7 +78,6 @@ export class SettingsDetailsComponent implements OnInit {
     this.mainService.post("CoordinatorsGet", {}).then(
       res => {
         this.coordinatorList = res;
-        this.currentSetting = this.mainService.settingForDetails;
         if (this.currentSetting.iCoordinatorId && this.currentSetting.iCoordinatorId != this.currentCoordinator.iCoordinatorId)
           this.currentCoordinator = this.coordinatorList.find(c => c.iCoordinatorId == this.currentSetting.iCoordinatorId);
         this.dataSource = new MatTableDataSource(this.coordinatorList);
@@ -143,5 +151,9 @@ export class SettingsDetailsComponent implements OnInit {
       this.addCoordinator = (c as coordinator);
     else
       this.addCoordinator = new coordinator();
+  }
+
+  validation(){
+    
   }
 }

@@ -1,20 +1,21 @@
 import { User } from 'src/app/classes/user';
 import { MainServiceService, forSelect } from 'src/app/services/MainService/main-service.service';
-import { ChangeDetectionStrategy,AfterViewInit, ViewChild, Component, OnInit, SystemJsNgModuleLoader, ElementRef } from '@angular/core';
-import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { Operator } from 'src/app/Classes/operator';
-import { MySearchPipe } from 'src/app/pipe/my-search.pipe';
-import { from } from 'rxjs';
+import { ChangeDetectionStrategy, AfterViewInit, ViewChild, Component, OnInit, SystemJsNgModuleLoader, ElementRef } from '@angular/core';
 import { Setting } from 'src/app/Classes/setting';
 import { coordinator } from 'src/app/Classes/coordinator';
 import { flatten } from '@angular/compiler';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import * as XLSX from 'XLSX';
-import { SelectionModel } from '@angular/cdk/collections';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { Operator } from 'src/app/Classes/operator';
+import { MySearchPipe } from 'src/app/Pipes/my-search.pipe';
+import { from } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { SelectionModel } from '@angular/cdk/collections';
 import { Item } from 'angular2-multiselect-dropdown';
+
 
 @Component({
   selector: 'app-setting-table',
@@ -28,7 +29,7 @@ export class SettingTableComponent implements OnInit {
   //   'nvContactPerson', 'nvContactPersonMail', 'nvContactPersonPhone', 'lSettingAgegroupsValue', 'nvFullName',
   //   'nvMail', 'nvPhoneCoordinator','edit','choose'];
   displayedColumns: string[] = ['select', 'edit', 'iSettingId', 'nvSettingName', 'iSettingType', 'nvAddress', 'nvPhone',
-    'nvContactPerson', 'nvContactPersonMail', 'nvContactPersonPhone', 'lSettingAgegroups', 'CoordinatorDetails'
+    'nvContactPerson','nvContactPersonPhone', 'nvContactPersonMail',  'lSettingAgegroups', 'CoordinatorDetails'
   ];
 
 
@@ -57,14 +58,81 @@ export class SettingTableComponent implements OnInit {
     //קבלת הרשימות מהסרויס
     this.lSettingTypeValue = mainService.SysTableList[5];
     this.lSettingAgegroupsValue = mainService.SysTableList[6];
-
+    this.dataSource.filterPredicate = this.createFilter();
+    debugger
 
   }
+  SettingIdFilter = new FormControl('');
+  SettingNameFilter = new FormControl('');
+  SettingTypeFilter = new FormControl('');
+  AddressFilter = new FormControl('');
+  PhoneFilter = new FormControl('');
+  ContactPersonFilter = new FormControl('');
+  ContactPersonMailFilter = new FormControl('');
+  ContactPersonPhoneFilter = new FormControl('');
 
+  filterValues = {
+    iSettingId: '',
+    nvSettingName: '',
+    // iSettingType: '',
+    nvAddress: '',
+    nvPhone: '',
+    nvContactPerson: '',
+    nvContactPersonMail: '',
+    nvContactPersonPhone: '',
+    // bInProgramPool:''
+  };
+ 
   ngOnInit() {
-
-
     this.ngAfterViewInit();
+     this.SettingIdFilter.valueChanges.subscribe(
+       name => {
+         this.filterValues.iSettingId = name;
+         this.dataSource.filter = JSON.stringify(this.filterValues);
+       }
+    )
+    this.SettingNameFilter.valueChanges.subscribe(
+      name => {
+        this.filterValues.nvSettingName = name;
+        this.dataSource.filter = JSON.stringify(this.filterValues);
+      }
+    )
+    // this.SettingTypeFilter.valueChanges.subscribe(
+    //   name => {
+    //     this.filterValues.iSettingType = name;
+    //     this.dataSource.filter = JSON.stringify(this.filterValues);
+    //   }
+    // )
+    this.AddressFilter.valueChanges.subscribe(
+      name => {
+        this.filterValues.nvAddress = name;
+        this.dataSource.filter = JSON.stringify(this.filterValues);
+      }
+    )
+    this.PhoneFilter.valueChanges.subscribe(
+      name => {
+        this.filterValues.nvPhone = name;
+        this.dataSource.filter = JSON.stringify(this.filterValues);
+      }
+    )
+    this.ContactPersonFilter.valueChanges.subscribe(
+      name => {
+        this.filterValues.nvContactPerson = name;
+        this.dataSource.filter = JSON.stringify(this.filterValues);
+      }
+    )
+    this.ContactPersonMailFilter.valueChanges.subscribe(
+      name => {
+        this.filterValues.nvContactPersonMail = name;
+        this.dataSource.filter = JSON.stringify(this.filterValues);
+      }
+    )
+    this.ContactPersonPhoneFilter.valueChanges.subscribe(
+      name => {
+        this.filterValues.nvContactPersonPhone = name;
+        this.dataSource.filter = JSON.stringify(this.filterValues);
+      }
+    )
   }
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -75,7 +143,21 @@ export class SettingTableComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-
+  createFilter(): (data: any, filter: string) => boolean {
+    let filterFunction = function (data, filter): boolean {
+      let searchTerms = JSON.parse(filter); debugger
+      return (data.iSettingId+"").toLowerCase().indexOf(searchTerms.iSettingId) !== -1
+      && data.nvSettingName.toLowerCase().indexOf(searchTerms.nvSettingName) !== -1
+        //  && this.operatorTypes.get(data.iOperatorType).toLowerCase().indexOf(searchTerms.iOperatorType) !== -1
+        // && data.iSettingType.toLowerCase().indexOf(searchTerms.iSettingType) !== -1
+        && data.nvAddress.toLowerCase().indexOf(searchTerms.nvAddress) !== -1
+        && data.nvPhone.toLowerCase().indexOf(searchTerms.nvPhone) !== -1
+        && data.nvContactPerson.toLowerCase().indexOf(searchTerms.nvContactPerson) !== -1
+        && data.nvContactPersonMail.toLowerCase().indexOf(searchTerms.nvContactPersonMail) !== -1
+        && data.nvContactPersonPhone.toLowerCase().indexOf(searchTerms.nvContactPersonPhone) !== -1;
+    }
+    return filterFunction;
+  }
   CoordinatorsGet() {
     this.mainService.post("CoordinatorsGet", {}).then(
       res => {

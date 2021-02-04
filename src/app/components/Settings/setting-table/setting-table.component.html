@@ -1,9 +1,10 @@
-<button mat-raised-button class="settingBtn btn" (click)="ExportTOExcel()">Export as Excel</button>
-<div class="containerz-" style="text-align:right;margin: auto; " dir="rtl">
+<div class="container-" style="text-align:right;margin: auto; " dir="rtl">
     <div class="addMsg">
         <button mat-stroked-button class="settingColor" data-toggle="modal" data-target="#modalCart"
             (click)="emailList()">שליחת הודעה</button>
         <button mat-stroked-button class="settingColor" (click)="addSetting()"> הוספת מסגרת</button>
+        <button mat-raised-button class="settingBtn btn" (click)="ExportTOExcel()">ייצא לאקסל</button>
+
     </div>
     <div *ngIf="openDetails==false" style="width: 90%;margin: auto;" class="overflow-auto">
         <table mdbTable mdbTableScroll scrollY="true" maxHeight="200" mat-table [dataSource]="dataSource" matSort>
@@ -26,57 +27,101 @@
             </ng-container>
             <!-- SettingId Column -->
             <ng-container matColumnDef="iSettingId">
-                <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header> מזהה מסגרת </th>
+                <th class="header" style="width: 5%;" mat-header-cell *matHeaderCellDef> מזהה מסגרת
+                    <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
+                        <mat-label> חפש</mat-label>
+                        <input matInput [formControl]="SettingIdFilter">
+                    </mat-form-field>
+                </th>
                 <td mat-cell *matCellDef="let row"> {{row.iSettingId}} </td>
             </ng-container>
 
             <!-- SettingName Column -->
             <ng-container matColumnDef="nvSettingName">
-                <th style="width: 7%;" mat-header-cell *matHeaderCellDef mat-sort-header> שם מסגרת </th>
+                <th class="header" style="width: 5%;" mat-header-cell *matHeaderCellDef> שם מסגרת
+                    <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
+                        <mat-label> חפש</mat-label>
+                        <input matInput [formControl]="SettingNameFilter">
+                    </mat-form-field>
+                </th>
                 <td mat-cell *matCellDef="let row"> {{row.nvSettingName}} </td>
             </ng-container>
 
             <!-- SettingType Column -->
             <ng-container matColumnDef="iSettingType">
-                <th style="width: 4%;" mat-header-cell *matHeaderCellDef mat-sort-header>סוג</th>
+                <th class="header" style="width: 4%;" mat-header-cell *matHeaderCellDef>סוג
+                    <!-- <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
+                        <mat-label> חפש</mat-label>
+                        <input matInput [formControl]="SettingTypeFilter">
+                    </mat-form-field> -->
+                </th>
                 <td mat-cell *matCellDef="let row">{{this.lSettingTypeValue.get(row.iSettingType)}}</td>
             </ng-container>
             <!-- this.lSettingType[row.nvSettingType-17].Value -->
 
             <!-- Address Column -->
             <ng-container matColumnDef="nvAddress">
-                <th style="width: 11%;" mat-header-cell *matHeaderCellDef mat-sort-header>כתובת</th>
+                <th class="header" style="width:10%;" mat-header-cell *matHeaderCellDef>כתובת
+                    <br>
+                    <mat-form-field style="width: 120px;" class="filter" floatLabel="never">
+                        <mat-label> חפש</mat-label>
+                        <input matInput [formControl]="AddressFilter">
+                    </mat-form-field>
+                </th>
                 <td mat-cell *matCellDef="let row"> {{row.nvAddress}} </td>
             </ng-container>
 
 
             <!-- Phone  Column -->
             <ng-container matColumnDef="nvPhone">
-                <th style="width: 4%;" mat-header-cell *matHeaderCellDef mat-sort-header> טלפון </th>
+                <th class="header" style="width: 4%;" mat-header-cell *matHeaderCellDef> טלפון
+                    <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
+                        <mat-label> חפש</mat-label>
+                        <input matInput [formControl]="PhoneFilter">
+                    </mat-form-field>
+                </th>
                 <td mat-cell *matCellDef="let row"> {{row.nvPhone}} </td>
             </ng-container>
 
             <!-- ContactPerson  Column -->
             <ng-container matColumnDef="nvContactPerson">
-                <th style="width:3%;" mat-header-cell *matHeaderCellDef mat-sort-header> שם איש קשר </th>
+                <th class="header" style="width:3%;" mat-header-cell *matHeaderCellDef> שם איש קשר
+                    <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
+                        <mat-label> חפש</mat-label>
+                        <input matInput [formControl]="ContactPersonFilter">
+                    </mat-form-field>
+                </th>
                 <td mat-cell *matCellDef="let row"> {{row.nvContactPerson}} </td>
             </ng-container>
 
             <!-- ContactPersonMail  Column -->
             <ng-container matColumnDef="nvContactPersonMail">
-                <th style="width: 1%;" mat-header-cell *matHeaderCellDef mat-sort-header> מייל איש קשר </th>
+                <th class="header" style="width: 1%;" mat-header-cell *matHeaderCellDef> מייל איש קשר
+                    <br>
+                    <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
+                        <mat-label> חפש</mat-label>
+                        <input matInput [formControl]="ContactPersonMailFilter">
+                    </mat-form-field>
+                </th>
                 <td mat-cell *matCellDef="let row"> {{row.nvContactPersonMail}} </td>
             </ng-container>
 
             <!-- ContactPersonPhone  Column -->
             <ng-container matColumnDef="nvContactPersonPhone">
-                <th style="width: 1%;" mat-header-cell *matHeaderCellDef mat-sort-header>טלפון איש קשר </th>
+                <th class="header" class="header" style="width: 1%;" mat-header-cell *matHeaderCellDef>טלפון איש קשר
+                    <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
+                        <mat-label> חפש</mat-label>
+                        <input matInput [formControl]="ContactPersonPhoneFilter">
+                    </mat-form-field>
+                </th>
                 <td mat-cell *matCellDef="let row"> {{row.nvContactPersonPhone}} </td>
             </ng-container>
 
             <!-- SettingAgegroupsValue  Column -->
             <ng-container matColumnDef="lSettingAgegroups">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef mat-sort-header>קטגוריות גילאים </th>
+                <th class="header" style="width: 10%;" mat-header-cell *matHeaderCellDef>
+                    קטגוריות גילאים
+                </th>
                 <td mat-cell *matCellDef="let row">
                     <div *ngFor="let r of row.lSettingAgegroups" style="display: inline;">
                         {{this.lSettingAgegroupsValue.get(r)}},
@@ -86,25 +131,25 @@
 
             <!-- FullName  Column -->
             <!-- <ng-container matColumnDef="nvFullName">
-            <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>רכזת </th>
+            <th class="header" class="header" style="width: 5%;" mat-header-cell *matHeaderCellDef  >רכזת </th>
             <td mat-cell *matCellDef="let row"> {{row.nvFullName}} </td>
         </ng-container> -->
 
             <!-- Mail  Column -->
             <!-- <ng-container matColumnDef="nvMail">
-            <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header> מייל רכזת </th>
+            <th class="header" class="header" style="width: 5%;" mat-header-cell *matHeaderCellDef  > מייל רכזת </th>
             <td mat-cell *matCellDef="let row"> {{row.nvMail}} </td>
         </ng-container> -->
 
             <!-- PhoneCoordinator  Column -->
             <!-- <ng-container matColumnDef="nvPhoneCoordinator">
-            <th style="width: 8%;" mat-header-cell *matHeaderCellDef mat-sort-header>טלפון רכזת </th>
+            <th class="header" class="header" style="width: 8%;" mat-header-cell *matHeaderCellDef  >טלפון רכזת </th>
             <td mat-cell *matCellDef="let row"> {{row.nvPhoneCoordinator}} </td>
         </ng-container> -->
 
             <!-- Coordinator Column -->
             <ng-container matColumnDef="CoordinatorDetails">
-                <th style="width:2%;" mat-header-cell *matHeaderCellDef> פרטי רכזת </th>
+                <th class="header" style="width:2%;" mat-header-cell *matHeaderCellDef> פרטי רכזת </th>
                 <td mat-cell *matCellDef="let element">
                     <!-- (click)="redirectToDelete(element.id)" -->
                     <button mat-icon-button class="settingColor"
@@ -117,7 +162,7 @@
 
             <!-- Edit Column -->
             <ng-container matColumnDef="edit">
-                <th style="width:2%;" mat-header-cell *matHeaderCellDef>עריכה </th>
+                <th class="header" style="width:2%;" mat-header-cell *matHeaderCellDef>עריכה </th>
                 <td mat-cell *matCellDef="let element">
                     <!-- (click)="redirectToDelete(element.id)" -->
                     <button mat-icon-button class="settingColor" (click)="EditSetting(element)">
@@ -129,10 +174,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-            <!-- Row shown when there is no matching data. -->
-            <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-            </tr>
+          
         </table>
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
@@ -153,7 +195,7 @@
                 <div class="modal-body" style="text-align:right;" dir="rtl">
                     <label style="display:inline-block;font-weight:500;">שולח ל: </label>
                     <div *ngIf="selection.selected.length==0" class="alert alert-danger">
-                        בחר מפעילים בטבלה אליהם הנך רוצה לשלוח
+                        בחר מסגרות בטבלה אליהם הנך רוצה לשלוח
                     </div>
                     <h5 style="font-size:18px;font-weight:400;display:inline-block;margin-right: 5px;"
                         *ngFor="let element of selection.selected"> {{element.nvSettingName}}, </h5>
@@ -182,8 +224,8 @@
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false; openDetails=false">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <p *ngIf="panelOpenState">לחץ לסגירה</p>
-                    <p *ngIf="!panelOpenState">לחץ לפרטי רכזת</p>
+                    <!-- <p *ngIf="panelOpenState">לחץ לסגירה</p>
+                    <p *ngIf="!panelOpenState">לחץ לפרטי רכזת</p> -->
                 </mat-panel-title>
 
                 <mat-panel-description>

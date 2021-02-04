@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Operator } from 'src/app/Classes/operator';
 import { MainServiceService } from 'src/app/services/MainService/main-service.service';
-import { MySearchPipe } from 'src/app/pipe/my-search.pipe';
+import { MySearchPipe } from 'src/app/Pipes/my-search.pipe';
 import { from } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -20,7 +20,7 @@ export class OperatorTableComponent implements OnInit {
 
   ContactNameFilter= new FormControl('');
   nameFilter = new FormControl('');
-  OperatorTypeFilter = new FormControl('ספורט'); 
+  OperatorTypeFilter = new FormControl(''); 
   CompanyNameFilter= new FormControl(''); 
   categoryFilter=new FormControl(''); 
   IdentityFilter=new FormControl('');
@@ -59,6 +59,7 @@ this.operatorTypes=this.mainService.SysTableList[2];
     this.operators = this.mainService.operatorsList
     this.dataSource = new MatTableDataSource(this.operators);
     this.dataSource.filterPredicate = this.createFilter();
+    debugger
 
   }
 
@@ -120,22 +121,21 @@ this.operatorTypes=this.mainService.SysTableList[2];
         this.filterValues.nvContactPersonMail = name;
         this.dataSource.filter = JSON.stringify(this.filterValues);
       }
-    )
-    
+    ) 
   }
 
+  //A function responsible for filtering each column according to the given value. 
   createFilter(): (data: any, filter: string) => boolean {
     
     let filterFunction = function(data, filter): boolean {
       let searchTerms = JSON.parse(filter);
       return data.nvOperatorName.toLowerCase().indexOf(searchTerms.nvOperatorName) !== -1
          && data.nvContactPerson.toLowerCase().indexOf(searchTerms.nvContactPerson) !== -1
-          //  && this.operatorTypes.get(data.iOperatorType).toLowerCase().indexOf(searchTerms.iOperatorType) !== -1
-          && data.nvCompanyName.toLowerCase().indexOf(searchTerms.nvCompanyName) !== -1
-          && data.nvActivityies.toLowerCase().indexOf(searchTerms.nvActivityies) !== -1
-          && data.nvIdentity.toLowerCase().indexOf(searchTerms.nvIdentity) !== -1
-          && data.nvContactPersonPhone.toLowerCase().indexOf(searchTerms.nvContactPersonPhone) !== -1
-          && data.nvContactPersonMail.toLowerCase().indexOf(searchTerms.nvContactPersonMail) !== -1;
+         && data.nvCompanyName.toLowerCase().indexOf(searchTerms.nvCompanyName) !== -1
+         && data.nvActivityies.toLowerCase().indexOf(searchTerms.nvActivityies) !== -1
+         && data.nvIdentity.toLowerCase().indexOf(searchTerms.nvIdentity) !== -1
+         && data.nvContactPersonPhone.toLowerCase().indexOf(searchTerms.nvContactPersonPhone) !== -1
+         && data.nvContactPersonMail.toLowerCase().indexOf(searchTerms.nvContactPersonMail) !== -1;
     }
     return filterFunction;
   }
@@ -162,7 +162,10 @@ this.operatorTypes=this.mainService.SysTableList[2];
     }
 
   }
-
+  addOperator(){
+    this.mainService.operatorForDetails=new Operator();
+this.mainService.serviceNavigateForId('/header-menu/operators/operator-menu/',-1);
+  }
   //עריכת מפעיל
   EditOperator(operator: Operator) {
 

@@ -1,7 +1,7 @@
 
 .body{
+    height: 100%;
     /* overflow: auto; */
- height: 100%;
 /* Location of the image */
   /* background-image: url(src\Images\image.jpeg);   */
   /* Background image is centered vertically and horizontally at all times */
@@ -18,11 +18,9 @@
   background-image:  url(src\assets\Images\CBGOrchidsMarch2018-4323-Edit-550x367.jpg) ; 
 
 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
+  
   background-size: cover; 
-  background-repeat:repeat;
+  background-repeat:no repeat;
     }
     
 .welcome h1, .p{
@@ -66,7 +64,7 @@ h1{
 }
 
 .middle a{
-    font-size: 25px;
+    font-size: 20px;
     cursor: pointer;
     height: 40px;
     text-decoration: none;

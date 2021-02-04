@@ -1,98 +1,107 @@
-<div class="form-group col-sm-12" style=" text-align: center;margin-top: 3%;direction: rtl;" class="Details">
-    <form (ngSubmit)="testDate()">
-        <div class="col-sm-12">
-            <h3 class="afternonColor">פרטי תוכנית</h3>
+<div class="form-group col-sm-12" style=" text-align: center;direction: rtl;" class="Details">
 
-            <mat-form-field class="example-form-field col-sm-2">
-                <mat-select [(ngModel)]="currentAfternoon.iYearType" placeholder="שנה" name="iYearType">
-                    <mat-option *ngFor="let s of YearTypeValue.keys()" [value]="s">{{this.YearTypeValue.get(s)}}
-                    </mat-option>
-                </mat-select>
+    <div class="form-group row">
+        <form (ngSubmit)="testDate()">
+            <button class="saveIconBtn" mat-icon-button aria-label="Example icon button with a home icon" title="שמור">
+                <mat-icon>save</mat-icon>
+            </button>
+            <div style="height: 170px;
+   margin: auto;
+   width: 50%;
+   padding-top: 25px;">
+                <h3 class="afternonColor">פרטי תוכנית</h3>
 
-                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </mat-form-field>
+                <mat-form-field class="example-form-field">
+                    <mat-select [(ngModel)]="currentAfternoon.iYearType" placeholder="שנה" name="iYearType">
+                        <mat-option *ngFor="let s of YearTypeValue.keys()" [value]="s">{{this.YearTypeValue.get(s)}}
+                        </mat-option>
+                    </mat-select>
 
-            <mat-form-field class="example-form-field col-sm-2">
-                <mat-select [(ngModel)]="currentAfternoon.iSemesterType" placeholder="סמסטר" name="iSemesterType">
-                    <mat-option *ngFor="let s of SemesterTypeValue.keys()" [value]="s">{{this.SemesterTypeValue.get(s)}}
-                    </mat-option>
-                </mat-select>
-                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </mat-form-field>
+                    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field><br>
 
-            <mat-form-field class="example-form-field col-sm-2">
-                <mat-label>סעיף תקציבי</mat-label>
-                <input matInput type="text" [(ngModel)]="currentAfternoon.nvBudgetItem" required name="nvBudgetItem" />
-                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </mat-form-field><br>
-            <div class="example-form-field col-sm-6" style="margin: auto;">
-                <p style="font-size: smaller;" class="afternonColor">קטגורית גילאים</p>
-                <ng-multiselect-dropdown name="ProgramAgegroups" [settings]="dropdownProgramAgegroups"
-                    [data]="lProgramAgegroupsValue" [(ngModel)]="ProgramAgegroupsListNg"
-                    [placeholder]="'קטגורית גילאים'" (onSelect)="onItemSelect($event)"
-                    (onSelectAll)="onSelectAll($event)" (onDeSelect)="OnItemDeSelect($event)">
-                </ng-multiselect-dropdown>
-            </div><br>
+                <mat-form-field class="example-form-field">
+                    <mat-select [(ngModel)]="currentAfternoon.iSemesterType" placeholder="סמסטר" name="iSemesterType">
+                        <mat-option *ngFor="let s of SemesterTypeValue.keys()" [value]="s">
+                            {{this.SemesterTypeValue.get(s)}}
+                        </mat-option>
+                    </mat-select>
+                    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field><br>
 
-            <mat-form-field class="example-form-field col-sm-3">
-                <mat-label>מתאריך</mat-label>
-                <input matInput type="date" [(ngModel)]="currentAfternoon.dFromDate" name="dFromDate" />
-                <!-- <p style="color: red;">יש להזין תאריך עתידי</p> -->
-                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </mat-form-field>
+                <mat-form-field class="example-form-field">
+                    <mat-label>סעיף תקציבי</mat-label>
+                    <input matInput type="text" [(ngModel)]="currentAfternoon.nvBudgetItem" required
+                        name="nvBudgetItem" />
+                    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field><br>
 
-            <mat-form-field class="example-form-field col-sm-3">
-                <mat-label>עד תאריך</mat-label>
-                <input matInput type="date" [(ngModel)]="currentAfternoon.dToDate" name="dToDate" />
-                <!-- <p style="color: red;">יש להזין תאריך הגדול מתאריך ההתחלה</p> -->
-                <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                <div class="example-form-field col-sm-12" style="margin: auto;">
+                    <p style="font-size: smaller;" class="afternonColor">קטגורית גילאים</p>
+                    <ng-multiselect-dropdown name="ProgramAgegroups" [settings]="dropdownProgramAgegroups"
+                        [data]="lProgramAgegroupsValue" [(ngModel)]="ProgramAgegroupsListNg"
+                        [placeholder]="'קטגורית גילאים'" (onSelect)="onItemSelect($event)"
+                        (onSelectAll)="onSelectAll($event)" (onDeSelect)="OnItemDeSelect($event)">
+                    </ng-multiselect-dropdown>
+                </div><br>
+
+                <mat-form-field class="example-form-field col-sm-6">
+                    <mat-label>מתאריך</mat-label>
+                    <input matInput type="date" [(ngModel)]="currentAfternoon.dFromDate" name="dFromDate" />
+                    <!-- <p style="color: red;">יש להזין תאריך עתידי</p> -->
+                    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field><br>
+
+                <mat-form-field class="example-form-field col-sm-6">
+                    <mat-label>עד תאריך</mat-label>
+                    <input matInput type="date" [(ngModel)]="currentAfternoon.dToDate" name="dToDate" />
+                    <!-- <p style="color: red;">יש להזין תאריך הגדול מתאריך ההתחלה</p> -->
+                    <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
                 <mat-icon>close</mat-icon>
             </button> -->
-            </mat-form-field><br>
-            
+                </mat-form-field><br>
 
-            <mat-form-field class="example-form-field col-sm-2">
-                <mat-label>מספר הפעלות שבועיות</mat-label>
-                <input matInput type="number" required [(ngModel)]="currentAfternoon.iNumActivityInWeek"
-                    name="iNumActivityInWeek" />
-                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </mat-form-field>
+                <mat-form-field class="example-form-field">
+                    <mat-label>מספר הפעלות שבועיות</mat-label>
+                    <input matInput type="number" required [(ngModel)]="currentAfternoon.iNumActivityInWeek"
+                        name="iNumActivityInWeek" />
+                    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field><br>
 
-            <mat-form-field class="example-form-field col-sm-2">
-                <mat-label>שעת פעילות ראשונה</mat-label>
-                <input matInput type="time" [(ngModel)]="currentAfternoon.tFirstActivity" name="tFirstActivity" />
-                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </mat-form-field>
+                <mat-form-field class="example-form-field">
+                    <mat-label>שעת פעילות ראשונה</mat-label>
+                    <input matInput type="time" [(ngModel)]="currentAfternoon.tFirstActivity" name="tFirstActivity" />
+                    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field><br>
 
-            <mat-form-field class="example-form-field col-sm-2">
-                <mat-label>שעת פעילות שניה</mat-label>
-                <input matInput type="time" [(ngModel)]="currentAfternoon.tSecondActivity" name="tSecondActivity" />
-                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </mat-form-field>
-        </div>
-        <!-- Button trigger modal-->
-        <button type="button" style="background-color:rgb(240, 236, 20, 0.904); color: black;" class="btn col-sm-4"
-            data-toggle="modal" data-target="#modalCart">שיוך מסגרות</button>
-        <br>
+                <mat-form-field class="example-form-field">
+                    <mat-label>שעת פעילות שניה</mat-label>
+                    <input matInput type="time" [(ngModel)]="currentAfternoon.tSecondActivity" name="tSecondActivity" />
+                    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field><br>
 
-        <button mat-icon-button class="afternonColor" aria-label="Example icon button with a home icon">
-            <mat-icon>save</mat-icon>
-        </button>
-    </form>
+                <!-- Button trigger modal-->
+                <button type="button" style="background-color:rgb(240, 236, 20, 0.904); color: black;"
+                    class="btn col-sm-4" data-toggle="modal" data-target="#modalCart">שיוך מסגרות</button>
+                <br>
+                <br>
+            </div>
+        </form>
+    </div>
 </div>
 
 <!-- רשימה של כל המסגרות -->

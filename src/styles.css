@@ -39,9 +39,26 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 mat-sort-header-button{
 display: none;
 }
-button{
+a, button{
     cursor: pointer;
 }
+
+/* for table page */
+.addMsg{
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .addMsg button{
+    background-color: white;
+    margin-left: 20px;
+    font-family: inherit;
+  
+  }
+  .container-{
+    padding-top: 50px;
+  }
+
+
 
 .imageBackground{
     background-color: aquamarine;
@@ -154,6 +171,11 @@ button{
     align-items: center;    
     width: 100%;    
 }    
+
+.newObj{
+    width: 200px;
+    margin: auto;
+}
     
 .demo-form {    
     min-width: 150px;    
@@ -168,7 +190,11 @@ button{
 body {    
     margin: 0;    
     font-family: Roboto, sans-serif;    
-}    
+    
+}   
+body::-webkit-scrollbar {
+    display: none;
+  } 
     
 mat-card {    
     max-width: 80%;    

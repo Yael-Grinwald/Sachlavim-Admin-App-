@@ -10,40 +10,63 @@
 
             <!-- ProgramTypeValue Column -->
             <ng-container matColumnDef="iProgramType">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef mat-sort-header>סוג תוכנית </th>
+                <th style="width: 10%;" mat-header-cell *matHeaderCellDef>סוג תוכנית
+                    <!-- <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
+                        <mat-label> חפש</mat-label>
+                        <input matInput [formControl]="ProgramTypeFilter">
+                    </mat-form-field></th> -->
                 <td mat-cell *matCellDef="let row"> {{this.lProgramTypeValue.get(row.iProgramType)}} </td>
             </ng-container>
 
             <!-- ProgramName Column -->
             <ng-container matColumnDef="nvProgramName">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef mat-sort-header>שם תוכנית</th>
+                <th style="width: 10%;" mat-header-cell *matHeaderCellDef>שם תוכנית
+                    <br><mat-form-field style="width: 80px;" class="filter" floatLabel="never">
+                        <mat-label> חפש</mat-label>
+                        <input matInput [formControl]="ProgramNameFilter">
+                    </mat-form-field>
+                </th>
                 <td mat-cell *matCellDef="let row"> {{row.nvProgramName}} </td>
             </ng-container>
 
 
             <!-- FromDateFormat Column -->
             <ng-container matColumnDef="dFromDateFormat">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef mat-sort-header>מתאריך </th>
+                <th style="width: 10%;" mat-header-cell *matHeaderCellDef>מתאריך
+                    <br><mat-form-field style="width: 80px;" class="filter" floatLabel="never">
+                        <mat-label> חפש</mat-label>
+                        <input matInput [formControl]="FromDateFormatFilter">
+                    </mat-form-field>
+                </th>
 
                 <td mat-cell *matCellDef="let row">{{row.dFromDate | date:'dd/MM/yyyy'}} </td>
             </ng-container>
 
             <!-- ToDateFormat Column -->
             <ng-container matColumnDef="dToDateFormat">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef mat-sort-header>עד תאריך</th>
+                <th style="width: 10%;" mat-header-cell *matHeaderCellDef>עד תאריך
+                    <br><mat-form-field style="width: 80px;" class="filter" floatLabel="never">
+                        <mat-label> חפש</mat-label>
+                        <input matInput [formControl]="ToDateFormatFilter">
+                    </mat-form-field>
+                </th>
                 <td mat-cell *matCellDef="let row"> {{row.dToDate| date:'dd/MM/yyyy'}} </td>
             </ng-container>
 
             <!-- engthProgramSettings Column -->
             <ng-container matColumnDef="lProgramSettings">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef mat-sort-header>מספר מסגרות</th>
+                <th style="width: 10%;" mat-header-cell *matHeaderCellDef>מספר מסגרות
+                    <!-- <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
+                        <mat-label> חפש</mat-label>
+                        <input matInput [formControl]="ProgramSettingsFilter">
+                    </mat-form-field></th> -->
                 <td mat-cell *matCellDef="let row"> {{row.lProgramSettings.length}} </td>
             </ng-container>
 
 
             <!-- ProgramAgegroupsValue  Column -->
             <ng-container matColumnDef="lProgramAgegroups">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef mat-sort-header> קטגוריות גילאים </th>
+                <th style="width: 10%;" mat-header-cell *matHeaderCellDef> קטגוריות גילאים </th>
                 <td mat-cell *matCellDef="let row">
                     <div *ngFor="let r of row.lProgramAgegroups" style="display: inline;">
                         {{this.lProgramAgegroupsValue.get(r)}},
@@ -53,7 +76,12 @@
 
             <!-- BudgetItem  Column -->
             <ng-container matColumnDef="nvBudgetItem">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef mat-sort-header> סעיף תקציבי </th>
+                <th style="width: 10%;" mat-header-cell *matHeaderCellDef> סעיף תקציבי
+                    <br><mat-form-field style="width: 80px;" class="filter" floatLabel="never">
+                        <mat-label> חפש</mat-label>
+                        <input matInput [formControl]="BudgetItemFilter">
+                    </mat-form-field>
+                </th>
                 <td mat-cell *matCellDef="let row"> {{row.nvBudgetItem}} </td>
             </ng-container>
 
@@ -73,10 +101,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-            <!-- Row shown when there is no matching data. -->
-            <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-            </tr>
+           
         </table>
 
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>

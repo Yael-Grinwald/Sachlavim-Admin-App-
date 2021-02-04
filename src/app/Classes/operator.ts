@@ -1,4 +1,6 @@
+import { Settings } from 'http2';
 import { Activity } from './activity';
+import { Setting } from './setting';
 
 export class Operator {
   
@@ -8,6 +10,7 @@ export class Operator {
     public iLastModifyUserId: number;//לבדוק מה זה
     public iLastModifyDate: number;//לבדוק מה זה
     public iSysRowStatus: number;//לבדוק מה זה
+    public settings:Setting[]=[];
 
     constructor(
         public lSchools:number[]=[],
@@ -22,8 +25,8 @@ export class Operator {
         public nvContactPerson: string="",
         public nvContactPersonMail: string="",
         public nvContactPersonPhone: string="",
-        public bInProgramPool:boolean=true,
-        public bTalan: boolean=true,
+        public bInProgramPool:boolean=false,
+        public bTalan: boolean=false,
         public iNumOperationsDay: number=0,
         public iNumOperationsWeek: number=0,
         public nvFilePathTax: string="",
@@ -42,7 +45,8 @@ export class Operator {
  
         public lActivity:Activity[]=[],
 
-        public iNumBookkeeping: number=0,
+        public iNumBookkeeping: number=0
+
 
         // public binProgramsDatabase: boolean=true,
         //public nvOperatorTypeValue:string="",

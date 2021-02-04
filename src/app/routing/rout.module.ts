@@ -16,9 +16,7 @@ import { SettingsDetailsComponent } from '../components/Settings/settings-detail
 import { OperatorDetailsComponent } from '../components/Operators/operator-details/operator-details.component';
 import { OperatorActivitiesComponent } from '../components/Operators/operator-activities/operator-activities.component';
 import { OperatorActivityReportComponent } from '../components/Operators/operator-activity-report/operator-activity-report.component';
-import { OperatorCreditComponent } from '../components/Operators/operator-credit/operator-credit.component';
 import { OperatorMessagesComponent } from '../components/Operators/operator-messages/operator-messages.component';
-import { OperatorReviewComponent } from '../components/Operators/operator-review/operator-review.component';
 import { OperatorScheduleComponent } from '../components/Operators/operator-schedule/operator-schedule.component';
 import { SettingTableComponent } from '../components/Settings/setting-table/setting-table.component';
 import { SettingsScheduleComponent } from '../components/Settings/settings-schedule/settings-schedule.component';
@@ -47,17 +45,14 @@ const appTable: Routes = [
         path: "operators", component: OperatorsComponent,
         children: [
           { path: "operator-table", component: OperatorTableComponent },
-          { path: "new-operator", component: OperatorDetailsComponent },
           {
             path: 'operator-menu/:id', component: OperatorMenuComponent,
             children: [
               { path: "operator-details", component: OperatorDetailsComponent },
-              { path: "operator-schedule/:id", component: OperatorScheduleComponent },
+              { path: "operator-schedule", component: OperatorScheduleComponent },
               { path: "operator-activities", component: OperatorActivitiesComponent },
               { path: "operator-activity-report", component: OperatorActivityReportComponent },
-              { path: "operator-credit", component: OperatorCreditComponent },
               { path: "operator-messages", component: OperatorMessagesComponent },
-              { path: "operator-review", component: OperatorReviewComponent },
             ]
           }
         ]
@@ -72,7 +67,7 @@ const appTable: Routes = [
             path: "programs-details-menu/:id", component: ProgramDetailsMenuComponent,
             children: [
               { path: "programs-details", component: ProgramDetailsComponent },
-              { path: "programs-schedule/:id", component: ProgramScheduleComponent },
+              { path: "programs-schedule", component: ProgramScheduleComponent },
               //{ path: "settings-messages", component: SettingsMessagesComponent },
             ]
           },
@@ -86,7 +81,7 @@ const appTable: Routes = [
             path: "afternoon-details-menu/:id", component: AfternoonDetailsMenuComponent,
             children: [
               { path: "afternoon-details", component: AfternoonDetailsComponent },
-              { path: "afternoon-schedule/:id", component: AfternoonScheduleComponent },
+              { path: "afternoon-schedule", component: AfternoonScheduleComponent },
             ]
           },
         ]
@@ -99,7 +94,7 @@ const appTable: Routes = [
             path: "settings-details-menu/:id", component: SettingsDetailsMenuComponent,
             children: [
               { path: "settings-details", component: SettingsDetailsComponent },
-              { path: "settings-schedule/:id", component: SettingsScheduleComponent },
+              { path: "settings-schedule", component: SettingsScheduleComponent },
               { path: "settings-messages", component: SettingsMessagesComponent },
             ]
           },

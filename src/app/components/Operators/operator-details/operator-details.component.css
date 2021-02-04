@@ -6,11 +6,25 @@
   ng-multiselect-dropdown /deep/ .multiselect-dropdown > .dropdown-btn{
     font-size:12px !important;
  }
+.saveIconBtn{
+  color: rgb(192, 31, 31);
+    position: sticky;
+    position: -webkit-sticky;
+    height: 100px;
+    top: 20px;
+    float: left;
+    margin-left: 30px;
 
-.a section,a{
+    outline: none !important;
+    box-shadow: none !important;
+}
+#work section,a{
    display: inline-block;
    padding: 10px;
 
+ }
+ #work section{
+   margin-right: 110px;
  }
  a{
   font-size: 14px;
@@ -18,43 +32,58 @@
   text-decoration: underline;
 
  }
- .b section,a{
-  display: inline-block;
-  padding: 10px;
 
-}
-.c section,a{
-  display: inline-block;
-  padding: 10px;
 
-}
-.d section,a{
-  display: inline-block;
-  padding: 10px;
-
+#work{
+  margin-top: 20px;
+  width: 60%;
+  margin: auto;
+  text-align: right;  
+  padding-bottom: 30px;
 }
 
-.example-section{
-  padding-top: 40px;
-
+mat-icon{
+  font-size: 40px;
+  text-shadow: 10px 10px 20px #ffffff;
 }
 
 
+.s{
+  width: 30%;
+  text-align: justify;
+  margin: auto;
+  margin-right: 42%;
+}
 
 form {
       width: 60%;
+      height: 610px;
       margin: auto;
       text-align: center;
       direction: rtl; 
      background-color: #ffffffcf;
+     overflow-y: scroll;
+}
+mat-label{
+  color: black;
+  font-size: 20px;
+}
+mat-form-field{
+  padding-bottom: 20px;
 }
 .form-group{
   width: 100%;
-  overflow-y: auto;
-  height: 670px;
-  scrollbar-width: none;  
 
 }
-::-webkit-scrollbar {
-  display: none;
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #c01f1f;
+}
+
+
+
+#SettingslsExclude, #Neighborhoods, #TalanSchool
+{
+  width: 50%; margin: auto;  padding-top: 35px;
+
 }
