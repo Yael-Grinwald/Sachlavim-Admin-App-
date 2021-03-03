@@ -13,10 +13,11 @@ import { FormControl } from '@angular/forms';
 export class ProgramsTableComponent implements OnInit {
 
   displayedColumns: string[] = ['edit', 'iProgramType', 'nvProgramName', 'dFromDateFormat', 'dToDateFormat',
-    'lProgramSettings', 'lProgramAgegroups', 'nvBudgetItem'];
+    'lProgramSettings', 'lProgramAgegroups'];
 
   programList: Array<Program>;
   dataSource: MatTableDataSource<Program>;
+
   lProgramAgegroupsValue: Map<number, string> = new Map<number, string>();
   lProgramTypeValue: Map<number, string> = new Map<number, string>();
 
@@ -40,12 +41,12 @@ export class ProgramsTableComponent implements OnInit {
         this.dataSource.filter = JSON.stringify(this.filterValues);
       }
     )
-    this.BudgetItemFilter.valueChanges.subscribe(
-      name => {
-        this.filterValues.nvBudgetItem = name;
-        this.dataSource.filter = JSON.stringify(this.filterValues);
-      }
-    )
+    // this.BudgetItemFilter.valueChanges.subscribe(
+    //   name => {
+    //     this.filterValues.nvBudgetItem = name;
+    //     this.dataSource.filter = JSON.stringify(this.filterValues);
+    //   }
+    // )
   }
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -83,7 +84,7 @@ export class ProgramsTableComponent implements OnInit {
       return data.nvProgramName.toLowerCase().indexOf(searchTerms.nvProgramName) !== -1
         && data.dFromDateFormat.toLowerCase().indexOf(searchTerms.dFromDateFormat) !== -1
         && data.dToDateFormat.toLowerCase().indexOf(searchTerms.dToDateFormat) !== -1
-        && data.nvBudgetItem.toLowerCase().indexOf(searchTerms.nvBudgetItem) !== -1
+        // && data.nvBudgetItem.toLowerCase().indexOf(searchTerms.nvBudgetItem) !== -1
     }
     return filterFunction;
   }

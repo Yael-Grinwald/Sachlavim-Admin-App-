@@ -9,7 +9,7 @@
 mat-form-field {
     margin-right: 12px;
   }
-
+  
   .btnOp{
     background-color: white;
     color:rgb(192, 31, 31) ;
@@ -17,4 +17,17 @@ mat-form-field {
     text-align: center;
     margin: auto;
     margin-bottom: 10px;
+  }
+    .cal-week-view .cal-day-headers {
+        
+        padding-left: 0 !important;
+        padding-right: 68px !important;
+
     }
+
+    p{
+        margin-bottom: 0px;
+        font-size: 18px;
+    }
+
+    

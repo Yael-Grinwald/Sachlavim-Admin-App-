@@ -31,8 +31,8 @@
                 <mat-form-field class="example-form-field">
                     <mat-label>סעיף תקציבי</mat-label>
                     <input matInput type="text" [(ngModel)]="currentProgram.nvBudgetItem" name="nvBudgetItem" />
-
                 </mat-form-field><br>
+                
                 <div class="col-sm-12" style="margin: auto;">
                     <p style="font-size: smaller;" class="programColor">קטגורית גילאים</p>
                     <ng-multiselect-dropdown name="ProgramAgegroups" [settings]="dropdownProgramAgegroups"
@@ -41,84 +41,30 @@
                         (onSelectAll)="onSelectAll($event)" (onDeSelect)="OnItemDeSelect($event)">
                     </ng-multiselect-dropdown>
                 </div><br>
+
                 <mat-form-field class="example-form-field">
                     <mat-label>מתאריך</mat-label>
                     <input matInput type="date" [(ngModel)]="currentProgram.dFromDate" name="dFromDate" />
-                    <p style="color: red;">יש להזין תאריך עתידי</p>
-
                 </mat-form-field><br>
+
                 <mat-form-field class="example-form-field">
                     <mat-label>עד תאריך</mat-label>
                     <input matInput type="date" [(ngModel)]="currentProgram.dToDate" name="dToDate" />
-                    <p style="color: red;">יש להזין תאריך הגדול מתאריך ההתחלה</p>
-
                 </mat-form-field><br>
-
-
-                <!-- <mat-form-field>
-        <mat-select [(ngModel)]="currentProgram.lProgramAgegroups" required placeholder="קטגורית גילאים" name="lProgramAgegroups">
-            <mat-option *ngFor="let s of lProgramAgegroupsValue.keys()" [value]="s">{{this.lProgramAgegroupsValue[s]}}</mat-option>
-        </mat-select> -->
-
-
-                <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-            <mat-icon>close</mat-icon>
-        </button> -->
-                <!-- </mat-form-field><br> -->
-                <!-- 
-    <mat-accordion style="text-align:center;">
-        <mat-expansion-panel class="text-center col-lg-3 col-lg-offset-4" (opened)="panelOpenState = true"
-            (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-                <mat-panel-description>
-                    נבחרו: {{shoes.selectedOptions.selected.length}}
-                </mat-panel-description>
-                <mat-panel-title>
-                    קטגורית גילאים
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <mat-selection-list #shoes [(ngModel)]="currentProgram.lProgramAgegroups" required
-                placeholder="קטגורית גילאים" name="lProgramAgegroups">
-                <div *ngFor="let s of lProgramAgegroupsValue.keys()">
-
-                    <div *ngIf="isSelected(s)">
-                        <div *ngIf="selected">
-                            <mat-list-option selected [value]="s">
-                                {{this.lProgramAgegroupsValue.get(s)}}
-                            </mat-list-option>
-                        </div>
-                        <div *ngIf="!selected">
-                            <mat-list-option [value]="s">
-                                {{this.lProgramAgegroupsValue.get(s)}}
-                            </mat-list-option>
-                        </div>
-                    </div>
-                </div>
-
-            </mat-selection-list>
-        </mat-expansion-panel>
-    </mat-accordion> -->
 
                 <div>
                     <mat-form-field class="example-form-field">
                         <mat-label>מספר הפעלות מועדפות</mat-label>
                         <input matInput type="number" required [(ngModel)]="currentProgram.iActivityPreferenceCount"
                             name="iActivityPreferenceCount" />
-                        <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
-                            (click)="value=''">
-                            <mat-icon>close</mat-icon>
-                        </button>
+                       
                     </mat-form-field><br>
                     <mat-form-field class="example-form-field">
                         <mat-label>מספר הפעלות מועדפות לשבוע</mat-label>
                         <input matInput type="number" required
                             [(ngModel)]="currentProgram.iActivityPreferenceInWeekCount"
                             name="iActivityPreferenceInWeekCount" />
-                        <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
-                            (click)="value=''">
-                            <mat-icon>close</mat-icon>
-                        </button>
+                       
                     </mat-form-field><br>
                 </div>
 
@@ -129,28 +75,19 @@
                         <mat-label>מספר הפעלות בוקר</mat-label>
                         <input matInput type="number" required [(ngModel)]="currentProgram.iNumActivityMorning"
                             name="iNumActivityMorning" />
-                        <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
-                            (click)="value=''">
-                            <mat-icon>close</mat-icon>
-                        </button>
+                       
                     </mat-form-field><br>
                     <mat-form-field class="example-form-field">
                         <mat-label>בוקר - משעה</mat-label>
                         <input matInput type="time" [(ngModel)]="currentProgram.tFromTimeMorning"
                             name="tFromTimeMorning" />
-                        <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
-                            (click)="value=''">
-                            <mat-icon>close</mat-icon>
-                        </button>
+                       
                     </mat-form-field><br>
 
                     <mat-form-field class="example-form-field">
                         <mat-label>בוקר - עד שעה</mat-label>
                         <input matInput type="time" [(ngModel)]="currentProgram.tToTimeMorning" name="tToTimeMorning" />
-                        <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
-                            (click)="value=''">
-                            <mat-icon>close</mat-icon>
-                        </button>
+                       
                     </mat-form-field><br>
                 </div>
                 <div>
@@ -160,29 +97,20 @@
                         <mat-label>מספר הפעלות צהריים</mat-label>
                         <input matInput type="number" required [(ngModel)]="currentProgram.iNumActivityAfternoon"
                             name="iNumActivityAfternoon" />
-                        <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
-                            (click)="value=''">
-                            <mat-icon>close</mat-icon>
-                        </button>
+                       
                     </mat-form-field><br>
                     <mat-form-field class="example-form-field">
                         <mat-label>צהריים - משעה</mat-label>
                         <input matInput type="time" [(ngModel)]="currentProgram.tFromTimeAfternoon"
                             name="tFromTimeAfternoon" />
-                        <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
-                            (click)="value=''">
-                            <mat-icon>close</mat-icon>
-                        </button>
+                       
                     </mat-form-field><br>
 
                     <mat-form-field class="example-form-field">
                         <mat-label>צהריים - עד שעה</mat-label>
                         <input matInput type="time" [(ngModel)]="currentProgram.tToTimeAfternoon"
                             name="tToTimeAfternoon" />
-                        <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
-                            (click)="value=''">
-                            <mat-icon>close</mat-icon>
-                        </button>
+                       
                     </mat-form-field><br>
                 </div>
 
@@ -236,55 +164,27 @@
                     </ng-container>
                     <!-- Setting Name Column -->
                     <ng-container matColumnDef="nvSettingName">
-                        <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>שם מסגרת</th>
+                        <th style="width: 10%;" mat-header-cell *matHeaderCellDef mat-sort-header>שם מסגרת</th>
                         <td mat-cell *matCellDef="let row" name="coor"> {{row.nvSettingName}} </td>
                     </ng-container>
                     <!-- Setting Address Column -->
                     <ng-container matColumnDef="nvAddress">
-                        <th style="width: 10%;" mat-header-cell *matHeaderCellDef mat-sort-header>כתובת</th>
+                        <th style="width: 15%;" mat-header-cell *matHeaderCellDef mat-sort-header>כתובת</th>
                         <td mat-cell *matCellDef="let row"> {{row.nvAddress}} </td>
                     </ng-container>
                     <!-- Setting Age groups Column -->
                     <ng-container matColumnDef="lSettingAgegroups">
-                        <th style="width: 10%;" mat-header-cell *matHeaderCellDef mat-sort-header> קטגוריות גילאים
+                        <th style="width: 15%;" mat-header-cell *matHeaderCellDef mat-sort-header> קטגוריות גילאים
                         </th>
                         <td mat-cell *matCellDef="let row">
                             <div *ngFor="let r of row.lSettingAgegroups" style="display: inline;">
                                 {{this.lProgramAgegroupsValueForTable.get(r)}},
                             </div>
                     </ng-container>
-                    <!-- Setting Morning Column -->
-                    <ng-container matColumnDef="bSettingMorning">
-                        <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>מסגרת בוקר</th>
-                        <td mat-cell *matCellDef="let row">
-                            <div *ngIf="row.bSettingMorning==true">
-                                <input type="checkbox" checked (click)="removeAlSetting()">
-                            </div>
-                            <div *ngIf="row.bSettingMorning==false">
-                                <input type="checkbox">
-                            </div>
-                        </td>
-                    </ng-container>
-                    <!-- Setting Noon Column -->
-                    <ng-container matColumnDef="bSettingNoon">
-                        <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>מסגרת צהריים</th>
-                        <td mat-cell *matCellDef="let row">
-                            <div *ngIf="row.bSettingNoon==true">
-                                <input type="checkbox" checked>
-                            </div>
-                            <div *ngIf="row.bSettingNoon==false">
-                                <input type="checkbox">
-                            </div>
-                        </td>
-                    </ng-container>
-
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-                    <!-- Row shown when there is no matching data. -->
-                    <tr class="mat-row" *matNoDataRow>
-                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-                    </tr>
+                 
                 </table>
                 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 

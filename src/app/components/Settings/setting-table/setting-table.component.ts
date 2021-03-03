@@ -190,15 +190,15 @@ export class SettingTableComponent implements OnInit {
 
   }
 
-  ExportTOExcel() {
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.epltable.nativeElement);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  // ExportTOExcel() {
+  //   const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.epltable.nativeElement);
+  //   const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-    /* save to file */
-    XLSX.writeFile(wb, 'setting.xlsx');
+  //   /* save to file */
+  //   XLSX.writeFile(wb, 'setting.xlsx');
 
-  }
+  // }
   emailList() {
     this.emailAddress = this.selection.selected.map(obj => obj.nvContactPersonMail);
   }

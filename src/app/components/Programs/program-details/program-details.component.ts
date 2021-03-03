@@ -25,7 +25,7 @@ export class ProgramDetailsComponent implements OnInit {
 
   //מקור הנתונים לטבלה של המסגרות
   dataSource: MatTableDataSource<Setting>;
-  displayedColumns: string[] = ['check', 'nvSettingName', 'nvAddress', 'lSettingAgegroups', 'bSettingMorning', 'bSettingNoon'];
+  displayedColumns: string[] = ['check', 'nvSettingName', 'nvAddress', 'lSettingAgegroups'];
   settingList: Array<Setting>;
   lProgramAgegroupsValueForTable: Map<number, string> = new Map<number, string>();
 
@@ -88,33 +88,32 @@ export class ProgramDetailsComponent implements OnInit {
         this.currentProgram.lProgramAgegroups.push(age.Key);
       }
     }
-    var lSettingMorning:number[];
-    var lSettingNoon:number[];
+    var lSettingMorning: number[];
+    var lSettingNoon: number[];
+debugger;
+    this.mainService.post("ProgramSettingsInsertUpdate", {
+      iProgramId: this.currentProgram.iProgramId,
+      lProgramSettings: this.currentProgram.lProgramSettings,
+      lSettingMorning: lSettingMorning,
+      lSettingNoon: lSettingNoon,
+      iUserId: this.mainService.currentUser.iUserId
+    }).then(
+      res => {
+        alert(res)
+      },
+      err => {
+        alert("err ProgramSettingsInsertUpdate")
+      }
+    )
 
-    // this.mainService.post("ProgramSettingsInsertUpdate", { 
-    //   iProgramId: this.currentProgram.iProgramId, 
-    //   lProgramSettings: this.currentProgram.lProgramSettings,
-    //   lSettingMorning: lSettingMorning,
-    //   lSettingNoon: lSettingNoon,
-    //   iUserId: this.mainService.currentUser.iUserId}).then(
-    //   res => {
-    //     alert("suc")
-    //   },
-    //   err => {
-    //     alert("err ProgramSettingsInsertUpdate")
-    //   }
-    // )
-
-    this.currentProgram.tFromTimeMorning=this.currentProgram.tFromTimeMorning.toString();
-    this.currentProgram.tToTimeMorning=this.currentProgram.tToTimeMorning.toString();
-    this.currentProgram.tFromTimeAfternoon=this.currentProgram.tFromTimeAfternoon.toString();
-    this.currentProgram.tToTimeAfternoon=this.currentProgram.tToTimeAfternoon.toString();
+    this.currentProgram.tFromTimeMorning = this.currentProgram.tFromTimeMorning.toString();
+    this.currentProgram.tToTimeMorning = this.currentProgram.tToTimeMorning.toString();
+    this.currentProgram.tFromTimeAfternoon = this.currentProgram.tFromTimeAfternoon.toString();
+    this.currentProgram.tToTimeAfternoon = this.currentProgram.tToTimeAfternoon.toString();
 
     this.mainService.post("ProgramInsertUpdate", { oProgram: this.currentProgram, iUserId: this.mainService.currentUser.iUserId }).then(
       res => {
         this.mainService.getPrograms();
-        alert("update " + this.currentProgram.nvProgramName + " done!");
-        this.mainService.serviceNavigate("/header-menu/programs/programs-table");
 
       },
       err => {

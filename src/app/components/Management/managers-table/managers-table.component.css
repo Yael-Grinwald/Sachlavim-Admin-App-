@@ -1,19 +1,16 @@
 .managementColor {
-    color:rgb(57, 120, 110);
-
+    color:var(--managerClr);
 }
 .managementBtn {
-    background-color:rgb(57, 120, 110);
+    background-color:var(--managerClr);
     color: white;
 }
 
 .header {
     padding: 5px;
-    font-size: 14px;
-  
+   
 }
 mat-form-field {
-    font-size: 14px;
     width: 180px;
   } 
 

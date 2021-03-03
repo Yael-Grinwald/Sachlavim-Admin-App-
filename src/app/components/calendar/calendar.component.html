@@ -2,13 +2,17 @@
     <mwl-demo-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate" [locale]="locale">
     </mwl-demo-utils-calendar-header>
 
-    <button class="btnOp" data-toggle="modal" data-target="#addEvent" mat-stroked-button>הוספת פעילות</button>
+    <button class="btnOp" data-toggle="modal"  data-target="#addEditEvent" (click)="resetEventToEdit()" mat-stroked-button>הוספת פעילות</button>
 
     <ng-template #customCellTemplate let-day="day" let-locale="locale">
         <div class="cal-cell-top">
             <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
             <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
-            <span style="float: left; padding-left: 10px;" class="cal-day-number">{{ day.date | hebrewDate }}</span>
+
+            <span style="float: left; padding-left: 10px;" class="cal-day-number">{{ day.date | hebrewDate }}</span><br>
+             <span style="float: left; padding-left: 10px;" class="cal-day-number">{{ day.date | parasha }}</span> 
+            <!-- <span style="float: left; margin-top:0%;font-size: 15px;margin-left: 5px;" class="cal-day-number">{{ day.date | holidays }}</span> -->
+
         </div>
         <!-- <small *ngIf="day.events.length" style="margin:5px;">ישנם {{ day.events.length }} אירועים ביום זה</small> -->
         <a (click)="createArrayForDetails(day.date)" *ngIf="day.badgeTotal > 0"
@@ -42,18 +46,27 @@
         <div class="modal-content">
             <!--Header-->
             <div class="modal-header" style="text-align:center;">
-                <h4 style="width: 100%;" class="modal-title" id="myModalLabel"> האירועים של {{objName}} <br> {{dayDetails}} </h4>
+                <h4 style="width: 100%;" class="modal-title" id="myModalLabel"> האירועים של {{objName}} <br>
+                    {{dayDetails}} </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" >×</span>
+                    <span aria-hidden="true">×</span>
                 </button>
             </div>
 
             <!--Body-->
             <div class="modal-body" style="text-align:right;" dir="rtl">
                 <dl *ngFor="let event of eventsArrayByDate">
-                    <dt> {{event.dtStartTime| date:'shortTime'}} | מסגרת: {{event.nvSettingName}} </dt> <a
-                        style="cursor: pointer; text-align: center;  text-decoration: underline;">עריכה</a>
+                    <dt> {{event.dtStartTime| date:'shortTime'}} | מסגרת: {{event.nvSettingName}} </dt>
+                    <p>כתובת: {{event.nvAddress}}</p> 
+                    <p>טלפון איש קשר: {{event.nvPhone}}</p>
+                    <p>פעילות: {{event.nvActivityName}}</p> 
 
+                    <button (click)="editEvent(event)" data-toggle="modal" data-target="#addEditEvent" 
+                    style="cursor: pointer; text-align: center;  text-decoration: underline;">עריכה</button>
+
+
+                    <button (click)="editEvent(event)" data-toggle="modal" data-target="#addEvent" style="cursor: pointer; text-align: center;  text-decoration: underline;">עריכה</button>
+                   
                     <!-- <dd>תוכנית: {{event.nvProgramValue}}</dd> -->
 
                     <!-- public iOperatorId: number = -1,
@@ -87,7 +100,7 @@
 </div>
 
 
-<div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+<div class="modal fade" id="addEditEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -95,7 +108,7 @@
             <div class="modal-header" style="text-align:center;">
                 <h4 style="width: 100%;" class="modal-title" id="myModalLabel">הוספת אירוע חדש</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
+                    <span aria-hidden="true" >×</span>
                 </button>
             </div>
 
@@ -106,30 +119,32 @@
                     <label class="example-margin">לתוכנית:</label><br>
                     <mat-form-field>
                         <mat-label>בחר תוכנית</mat-label>
-                        <mat-select [(ngModel)]="program" name="program" (click)="fillOperatorsList()">
-                            <mat-option *ngFor="let p of programsList" [value]="p">
+                        <mat-select [(ngModel)]="eventToEdit.iProgramId" name="programId" (ngModelChange)="fillLists('program')">
+                            <mat-option *ngFor="let p of programsList" [value]="p.iProgramId">
                                 {{p.nvProgramName}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </section>
+
                 <section *ngIf="types['iSettingId']==-1" class="example-section">
                     <label class="example-margin">למסגרת:</label><br>
                     <mat-form-field>
                         <mat-label>בחר מיסגרת</mat-label>
-                        <mat-select name="setting" [(ngModel)]="settingId" (click)="fillOperatorsList()">
+                        <mat-select name="settingId" [(ngModel)]="eventToEdit.iSettingId" (ngModelChange)="fillLists('setting')">
                             <mat-option *ngFor="let s of settingsList" [value]="s.iSettingId">
                                 {{s.nvSettingName}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </section>
+
                 <section *ngIf="types['iOperatorId']==-1" class="example-section">
                     <label class="example-margin">למפעיל:</label><br>
                     <mat-form-field>
                         <mat-label>בחר מפעיל</mat-label>
-                        <mat-select [(ngModel)]="operator" name="operator">
-                            <mat-option *ngFor="let o of operatorList" [value]="o">
+                        <mat-select [(ngModel)]="eventToEdit.iOperatorId" name="operatorId" (ngModelChange)="fillLists('operator')">
+                            <mat-option *ngFor="let o of operatorList" [value]="o.iOperatorId">
                                 {{o.nvOperatorName}}
                             </mat-option>
                         </mat-select>
@@ -140,26 +155,41 @@
                     <label class="example-margin">פעילות</label><br>
                     <mat-form-field>
                         <mat-label>בחר פעילות</mat-label>
-                        <mat-select [(ngModel)]="activity" name="activity">
+                        <mat-select [(ngModel)]="eventToEdit.iActivityId" name="activityId">
                             <mat-option *ngFor="let a of operator.lActivity" [value]="a.iActivityId">
                                 {{a.nvActivityName}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                </section>  
+                </section>
+
+                <mat-form-field >
+                    <mat-label>שעה:</mat-label>
+                    <input matInput [(ngModel)]="dTime" matInput type="time" >
+                  </mat-form-field><br>
+
+                <!-- <mat-form-field class="example-form-field col-sm-12">
+                    <mat-label>שעה:</mat-label>
+                    <input [(ngModel)]="dTime" matInput type="time" placeholder="00:00">
+                </mat-form-field> -->
                 
-                <mat-form-field class="example-form-field">
-                <mat-label>שעה:</mat-label>
-                <input [(ngModel)]="time" matInput type="time" placeholder="00:00">
-            </mat-form-field>
+                <mat-form-field >
+                    <mat-label>תאריך:</mat-label>
+                    <input [(ngModel)]="StartTime" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker ></mat-datepicker>
+                  </mat-form-field>
+
             </div>
 
-      <div style="margin: auto;" class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addEvent()">שמור</button>
-        </div>
+
+
+            <div style="margin: auto;" class="modal-footer">
+                <button type="button"  aria-label="Close" class="btn btn-primary" data-dismiss="modal" (click)="addEditEvent()">שמור</button>
+            </div>
 
         </div>
 
-        
+
     </div>
 </div>

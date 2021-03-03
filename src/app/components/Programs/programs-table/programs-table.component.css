@@ -1,9 +1,9 @@
 .programBtn{
-    background-color: rgb(98, 169, 29);
+    background-color:var(--programClr);
     color: white;
 }
 .programColor{
-    color:rgb(98, 169, 29);
+    color:var(--programClr)
 }
 
 .header {
@@ -16,7 +16,11 @@ mat-form-field {
     font-size: 14px;
     width: 80px;
   } 
-
+  .header {
+    padding: 5px;
+    font-size: 14px;
+  
+  }
 
 /* .container{
   background-image:url(src\Images\CBGOrchidsMarch2018-4323-Edit-550x367.jpg) ;

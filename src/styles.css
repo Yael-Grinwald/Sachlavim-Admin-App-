@@ -35,6 +35,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 * {
   box-sizing: border-box;
 }
+:root {
+    --operatorClr:rgb(192, 31, 31);;
+    --settingClr: rgb(47, 50, 150);
+    --programClr:  rgb(98, 169, 29);
+    --afternoonClr: rgb(219 182 0 / 90%);
+    --managerClr: rgb(91, 185, 170)
+
+  }
 
 mat-sort-header-button{
 display: none;
@@ -42,8 +50,12 @@ display: none;
 a, button{
     cursor: pointer;
 }
-
+/* for details page */
+.form-group mat-form-field{
+    width: 200px;
+  }
 /* for table page */
+
 .addMsg{
     text-align: center;
     margin-bottom: 10px;
@@ -52,13 +64,27 @@ a, button{
     background-color: white;
     margin-left: 20px;
     font-family: inherit;
-  
   }
   .container-{
     padding-top: 50px;
   }
 
-
+  .saveIconBtn{
+    color: rgb(192, 31, 31);
+      position: sticky;
+      position: -webkit-sticky;
+      height: 100px;
+      top: 20px;
+      float: left;
+      margin-left: 30px;
+      
+      outline: none !important;
+      box-shadow: none !important;
+  }
+  /* validation */
+  .mat-form-field-appearance-legacy .mat-hint{
+    color: red;
+}
 
 .imageBackground{
     background-color: aquamarine;

@@ -11,7 +11,7 @@ export class HeaderMenuComponent implements OnInit {
 
   wel: boolean = true;
   currentUser: User = new User();
-
+  activeLink:number;
   ngOnInit() {
     this.currentUser = this.mainService.currentUser;
 

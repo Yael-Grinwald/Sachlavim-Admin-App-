@@ -1,0 +1,5 @@
+.navbar-nav li a:hover,
+.navbar-nav li a:focus
+{
+    color:rgb(98, 169, 29);
+}

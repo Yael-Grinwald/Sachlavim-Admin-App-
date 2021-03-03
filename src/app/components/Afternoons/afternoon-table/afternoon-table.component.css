@@ -1,9 +1,10 @@
 .afternonBtn{
-    background-color:rgb(240, 236, 20, 0.904);
+    background-color:var(--afternoonClr);
+    color: white;
 
 }
 .afternonColor{
-    color:rgb(240, 236, 20, 0.904);
+    color:var(--afternoonClr)
 
 }
 .header {

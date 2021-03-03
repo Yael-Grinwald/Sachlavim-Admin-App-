@@ -117,7 +117,6 @@ export class ManagersTableComponent implements OnInit {
   }
 
   saveUser() {
-
     this.mainService.post("AddUpdateUser", { oUser: this.editUser }).then(
       res => {
         if (res) {
@@ -134,4 +133,46 @@ export class ManagersTableComponent implements OnInit {
       }
     )
   }
+
+emailAddress:Array<string>=new Array<string>();
+emailContent:string;
+emailSubject:string;
+
+//for multi select
+selection = new SelectionModel<User>(true, []);
+
+isAllSelected() {
+  
+  this.selection.selected
+  const numSelected = this.selection.selected.length;
+  const numRows = this.dataSource.data.length;
+  return numSelected === numRows;
+}
+
+/** Selects all rows if they are not all selected; otherwise clear selection. */
+masterToggle() {
+  
+  this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+}
+emailList()
+{
+
+this.emailAddress=this.selection.selected.map(obj=>obj.nvMail);
+}
+
+sendEmail()
+{
+this.mainService.post("SendMailsMessage", { nvSubject: this.emailSubject, nvBody:this.emailContent,emailAddressesList:this.emailAddress ,filePath:""}).then(
+  res => {
+    
+    let r = res;
+    alert(res);
+  },
+  err => {
+    alert(err);
+  }
+);
+}
 }

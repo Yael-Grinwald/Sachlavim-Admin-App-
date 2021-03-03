@@ -112,9 +112,7 @@ export class SettingsDetailsComponent implements OnInit {
       res => {
         //קבלה מהשרת את רשימת מפעילים המעודכנת
         this.mainService.getSettings();
-        alert("update " + this.currentSetting.nvSettingName + " done!");
 
-        this.mainService.serviceNavigate("/header-menu/settings/setting-table");
       },
       err => {
         alert("saveSetting err");

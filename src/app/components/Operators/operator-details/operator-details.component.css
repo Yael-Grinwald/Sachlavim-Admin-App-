@@ -1,3 +1,8 @@
+h4{
+  width: 50%;
+  margin: auto;
+  padding-bottom: 2%;
+}
 .example-additional-selection {
     opacity: 0.75;
     font-size: 0.75em;
@@ -6,18 +11,7 @@
   ng-multiselect-dropdown /deep/ .multiselect-dropdown > .dropdown-btn{
     font-size:12px !important;
  }
-.saveIconBtn{
-  color: rgb(192, 31, 31);
-    position: sticky;
-    position: -webkit-sticky;
-    height: 100px;
-    top: 20px;
-    float: left;
-    margin-left: 30px;
 
-    outline: none !important;
-    box-shadow: none !important;
-}
 #work section,a{
    display: inline-block;
    padding: 10px;
@@ -43,6 +37,7 @@
 }
 
 mat-icon{
+  
   font-size: 40px;
   text-shadow: 10px 10px 20px #ffffff;
 }
@@ -57,7 +52,7 @@ mat-icon{
 
 form {
       width: 60%;
-      height: 610px;
+      height: 630px;
       margin: auto;
       text-align: center;
       direction: rtl; 

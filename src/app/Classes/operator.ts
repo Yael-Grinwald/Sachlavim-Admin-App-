@@ -15,7 +15,7 @@ export class Operator {
     constructor(
         public lSchools:number[]=[],
 
-        public iOperatorId: number=1,
+        public iOperatorId: number=-1,
         public nvOperatorName: string="",
         public nvCompanyName: string="",
         public nvOperatorNumber: string="",
@@ -45,12 +45,12 @@ export class Operator {
  
         public lActivity:Activity[]=[],
 
-        public iNumBookkeeping: number=0
+        public iNumBookkeeping: number=0,
 
 
         // public binProgramsDatabase: boolean=true,
         //public nvOperatorTypeValue:string="",
-        // public nvActivityies:string="",
+         public nvActivityies:string=""
 
         ) 
         {}

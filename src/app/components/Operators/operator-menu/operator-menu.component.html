@@ -1,45 +1,25 @@
-<div class="menu">
-    <nav style="direction: rtl;" class="navbar navbar-expand-lg navbar-light bg-light">
-       
-        <a   routerLink="operator-details" class="navbar-brand" active>
+<ul>
+    <li> <a routerLink="operator-details" class="navbar-brand" active>
             <div>
-                <mat-icon   class="mat-18">create</mat-icon> {{ idOperator==-1?'מפעיל חדש': operator.nvOperatorName }}
+                <mat-icon class="mat-18">create</mat-icon> {{ idOperator==-1?'מפעיל חדש': operator.nvOperatorName }}
             </div>
-          
-        </a>
-        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button> -->
-        <div  class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">         
-                <li class="nav-item">
-                    <a  routerLink="operator-activities" routerLinkActive="activeLink"  class="nav-link">פעילויות</a>
-                </li>
-                <li class="nav-item">
-                    <a routerLink="operator-schedule" routerLinkActive="activeLink"  class="nav-link">יומן</a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a routerLink="operator-activity-report" routerLinkActive="activeLink" class="nav-link ">דיווח ביצועים</a>
-                </li>
-                <li class="nav-item">
-                    <a routerLink="operator-credit" routerLinkActive="activeLink" class="nav-link ">תשלומים</a>
-                </li>
-                <li class="nav-item">
-                    <a routerLink="operator-messages" routerLinkActive="activeLink" class="nav-link">הודעות</a>
-                </li>
-                <li class="nav-item">
-                    <a routerLink="operator-messages" routerLinkActive="activeLink" class="nav-link ">משובים</a>
-                </li> -->
-               <li style="position: absolute; left: 10px; size: 20px;">
-                    <a  [routerLink]="['/header-menu/operators/operator-table']" class="navbar-brand" active>
-                        <mat-icon   class="mat-18">west</mat-icon> 
-                    </a>
-                </li>
 
-            </ul>
-        </div> 
-    </nav>
-</div>
-<div >
-    <router-outlet ></router-outlet>
+        </a></li>
+
+    <li> <a routerLink="operator-activities" routerLinkActive="activeLink" class="nav-link">פעילויות</a>
+    </li>
+    <li> <a routerLink="operator-schedule" routerLinkActive="activeLink" class="nav-link">יומן</a>
+    </li>
+    <li style="position: absolute; left: 10px; size: 20px;">
+        <a [routerLink]="['/header-menu/operators/operator-table']" class="navbar-brand" active>
+            <mat-icon class="mat-18">west</mat-icon>
+        </a>
+    </li>
+</ul>
+
+
+
+
+<div>
+    <router-outlet></router-outlet>
 </div>

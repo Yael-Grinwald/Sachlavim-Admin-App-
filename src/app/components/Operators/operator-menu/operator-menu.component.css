@@ -1,8 +1,26 @@
-li{
-   margin-left :20px;
-}
 
-mat-form-field{
-    direction: rtl;
-}
-
+ ul {
+   list-style-type: none;
+   margin: 0;
+   padding: 0;
+   overflow: hidden;
+   background-color:rgb(219 162 162);
+ }
+ 
+ li {
+   float: right;
+   display: inline-block;
+ }
+ 
+li a {
+   /* display: block; */
+   color: white;
+   font-weight: 600;
+   /* text-align: center;
+   padding: 14px 16px;*/
+   text-decoration: none; 
+ } 
+ 
+ li a:hover {
+   background-color: #111;
+ }

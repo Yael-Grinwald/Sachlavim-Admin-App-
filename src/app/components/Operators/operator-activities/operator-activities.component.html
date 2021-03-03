@@ -1,89 +1,89 @@
-<br>
-<div class="mat-elevation-z8" style="text-align:right;" dir="rtl">
-    <table mat-table [dataSource]="dataSource" matSort>
+<div class="container-" style="text-align:right;margin: auto; " dir="rtl">
+    <div style="width: 90%;margin: auto;" class="overflow-auto">
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="nvActivityName">
-            <th style="width: 15%;" mat-header-cell *matHeaderCellDef mat-sort-header>שם פעילות</th>
-            <td mat-cell *matCellDef="let row"> {{row.nvActivityName}} </td>
-        </ng-container>
+        <table mat-table [dataSource]="dataSource" matSort>
 
-
-        <!-- Contact Name Column -->
-        <ng-container matColumnDef="iCategoryType">
-            <th style="width: 10%;size: 100px;" mat-header-cell *matHeaderCellDef mat-sort-header>קטגורית פעילות </th>
-            <td mat-cell *matCellDef="let row"> {{activityCategories.get(row.iCategoryType) }} </td>
-        </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="nvActivityName">
+                <th style="width: 15%;" mat-header-cell *matHeaderCellDef mat-sort-header>שם פעילות</th>
+                <td mat-cell *matCellDef="let row"> {{row.nvActivityName}} </td>
+            </ng-container>
 
 
-        <!-- kind Column -->
-        <ng-container matColumnDef="nvActivityProduct">
-            <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>תוצר פעילות</th>
-            <td mat-cell *matCellDef="let row"> {{row.nvActivityProduct}} </td>
-        </ng-container>
-
-        <!-- kind Column -->
-        <ng-container matColumnDef="lActivityAgegroups">
-            <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>קטגורית גילאים</th>
-            <td mat-cell *matCellDef="let row">
-                <div *ngFor="let age of row.lActivityAgegroups">
-                    {{ agesForTable.get(age)}}
-                </div>
-            </td>
-        </ng-container>
-
-        <!-- kind Column -->
-        <ng-container matColumnDef="nPrice">
-            <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>מחיר + מע"מ</th>
-            <td mat-cell *matCellDef="let row"> {{row.nPrice}} ש"ח </td>
-        </ng-container>
-
-        <!-- kind Column -->
-        <ng-container matColumnDef="nShortBreak">
-            <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>הפסקה-גן צמוד</th>
-            <td mat-cell *matCellDef="let row"> {{row.nShortBreak}} דקות </td>
-        </ng-container>
-        <!-- kind Column -->
-        <ng-container matColumnDef="nLongBreak">
-            <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>הפסקה-גן רחוק</th>
-            <td mat-cell *matCellDef="let row"> {{row.nLongBreak}} דקות </td>
-        </ng-container>
-        <!-- kind Column -->
-        <ng-container matColumnDef="bActivityMorning">
-            <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>פעילות בוקר?</th>
-            <td mat-cell *matCellDef="let row"> {{row.bActivityMorning==true?"לא":"כן"}} </td>
-        </ng-container> <!-- kind Column -->
-        <ng-container matColumnDef="bActivityNoon">
-            <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>פעילות צהרים?</th>
-            <td mat-cell *matCellDef="let row"> {{row.bActivityNoon==true?"לא":"כן"}} </td>
-        </ng-container>
-
-        <!-- Update -->
-        <ng-container matColumnDef="update">
-            <th style="width:4%;" mat-header-cell *matHeaderCellDef> עריכה </th>
-            <td mat-cell *matCellDef="let element">
-                <!-- (click)="redirectToUpdate(element.id)" -->
-                <button mat-icon-button color="accent" data-toggle="modal" data-target="#EditActiv"
-                    (click)="EditActivity(element)">
-                    <mat-icon matSuffix>create</mat-icon>
-                </button>
-            </td>
-        </ng-container>
+            <!-- Contact Name Column -->
+            <ng-container matColumnDef="iCategoryType">
+                <th style="width: 10%;size: 100px;" mat-header-cell *matHeaderCellDef mat-sort-header>קטגורית פעילות
+                </th>
+                <td mat-cell *matCellDef="let row"> {{activityCategories.get(row.iCategoryType) }} </td>
+            </ng-container>
 
 
+            <!-- kind Column -->
+            <ng-container matColumnDef="nvActivityProduct">
+                <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>תוצר פעילות</th>
+                <td mat-cell *matCellDef="let row"> {{row.nvActivityProduct}} </td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <!-- kind Column -->
+            <ng-container matColumnDef="lActivityAgegroups">
+                <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>קטגורית גילאים</th>
+                <td mat-cell *matCellDef="let row">
+                    <div *ngFor="let age of row.lActivityAgegroups">
+                        {{ agesForTable.get(age)}}
+                    </div>
+                </td>
+            </ng-container>
 
-        <!-- Row shown when there is no matching data. -->
-        <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">לא נימצא מידע המתאים לסינון "{{input.value}}"</td>
-        </tr>
-    </table>
+            <!-- kind Column -->
+            <ng-container matColumnDef="nPrice">
+                <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>מחיר + מע"מ</th>
+                <td mat-cell *matCellDef="let row"> {{row.nPrice}} ש"ח </td>
+            </ng-container>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            <!-- kind Column -->
+            <ng-container matColumnDef="nShortBreak">
+                <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>הפסקה-גן צמוד</th>
+                <td mat-cell *matCellDef="let row"> {{row.nShortBreak}} דקות </td>
+            </ng-container>
+            <!-- kind Column -->
+            <ng-container matColumnDef="nLongBreak">
+                <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>הפסקה-גן רחוק</th>
+                <td mat-cell *matCellDef="let row"> {{row.nLongBreak}} דקות </td>
+            </ng-container>
+            <!-- kind Column -->
+            <ng-container matColumnDef="bActivityMorning">
+                <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>פעילות בוקר?</th>
+                <td mat-cell *matCellDef="let row"> {{row.bActivityMorning==true?"לא":"כן"}} </td>
+            </ng-container> <!-- kind Column -->
+            <ng-container matColumnDef="bActivityNoon">
+                <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>פעילות צהרים?</th>
+                <td mat-cell *matCellDef="let row"> {{row.bActivityNoon==true?"לא":"כן"}} </td>
+            </ng-container>
+
+            <!-- Update -->
+            <ng-container matColumnDef="update">
+                <th style="width:4%;" mat-header-cell *matHeaderCellDef> עריכה </th>
+                <td mat-cell *matCellDef="let element">
+                    <!-- (click)="redirectToUpdate(element.id)" -->
+                    <button mat-icon-button color="accent" data-toggle="modal" data-target="#EditActiv"
+                        (click)="EditActivity(element)">
+                        <mat-icon matSuffix>create</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[7]"></mat-paginator>
+    </div>
+
 </div>
-
 
 
 
@@ -102,96 +102,93 @@
             </div>
             <!--Body-->
             <div class="modal-body">
-                    <form>
+                <form>
 
-                        <mat-form-field class="example-form-field" style="direction:rtl;">
-                            <mat-label>שם פעילות</mat-label>
-                            <input matInput type="text" [(ngModel)]="CurrentActivity.nvActivityName"
-                                name="nvActivityName">
-                            <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
-                                (click)="value=''">
-                                <mat-icon>close</mat-icon>
-                            </button>
-                        </mat-form-field><br>
+                    <mat-form-field class="example-form-field" style="direction:rtl;">
+                        <mat-label>שם פעילות</mat-label>
+                        <input matInput type="text" [(ngModel)]="CurrentActivity.nvActivityName" name="nvActivityName">
 
-                        <mat-form-field>
-                            <mat-label>סוג פעילות</mat-label>
-                            <mat-select [(ngModel)]="activControl.Key" name="active">
-                                <mat-option *ngFor="let a of ActivitiesType" [value]="a.Key">
-                                    {{a.Value}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
+                    </mat-form-field><br>
+
+                    <mat-form-field>
+                        <mat-label>סוג פעילות</mat-label>
+                        <mat-select [(ngModel)]="activControl.Key" name="active">
+                            <mat-option *ngFor="let a of ActivitiesType" [value]="a.Key">
+                                {{a.Value}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
 
 
 
-                        <!-- Activities Age groups Column -->
-                        <div>
-                            <ng-multiselect-dropdown name="agesCategory" [(ngModel)]="AgesSelected"
-                                [settings]="dropdownSettings" [data]="agesCategories" [placeholder]="'קטגורית גילאים'"
-                                (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
-                                (onDeSelect)="OnItemDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)">
-                            </ng-multiselect-dropdown>
-                        </div>
+                    <!-- Activities Age groups Column -->
+                    <div>
+                        <ng-multiselect-dropdown name="agesCategory" [(ngModel)]="AgesSelected"
+                            [settings]="dropdownSettings" [data]="agesCategories" [placeholder]="'קטגורית גילאים'"
+                            (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                            (onDeSelect)="OnItemDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                        </ng-multiselect-dropdown>
+                    </div>
 
-                        <!-- price -->
-                        <mat-form-field appearance="legacy">
-                            <mat-label>מחיר</mat-label>
-                            <input [(ngModel)]="CurrentActivity.nPrice" name="nPrice" type="number" matInput
-                                placeholder="Placeholder">
-                            <span matPrefix>₪&nbsp;</span>
-                        </mat-form-field>
-                        <br>
+                    <!-- price -->
+                    <mat-form-field appearance="legacy">
+                        <mat-label>מחיר</mat-label>
+                        <input [(ngModel)]="CurrentActivity.nPrice" name="nPrice" type="number" matInput
+                            placeholder="Placeholder">
+                        <span matPrefix>₪&nbsp;</span>
+                    </mat-form-field>
+                    <br>
 
-                        <mat-form-field appearance="legacy">
-                            <mat-label>הפסקה גן צמוד</mat-label>
-                            <input [(ngModel)]="CurrentActivity.nShortBreak" type="number" matInput name="nShortBreak"
-                                placeholder="Placeholder">
-                            <mat-hint>דקות</mat-hint>
-                        </mat-form-field>
+                    <mat-form-field appearance="legacy">
+                        <mat-label>הפסקה גן צמוד</mat-label>
+                        <input [(ngModel)]="CurrentActivity.nShortBreak" type="number" matInput name="nShortBreak"
+                            placeholder="Placeholder">
+                        <mat-hint>דקות</mat-hint>
+                    </mat-form-field>
 
-                        <br>
+                    <br>
 
-                        <mat-form-field appearance="legacy">
-                            <mat-label>הפסקה גן רחוק</mat-label>
-                            <input [(ngModel)]="CurrentActivity.nLongBreak" type="number" matInput name="nLongBreak"
-                                placeholder="Placeholder">
-                            <mat-hint>דקות</mat-hint>
-                        </mat-form-field>
+                    <mat-form-field appearance="legacy">
+                        <mat-label>הפסקה גן רחוק</mat-label>
+                        <input [(ngModel)]="CurrentActivity.nLongBreak" type="number" matInput name="nLongBreak"
+                            placeholder="Placeholder">
+                        <mat-hint>דקות</mat-hint>
+                    </mat-form-field>
 
 
-                        <section style="direction: rtl;" class="example-section">
-                            <mat-checkbox [checked]="CurrentActivity.nvActivityProduct!=null" class="example-margin">יש
-                                תוצר
-                            </mat-checkbox>
-                        </section>
+                    <section style="direction: rtl;" class="example-section">
+                        <mat-checkbox [checked]="CurrentActivity.nvActivityProduct!=null" class="example-margin">יש
+                            תוצר
+                        </mat-checkbox>
+                    </section>
 
-                        <section style="direction: rtl;" class="example-section">
-                            <mat-checkbox [checked]="CurrentActivity.bActivityPreference" name="bActivityPreference"
-                                [(ngModel)]="CurrentActivity.bActivityPreference" class="example-margin">פעילות מועדפת
-                            </mat-checkbox>
-                        </section>
+                    <section style="direction: rtl;" class="example-section">
+                        <mat-checkbox [checked]="CurrentActivity.bActivityPreference" name="bActivityPreference"
+                            [(ngModel)]="CurrentActivity.bActivityPreference" class="example-margin">פעילות מועדפת
+                        </mat-checkbox>
+                    </section>
 
-                        <section style="direction: rtl;" class="example-section">
-                            <mat-checkbox [checked]="CurrentActivity.bActivityMorning"
-                                [(ngModel)]="CurrentActivity.bActivityMorning" name="bActivityMorning"
-                                class="example-margin">פעילות בוקר
-                            </mat-checkbox>
-                        </section>
+                    <section style="direction: rtl;" class="example-section">
+                        <mat-checkbox [checked]="CurrentActivity.bActivityMorning"
+                            [(ngModel)]="CurrentActivity.bActivityMorning" name="bActivityMorning"
+                            class="example-margin">פעילות בוקר
+                        </mat-checkbox>
+                    </section>
 
-                        <section style="direction: rtl;" class="example-section">
-                            <mat-checkbox [checked]="CurrentActivity.bActivityNoon"
-                                [(ngModel)]="CurrentActivity.bActivityNoon" name="bActivityNoon" class="example-margin">
-                                פעילות צהרים
-                            </mat-checkbox>
-                        </section>
+                    <section style="direction: rtl;" class="example-section">
+                        <mat-checkbox [checked]="CurrentActivity.bActivityNoon"
+                            [(ngModel)]="CurrentActivity.bActivityNoon" name="bActivityNoon" class="example-margin">
+                            פעילות צהרים
+                        </mat-checkbox>
+                    </section>
 
-                        <div style="text-align: center;" mat-dialog-actions>
-                            <button (click)="saveActiveChanges()" mat-flat-button mat-dialog-close color="accent" >שמור</button>
-                        </div>
+                    <div style="text-align: center;" mat-dialog-actions>
+                        <button (click)="saveActiveChanges()" mat-flat-button mat-dialog-close
+                            color="accent">שמור</button>
+                    </div>
 
-                       
-                    </form>
+
+                </form>
 
             </div>
 

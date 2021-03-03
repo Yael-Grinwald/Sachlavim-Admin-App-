@@ -43,11 +43,11 @@ h1{
     font-weight: 500;
 }
 
- .middle a:hover,
+ /* .middle a:hover,
  .middle a:focus
  {
-    background: #f6faff;
- }
+    background: #dde1e6;
+ } */
 
 .p{
     font-weight: 500;

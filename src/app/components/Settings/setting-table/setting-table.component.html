@@ -1,13 +1,24 @@
 <div class="container-" style="text-align:right;margin: auto; " dir="rtl">
-    <div class="addMsg">
-        <button mat-stroked-button class="settingColor" data-toggle="modal" data-target="#modalCart"
-            (click)="emailList()">שליחת הודעה</button>
-        <button mat-stroked-button class="settingColor" (click)="addSetting()"> הוספת מסגרת</button>
-        <button mat-raised-button class="settingBtn btn" (click)="ExportTOExcel()">ייצא לאקסל</button>
+   
+    <div class="addMsg row">
+        <div class="col-lg-3">
+        </div>
+        <div class="col-lg-6">
+            <button mat-stroked-button class="settingColor" data-toggle="modal" data-target="#modalCart"
+                (click)="emailList()">שליחת הודעה</button>
+            <button mat-stroked-button class="settingColor" (click)="addSetting()"> הוספת מסגרת</button>
+        </div>
+        <div class="col-lg-3">
+            <button mat-button class="settingBtn" (click)="exporter.exportTable('xls',{fileName:'settingsTable'})">ייצא
+                ל Excel</button>
+        </div>
+
 
     </div>
+
     <div *ngIf="openDetails==false" style="width: 90%;margin: auto;" class="overflow-auto">
-        <table mdbTable mdbTableScroll scrollY="true" maxHeight="200" mat-table [dataSource]="dataSource" matSort>
+        <table [hiddenColumns]=[0,1,11] mdbTable matTableExporter mdbTableScroll scrollY="true" maxHeight="200"
+            #exporter="matTableExporter" mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="select">
                 <th>בחירה</th>
                 <th class="header" style="width:2%;" mat-header-cell *matHeaderCellDef>
@@ -29,8 +40,8 @@
             <ng-container matColumnDef="iSettingId">
                 <th class="header" style="width: 5%;" mat-header-cell *matHeaderCellDef> מזהה מסגרת
                     <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
-                        <mat-label> חפש</mat-label>
-                        <input matInput [formControl]="SettingIdFilter">
+
+                        <input matInput value="חפש" [formControl]="SettingIdFilter">
                     </mat-form-field>
                 </th>
                 <td mat-cell *matCellDef="let row"> {{row.iSettingId}} </td>
@@ -40,8 +51,8 @@
             <ng-container matColumnDef="nvSettingName">
                 <th class="header" style="width: 5%;" mat-header-cell *matHeaderCellDef> שם מסגרת
                     <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
-                        <mat-label> חפש</mat-label>
-                        <input matInput [formControl]="SettingNameFilter">
+
+                        <input matInput value="חפש" [formControl]="SettingNameFilter">
                     </mat-form-field>
                 </th>
                 <td mat-cell *matCellDef="let row"> {{row.nvSettingName}} </td>
@@ -51,8 +62,8 @@
             <ng-container matColumnDef="iSettingType">
                 <th class="header" style="width: 4%;" mat-header-cell *matHeaderCellDef>סוג
                     <!-- <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
-                        <mat-label> חפש</mat-label>
-                        <input matInput [formControl]="SettingTypeFilter">
+                        
+                        <input matInput value="חפש" [formControl]="SettingTypeFilter">
                     </mat-form-field> -->
                 </th>
                 <td mat-cell *matCellDef="let row">{{this.lSettingTypeValue.get(row.iSettingType)}}</td>
@@ -63,9 +74,9 @@
             <ng-container matColumnDef="nvAddress">
                 <th class="header" style="width:10%;" mat-header-cell *matHeaderCellDef>כתובת
                     <br>
-                    <mat-form-field style="width: 120px;" class="filter" floatLabel="never">
-                        <mat-label> חפש</mat-label>
-                        <input matInput [formControl]="AddressFilter">
+                    <mat-form-field style="width: 170px;" class="filter" floatLabel="never">
+
+                        <input matInput value="חפש" [formControl]="AddressFilter">
                     </mat-form-field>
                 </th>
                 <td mat-cell *matCellDef="let row"> {{row.nvAddress}} </td>
@@ -76,8 +87,8 @@
             <ng-container matColumnDef="nvPhone">
                 <th class="header" style="width: 4%;" mat-header-cell *matHeaderCellDef> טלפון
                     <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
-                        <mat-label> חפש</mat-label>
-                        <input matInput [formControl]="PhoneFilter">
+
+                        <input matInput value="חפש" [formControl]="PhoneFilter">
                     </mat-form-field>
                 </th>
                 <td mat-cell *matCellDef="let row"> {{row.nvPhone}} </td>
@@ -87,8 +98,8 @@
             <ng-container matColumnDef="nvContactPerson">
                 <th class="header" style="width:3%;" mat-header-cell *matHeaderCellDef> שם איש קשר
                     <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
-                        <mat-label> חפש</mat-label>
-                        <input matInput [formControl]="ContactPersonFilter">
+
+                        <input matInput value="חפש" [formControl]="ContactPersonFilter">
                     </mat-form-field>
                 </th>
                 <td mat-cell *matCellDef="let row"> {{row.nvContactPerson}} </td>
@@ -99,8 +110,8 @@
                 <th class="header" style="width: 1%;" mat-header-cell *matHeaderCellDef> מייל איש קשר
                     <br>
                     <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
-                        <mat-label> חפש</mat-label>
-                        <input matInput [formControl]="ContactPersonMailFilter">
+
+                        <input matInput value="חפש" [formControl]="ContactPersonMailFilter">
                     </mat-form-field>
                 </th>
                 <td mat-cell *matCellDef="let row"> {{row.nvContactPersonMail}} </td>
@@ -110,8 +121,8 @@
             <ng-container matColumnDef="nvContactPersonPhone">
                 <th class="header" class="header" style="width: 1%;" mat-header-cell *matHeaderCellDef>טלפון איש קשר
                     <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
-                        <mat-label> חפש</mat-label>
-                        <input matInput [formControl]="ContactPersonPhoneFilter">
+
+                        <input matInput value="חפש" [formControl]="ContactPersonPhoneFilter">
                     </mat-form-field>
                 </th>
                 <td mat-cell *matCellDef="let row"> {{row.nvContactPersonPhone}} </td>
@@ -174,9 +185,9 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-          
+
         </table>
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[7]"></mat-paginator>
     </div>
     <div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">

@@ -56,10 +56,11 @@ filterValues = {
   constructor(private mainService: MainServiceService) {
 this.operatorTypes=this.mainService.SysTableList[2];
 
-    this.operators = this.mainService.operatorsList
+    this.operators = this.mainService.operatorsList;
+    
     this.dataSource = new MatTableDataSource(this.operators);
     this.dataSource.filterPredicate = this.createFilter();
-    debugger
+    
 
   }
 
@@ -154,6 +155,7 @@ this.operatorTypes=this.mainService.SysTableList[2];
       this.mainService.post("DeleteOperator", { iOperatorId: oper.iOperatorId, iUserId: this.mainService.currentUser.iUserId }).then(
         res => {
           this.mainService.operatorsList = res;
+          debugger
         },
         err => {
           alert(err);
@@ -200,7 +202,7 @@ sendEmail()
   selection = new SelectionModel<Operator>(true, []);
 
   isAllSelected() {
-    debugger
+    
     this.selection.selected
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
@@ -209,7 +211,7 @@ sendEmail()
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    debugger
+    
     this.isAllSelected() ?
         this.selection.clear() :
         this.dataSource.data.forEach(row => this.selection.select(row));

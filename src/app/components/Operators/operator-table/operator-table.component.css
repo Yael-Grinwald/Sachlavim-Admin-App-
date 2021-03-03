@@ -4,11 +4,13 @@ mat-form-field {
     width: 80px;
   } 
 
-th.mat-header-cell {
-
-    /* text-align: left;
-    max-width: 50px; */
+  
+.operatorBtn{
+  background-color:var(--operatorClr);
+  color:white;
+  /* margin-left: 80px; */
 }
+
 /* .mat-sort-header{
   display: inline;
 }
@@ -17,21 +19,10 @@ input.matInput{
 } */ 
 
 .operatorColor{
-  color:rgb(236, 116, 19);
-
+  color:var(--operatorClr);
 }
 
-.addMsg{
-  text-align: center;
-  margin-bottom: 10px;
-}
-.addMsg button{
-  background-color: white;
-  margin-left: 20px;
-  color:rgb(192, 31, 31) ;
-  font-family: inherit;
 
-}
 .example-form {
   min-width: 150px;
   max-width: 500px;

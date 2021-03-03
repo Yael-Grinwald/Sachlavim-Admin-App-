@@ -1,12 +1,11 @@
 
 .settingBtn{
-    background-color:rgb(47, 50, 150);
+    background-color:var(--settingClr);
     color:white;
-    float: left;
-    margin-left: 80px;
+    /* margin-left: 80px; */
 }
 .settingColor{
-    color: rgb(47, 50, 150);
+    color: var(--settingClr);
 }
 .header {
     padding: 5px;
@@ -19,14 +18,10 @@ mat-form-field {
     width: 80px;
   } 
 
-
 /* .container{
   background-image:url(src\Images\CBGOrchidsMarch2018-4323-Edit-550x367.jpg) ;
 } */
-.addMsg{
-  text-align: center;
-  margin-bottom: 10px;
-}
+
 .example-form {
   min-width: 150px;
   max-width: 500px;

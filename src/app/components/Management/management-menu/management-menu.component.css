@@ -3,3 +3,8 @@
     background-color:rgb(57, 120, 110);
 
 }
+.navbar-nav li a:hover,
+ .navbar-nav li a:focus
+ {
+    color: rgb(57, 120, 110);
+ }
