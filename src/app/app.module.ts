@@ -98,6 +98,7 @@ import { EmailPipe } from './Pipes/Validation/email.pipe';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { ParashaPipe } from './Pipes/parasha.pipe';
 import { HolidaysPipe } from './Pipes/holidays.pipe';
+import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
 
 @NgModule({
   declarations: [
@@ -144,6 +145,7 @@ import { HolidaysPipe } from './Pipes/holidays.pipe';
     EmailPipe,
     ParashaPipe,
     HolidaysPipe,
+    MessageDialogComponent,
   ],
   imports: [
 

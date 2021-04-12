@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/classes/user';
 import { Setting } from 'src/app/Classes/setting';
 import { Program } from 'src/app/Classes/program';
+import { promise } from 'protractor';
 
 
 export class forSelect {
@@ -29,6 +30,7 @@ export class MainServiceService {
 
     this.globalObj();
     this.getSettings();
+    
     this.getAllOperators();
     this.getPrograms();
     this.getAfternoon();
@@ -60,9 +62,59 @@ export class MainServiceService {
   sahlavimUrl = "http://localhost:53070/Service1.svc/";//שרת מקומי
  // sahlavimUrl = "http://qa.webit-track.com/SachlavimQA/Service/Service1.svc/";//שרת מרוחק
 
+ codeTables ={
+  userPermissions:
+  {
+      director: 1,
+      secretary: 2
+  },
+  userStatus:
+  {
+      active: 3,
+      noActive: 4
+  },
+  OperatorTypes:
+  {
+      private: 5,
+      company: 6,
+      employee: 7
+  },
+  paymentConditions:
+  {
+      swift30: 8,
+      swift60: 9,
+      Cash: 10
+  },
+  SettingType:
+  {
+      garden: 17,
+      school: 18
+  },
+  ScheduleOperators:
+  {
+      SummerCamp: 29,
+      TheAfternoon: 28
+  },
+  Camp:
+  {
+      Chanukah: 30,
+      Passover: 31,
+      Summer: 32
+  },
+  MessageType:
+  {
+      sms: 33,
+      email: 35
+  },
+  ActivityStatus:
+  {
+      done:48,
+      noDone:49,
+      absence:50
+  }
+};
 
-  post(url: string, data: any): Promise<any> {
-    debugger
+ async post(url: string, data: any): Promise<any> {
     return this.http.post(`${this.sahlavimUrl}${url}`, data).toPromise();
   }
 
@@ -112,16 +164,15 @@ export class MainServiceService {
     );
 
   }
-
-  //רשימת המפעילים
+  //get operator list from server
   getAllOperators() {
 
     this.post("GetOperators", {})
       .then(
         res => {
           this.operatorsList = res;
-
-          //Delete duplicates valus from schollexcude list in every operator
+          debugger
+          //Delete duplicates valus from schollexcude list in each operator
           this.operatorsList.forEach(element => {
             element.lSchoolsExcude = element.lSchoolsExcude.filter(
               function (elem, index, self) {
@@ -129,14 +180,13 @@ export class MainServiceService {
               });
           });
 
-          //Delete duplicates valus from neighborhoods list in every operator
+          //Delete duplicates valus from neighborhoods list in each operator
           this.operatorsList.forEach(element => {
             element.lNeighborhoods = element.lNeighborhoods.filter(
               function (elem, index, self) {
                 return index === self.indexOf(elem)
               });
           });
-
         }
         , err => {
           alert("err");
@@ -152,19 +202,21 @@ export class MainServiceService {
     this.post("SettingsGet", {}).then(
       res => {
         this.settingsList = res;
+           
       },
       err => {
         alert("SettingsGet err")
       }
     );
   }
+
   getUsers() {
     this.post("GetUsers", {})
       .then(
         res => {
           //if (res) {
             this.usersList = res;
-            debugger
+             
             // this.usersList.forEach(element => {
             //   switch(element.iUserType)
             //   {
@@ -188,25 +240,12 @@ export class MainServiceService {
     this.router.navigate([path, id]);
   }
 
-  saveUser(u: User) {
-    //alert("saveUser  " + u.nvUserName);
-    this.currentUser = u;
-  }
-
-  getUser() {
-    return this.currentUser;
-  }
-
-
-  //שכונות sysTableUd=5
+   //get the system tables from server
   globalObj() {
-
     this.post("SysTableListGet", {}).then(
       res => {
-        //קבלת כל הטבלאות בפורמט של הסרבר
         this.gItems = res;
-        //alert(this.gItems[0].dParams[0].Value)
-        //מעברת על כל הטבלאות
+        //create map array for each table for saving the parameters in Angular format
         this.gItems.forEach(g => {
           //במערך של הטבלאות MAP עבור כל טבלה יצירת 
           //בפורמט מתאים לאנגולר 8 PARAMS בשביל שמירת הנתונים של 
@@ -226,5 +265,18 @@ export class MainServiceService {
     )
   }
 
+  updateCurrentOp(id:number){
+      
+    this.post('GetOperator',{ iOperatorId: id }).then(
+      res => {
+        this.operatorForDetails = res;
+        
+      },
+      err => {
+        alert(err);
+      }
+    );
+      
+  }
 
 }

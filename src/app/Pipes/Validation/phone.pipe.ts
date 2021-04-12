@@ -10,7 +10,7 @@ export class PhonePipe implements PipeTransform {
 
     var isPhone = /^(0[0-9]{1,2}-[0-9]{7}$)/;
 
- 
+ //check phone validation
     if (isPhone.test(value) == false) {
       return 'הכנס ערך תקין הכולל: - ';
     }

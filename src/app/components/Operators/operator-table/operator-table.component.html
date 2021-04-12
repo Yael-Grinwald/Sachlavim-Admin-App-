@@ -20,7 +20,7 @@
             #exporter="matTableExporter" mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="select">
                 <th>בחירה</th>
-                <th class="header" style="width:7%;" mat-header-cell *matHeaderCellDef>
+                <th class="header" style="width:6%;" mat-header-cell *matHeaderCellDef>
                     <!--Select All-->
                     <mat-checkbox (change)="$event ? masterToggle() : null"
                         [checked]="selection.hasValue() && isAllSelected()"

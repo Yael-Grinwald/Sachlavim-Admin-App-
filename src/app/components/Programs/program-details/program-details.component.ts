@@ -21,7 +21,7 @@ export class ProgramDetailsComponent implements OnInit {
 
   currentProgram: Program = new Program();
   formProgram: FormGroup;
-  lProgramTypeValue: Map<number, string> = new Map<number, string>();
+  lProgramTypeValue: forSelect[]=[];
 
   //מקור הנתונים לטבלה של המסגרות
   dataSource: MatTableDataSource<Setting>;
@@ -31,7 +31,7 @@ export class ProgramDetailsComponent implements OnInit {
 
   constructor(private mainService: MainServiceService) {
     this.currentProgram = this.mainService.programForDetails;
-    this.lProgramTypeValue = mainService.SysTableList[9];
+    this.lProgramTypeValue = mainService.gItems[9].dParams;
     this.lProgramAgegroupsValueForTable = mainService.SysTableList[6];
     this.settingList = mainService.settingsList;
     this.dataSource = new MatTableDataSource(this.settingList);
@@ -90,7 +90,7 @@ export class ProgramDetailsComponent implements OnInit {
     }
     var lSettingMorning: number[];
     var lSettingNoon: number[];
-debugger;
+    
     this.mainService.post("ProgramSettingsInsertUpdate", {
       iProgramId: this.currentProgram.iProgramId,
       lProgramSettings: this.currentProgram.lProgramSettings,

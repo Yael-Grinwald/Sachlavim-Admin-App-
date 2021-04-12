@@ -154,4 +154,6 @@ export class SettingsDetailsComponent implements OnInit {
   validation(){
     
   }
+
+
 }

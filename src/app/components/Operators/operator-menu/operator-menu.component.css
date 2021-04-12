@@ -5,6 +5,7 @@
    padding: 0;
    overflow: hidden;
    background-color:rgb(219 162 162);
+   height: 40px;
  }
  
  li {
@@ -22,5 +23,5 @@ li a {
  } 
  
  li a:hover {
-   background-color: #111;
+   background-color: rgba(148, 141, 141, 0.637);
  }

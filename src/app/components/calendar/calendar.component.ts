@@ -53,6 +53,8 @@ import { Program } from 'src/app/Classes/program';
 import { Operator } from 'src/app/classes/operator';
 import { Setting } from 'src/app/classes/setting';
 import { User } from 'src/app/classes/user';
+import { NgModel } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const colors: any = {
   red: {
@@ -145,7 +147,7 @@ export class CalendarComponent implements OnInit {
   // constructor(private mainService: MainServiceService, private calendar: NgbCalendar, public i18n: NgbDatepickerI18n) {
   //   this.dayTemplateData = this.dayTemplateData.bind(this);
   // }
-  constructor(private mainService: MainServiceService) {
+  constructor(private router: Router, private route: ActivatedRoute,private mainService: MainServiceService) {
   }
 
   // dayTemplateData(date: NgbDate) {
@@ -158,11 +160,11 @@ export class CalendarComponent implements OnInit {
   //   this.model = this.calendar.getToday();
   // }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.operatorList = this.mainService.operatorsList;
     this.programsList = this.mainService.programsList;
     this.settingsList = this.mainService.settingsList;
-    debugger
+
     if (this.type == 'iOperatorId') {//import the operator by the id
       this.operator = this.mainService.operatorForDetails;
       this.objName = this.operator.nvOperatorName;
@@ -180,29 +182,15 @@ export class CalendarComponent implements OnInit {
 
     }
     //אם לא מפעיל/מסגרת/תוכנית חדשה
-    //אז לקבל אירועים
+    //אז לקבל את האירועים ליומן 
     if (!(this.types['iSettingId'] == -1 && this.types['iProgramId'] == -1 && this.types['iOperatorId'] == -1)) {
-      this.mainService.post("SchedulesGet", this.types)
-        .then(
-          res => {
 
-            this.eventsFromSer = res;
+      this.eventsFromSer = <schedule[]>await this.mainService.post("SchedulesGet", this.types);
+debugger
 
-            this.eventsFromSer.forEach(element => {
-              element.dtStartTime = new Date(parseInt(element.dtStartTime.substr(6))).toString();
-              this.events.push({
-                title: element.nvProgramValue,
-                start: new Date(element.dtStartTime),
-              });
-            });
+    this.updateEventsL();
+      console.log(this.events);
 
-            console.log(this.events);
-
-          },
-          err => {
-            alert("err SchedulesGet")
-          }
-        )
     }
 
     this.mainService.settingsList.forEach(element => {//fill the settings list where the op active.
@@ -213,13 +201,32 @@ export class CalendarComponent implements OnInit {
 
   }
 
+  updateEventsL(){
+    this.eventsFromSer.forEach(element => {
+if(element.dtStartTime!=null)
+{
+        element.dtStartTime = new Date(parseInt((element.dtStartTime).toString().substr(6)));
+
+}
+else
+{
+  element.dtStartTime=new Date();
+}
+      this.events.push({
+        id:element.iScheduleId,
+        title: element.nvProgramValue,
+        start: element.dtStartTime,
+      });
+    });
+
+  }
   watch(date: any) {
-    debugger
   }
   flag: number = 0;
   ps: Setting;
+
   fillLists(str: string) {
-    debugger
+
     //מופעל רק בתוכניות וצהרונים
     //מילוי רשימת מפעילים שעובדים במיסגרת מסוימת שנבחרה לתוכנית
     if (this.eventToEdit.iSettingId != 0 && this.types["iOperatorId"] == -1) {
@@ -238,7 +245,6 @@ export class CalendarComponent implements OnInit {
     //מופעל רק במפעילים
     //מילוי רשימת מסגרות שתואמות לתוכנית שנבחרה
     if (this.eventToEdit.iProgramId != -1 && str == 'program' && this.types["iSettingId"] == -1) {
-      debugger
       this.currentProgram = this.mainService.programsList.find(p => p.iProgramId == this.eventToEdit.iProgramId);
       //מאתחל את הרשימה הנוכחית
       this.settingsList = new Array<Setting>();
@@ -259,7 +265,7 @@ export class CalendarComponent implements OnInit {
       this.operator = this.mainService.operatorsList.find(p => p.iOperatorId == this.eventToEdit.iOperatorId);
     }
   }
- 
+
   // resetArray() {
   //   this.eventsArrayByDate = new Array<schedule>();
   // }
@@ -270,14 +276,12 @@ export class CalendarComponent implements OnInit {
 
   getShortDate(date: Date) {
     let hours = date.getHours();
-    debugger
     let mnth = ("0" + (date.getMonth() + 1)).slice(-2),
       day = ("0" + date.getDate()).slice(-2);
     return [date.getFullYear(), mnth, day].join("-");
   }
   createArrayForDetails(date: Date)//יצירת מערך להצגת פרטי אירועים ליום מסויים שנבחר
   {
-    debugger
     this.dayDetails = this.getShortDate(date);
     this.eventsArrayByDate = [];
 
@@ -303,53 +307,31 @@ export class CalendarComponent implements OnInit {
   StartTime: Date = new Date();
   dTime: string;
   editEvent(e: schedule) {
-    
-    this.StartTime = new Date(e.dtStartTime);
-    this.dTime = e.dtStartTime.substr(16, 5);
-    this.eventToEdit = e;
-
+    // this.dTime = e.dtStartTime.substr(16, 5);
+    this.eventToEdit = this.eventsFromSer.find(x=>x.iScheduleId==e.iScheduleId);
+debugger
 
   }
   //new Date(2015, 10, 10, 14, 57, 0)
 
-  addEditEvent() {
-    
-    //alert((new Date(this.dTime).getHours()).toString());
-    //alert(this.dTime.substr(0,2)+':'+this.dTime.substr(3,2));
+  async addEditEvent(t: NgModel) {
 
-    // this.StartTime.setHours(+this.dTime.substr(0,2),+this.dTime.substr(3,2));
-    // this.eventToEdit.dtStartTime=this.StartTime.toUTCString();
-    //alert(JSON.stringify(this.eventToEdit.dtStartTime))
-    //עדכון השעה לאובייקט התאריך
-    this.StartTime.setHours(+this.dTime.substr(0,2));
-    this.StartTime.setMinutes(+this.dTime.substr(3,2));
-console.log(this.StartTime);
-//     this.StartTime.setHours(+this.dTime.substr(0,2),+this.dTime.substr(3,2));
-// console.log(this.StartTime);
-let date=new Date(
-  this.StartTime.getFullYear(),
-  this.StartTime.getMonth(),
-  this.StartTime.getDay(),
-  +this.dTime.substr(0,2),
-  +this.dTime.substr(3,2),0)
+    this.eventToEdit.dtStartTime.setHours(+t.viewModel.substr(0, 2));
+    this.eventToEdit.dtStartTime.setMinutes(+t.viewModel.substr(3, 2));
     debugger
-    this.mainService.post('ScheduleUpdate', {
-      iScheduleId: this.eventToEdit.iScheduleId,
-      iOperatorId: this.eventToEdit.iOperatorId,
-      iActivityId: this.eventToEdit.iActivityId,
-      iSettingId: this.eventToEdit.iSettingId,
-      iProgramId: this.eventToEdit.iProgramId,
-      dtStartTime:new Date(), 
-      bCopyAllWeeks: false,
-      iUserId: this.mainService.currentUser.iUserId
-    }).then(
-      res => {
-        alert("exelent")
-      },
-      err => {
-        alert("err")
-      }
-    )
+
+let res=<boolean> await this.mainService.post("ScheduleUpdate",{ iScheduleId: this.eventToEdit.iScheduleId,
+ iOperatorId: this.eventToEdit.iOperatorId,
+ iActivityId: this.eventToEdit.iActivityId,
+ iSettingId: this.eventToEdit.iSettingId,
+iProgramId: this.eventToEdit.iProgramId,
+ dtStartTime: this.eventToEdit.dtStartTime
+// bCopyAllWeeks: false,
+// iUserId: this.mainService.currentUser.iUserId
+});
+  debugger
+//  this.router.navigate(['./calendar'], { relativeTo: this.route });
+
 
   }
   resetEventToEdit() {

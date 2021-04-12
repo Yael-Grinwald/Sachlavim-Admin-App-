@@ -27,7 +27,7 @@
             mat-table [dataSource]="dataSource" matSort>
             <!-- Details Column -->
             <ng-container matColumnDef="details">
-                <th style="width:5%;" mat-header-cell *matHeaderCellDef> עריכה </th>
+                <th class="header" style="width:5%;" mat-header-cell *matHeaderCellDef> עריכה </th>
                 <td mat-cell *matCellDef="let element">
                     <!-- (click)="redirectToDelete(element.id)" -->
                     <button mat-icon-button class="managementColor" (click)="TheEditUser(element)" data-toggle="modal"
@@ -39,7 +39,7 @@
 
             <!-- Last Name Column -->
             <ng-container matColumnDef="nvLastName">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef> שם משפחה
+                <th class="header" style="width: 10%;" mat-header-cell *matHeaderCellDef> שם משפחה
                     <br>
                     <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
                         
@@ -51,7 +51,7 @@
 
             <!-- First Name Column -->
             <ng-container matColumnDef="nvFirstName">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef> שם פרטי
+                <th class="header" style="width: 10%;" mat-header-cell *matHeaderCellDef> שם פרטי
                     <br>
                     <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
                         
@@ -64,7 +64,7 @@
 
             <!-- User Type Column -->
             <ng-container matColumnDef="iUserType">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef>הרשאה</th>
+                <th class="header" style="width: 10%;" mat-header-cell *matHeaderCellDef>הרשאה</th>
                 <td mat-cell *matCellDef="let row">
                     <!-- <p *ngIf="row.iUserType==1" >מנהלת</p>
                 <p *ngIf="row.iUserType==2" >מזכירה</p> -->
@@ -75,7 +75,7 @@
 
             <!-- User Name Column -->
             <ng-container matColumnDef="nvUserName">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef>שם משתמש
+                <th class="header" style="width: 10%;" mat-header-cell *matHeaderCellDef>שם משתמש
                     <br>
                     <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
                         
@@ -87,7 +87,7 @@
 
             <!-- Mobile Column -->
             <ng-container matColumnDef="nvMobile">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef>טלפון נייד
+                <th class="header" style="width: 10%;" mat-header-cell *matHeaderCellDef>טלפון נייד
                     <br>
                     <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
                         
@@ -99,7 +99,7 @@
 
             <!-- Mail  Column -->
             <ng-container matColumnDef="nvMail">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef> מייל
+                <th class="header" style="width: 10%;" mat-header-cell *matHeaderCellDef> מייל
                     <br>
                     <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
                         

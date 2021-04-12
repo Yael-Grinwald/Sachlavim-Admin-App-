@@ -1,16 +1,21 @@
-<div style="width: 100%;margin: auto;text-align: center;">
-    <mwl-demo-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate" [locale]="locale">
+<div style="width: 90%;margin: auto;text-align: center;">
+    <mwl-demo-utils-calendar-header  [(view)]="view" [(viewDate)]="viewDate" [locale]="locale">
     </mwl-demo-utils-calendar-header>
 
-    <button class="btnOp" data-toggle="modal"  data-target="#addEditEvent" (click)="resetEventToEdit()" mat-stroked-button>הוספת פעילות</button>
+    <button class="btnOp" data-toggle="modal" data-target="#addEditEvent" (click)="resetEventToEdit()"
+        mat-stroked-button>הוספת פעילות</button>
 
-    <ng-template #customCellTemplate let-day="day" let-locale="locale">
+    <ng-template #customCellTemplate let-day="day" style="height: 500px;" let-locale="locale">
         <div class="cal-cell-top">
             <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
             <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
 
             <span style="float: left; padding-left: 10px;" class="cal-day-number">{{ day.date | hebrewDate }}</span><br>
-             <span style="float: left; padding-left: 10px;" class="cal-day-number">{{ day.date | parasha }}</span> 
+            <!-- <span style="float: left; padding-left: 10px;" class="cal-day-number">{{ day.date | parasha }}</span> -->
+            <p style="
+            text-align: center;
+            margin-top: 30%;
+            font-size: 15px;">{{ day.date | parasha }}</p>
             <!-- <span style="float: left; margin-top:0%;font-size: 15px;margin-left: 5px;" class="cal-day-number">{{ day.date | holidays }}</span> -->
 
         </div>
@@ -21,18 +26,22 @@
             האירועים</a>
     </ng-template>
 
-    <div [ngSwitch]="view" id="calendar">
-        <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events"
-            [cellTemplate]="customCellTemplate" [locale]="locale" [weekStartsOn]="weekStartsOn"
-            [weekendDays]="weekendDays">
-        </mwl-calendar-month-view>
 
-        <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" [locale]="locale"
-            [weekStartsOn]="weekStartsOn" [weekendDays]="weekendDays">
-        </mwl-calendar-week-view>
+    <div class="c">
+        <div [ngSwitch]="view" id="calendar">
+            <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events"
+                [cellTemplate]="customCellTemplate" [locale]="locale" [weekStartsOn]="weekStartsOn"
+                [weekendDays]="weekendDays">
+            </mwl-calendar-month-view>
 
-        <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [locale]="locale">
-        </mwl-calendar-day-view>
+            <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" [locale]="locale"
+                [weekStartsOn]="weekStartsOn" [weekendDays]="weekendDays">
+            </mwl-calendar-week-view>
+
+            <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [locale]="locale">
+            </mwl-calendar-day-view>
+        </div>
+
     </div>
 
 </div>
@@ -56,17 +65,16 @@
             <!--Body-->
             <div class="modal-body" style="text-align:right;" dir="rtl">
                 <dl *ngFor="let event of eventsArrayByDate">
-                    <dt> {{event.dtStartTime| date:'shortTime'}} | מסגרת: {{event.nvSettingName}} </dt>
-                    <p>כתובת: {{event.nvAddress}}</p> 
+                    <dt> {{event.dtStartTime| date:'hh:mm'}} | מסגרת: {{event.nvSettingName}} </dt>
+                    <p>כתובת: {{event.nvAddress}}</p>
                     <p>טלפון איש קשר: {{event.nvPhone}}</p>
-                    <p>פעילות: {{event.nvActivityName}}</p> 
+                    <p>פעילות: {{event.nvActivityName}}</p>
 
-                    <button (click)="editEvent(event)" data-toggle="modal" data-target="#addEditEvent" 
-                    style="cursor: pointer; text-align: center;  text-decoration: underline;">עריכה</button>
+                    <button (click)="editEvent(event)" data-toggle="modal" data-target="#addEditEvent"
+                        style="cursor: pointer; text-align: center;  text-decoration: underline;">עריכה</button>
 
 
-                    <button (click)="editEvent(event)" data-toggle="modal" data-target="#addEvent" style="cursor: pointer; text-align: center;  text-decoration: underline;">עריכה</button>
-                   
+
                     <!-- <dd>תוכנית: {{event.nvProgramValue}}</dd> -->
 
                     <!-- public iOperatorId: number = -1,
@@ -108,7 +116,7 @@
             <div class="modal-header" style="text-align:center;">
                 <h4 style="width: 100%;" class="modal-title" id="myModalLabel">הוספת אירוע חדש</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" >×</span>
+                    <span aria-hidden="true">×</span>
                 </button>
             </div>
 
@@ -119,7 +127,8 @@
                     <label class="example-margin">לתוכנית:</label><br>
                     <mat-form-field>
                         <mat-label>בחר תוכנית</mat-label>
-                        <mat-select [(ngModel)]="eventToEdit.iProgramId" name="programId" (ngModelChange)="fillLists('program')">
+                        <mat-select [(ngModel)]="eventToEdit.iProgramId" name="programId"
+                            (ngModelChange)="fillLists('program')">
                             <mat-option *ngFor="let p of programsList" [value]="p.iProgramId">
                                 {{p.nvProgramName}}
                             </mat-option>
@@ -131,7 +140,8 @@
                     <label class="example-margin">למסגרת:</label><br>
                     <mat-form-field>
                         <mat-label>בחר מיסגרת</mat-label>
-                        <mat-select name="settingId" [(ngModel)]="eventToEdit.iSettingId" (ngModelChange)="fillLists('setting')">
+                        <mat-select name="settingId" [(ngModel)]="eventToEdit.iSettingId"
+                            (ngModelChange)="fillLists('setting')">
                             <mat-option *ngFor="let s of settingsList" [value]="s.iSettingId">
                                 {{s.nvSettingName}}
                             </mat-option>
@@ -143,7 +153,8 @@
                     <label class="example-margin">למפעיל:</label><br>
                     <mat-form-field>
                         <mat-label>בחר מפעיל</mat-label>
-                        <mat-select [(ngModel)]="eventToEdit.iOperatorId" name="operatorId" (ngModelChange)="fillLists('operator')">
+                        <mat-select [(ngModel)]="eventToEdit.iOperatorId" name="operatorId"
+                            (ngModelChange)="fillLists('operator')">
                             <mat-option *ngFor="let o of operatorList" [value]="o.iOperatorId">
                                 {{o.nvOperatorName}}
                             </mat-option>
@@ -163,29 +174,30 @@
                     </mat-form-field>
                 </section>
 
-                <mat-form-field >
+                <mat-form-field>
                     <mat-label>שעה:</mat-label>
-                    <input matInput [(ngModel)]="dTime" matInput type="time" >
-                  </mat-form-field><br>
+                    <input matInput #time="ngModel" [ngModel]="eventToEdit.dtStartTime |date:'hh:mm'"  matInput type="time">
+                </mat-form-field><br>
 
                 <!-- <mat-form-field class="example-form-field col-sm-12">
                     <mat-label>שעה:</mat-label>
                     <input [(ngModel)]="dTime" matInput type="time" placeholder="00:00">
                 </mat-form-field> -->
-                
-                <mat-form-field >
+
+                <mat-form-field>
                     <mat-label>תאריך:</mat-label>
-                    <input [(ngModel)]="StartTime" matInput [matDatepicker]="picker">
+                    <input [(ngModel)]="eventToEdit.dtStartTime" matInput [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker ></mat-datepicker>
-                  </mat-form-field>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
 
             </div>
 
 
 
             <div style="margin: auto;" class="modal-footer">
-                <button type="button"  aria-label="Close" class="btn btn-primary" data-dismiss="modal" (click)="addEditEvent()">שמור</button>
+                <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal"
+                    (click)="addEditEvent(time)">שמור</button>
             </div>
 
         </div>

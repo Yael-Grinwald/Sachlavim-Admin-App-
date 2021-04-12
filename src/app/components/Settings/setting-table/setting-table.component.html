@@ -9,8 +9,7 @@
             <button mat-stroked-button class="settingColor" (click)="addSetting()"> הוספת מסגרת</button>
         </div>
         <div class="col-lg-3">
-            <button mat-button class="settingBtn" (click)="exporter.exportTable('xls',{fileName:'settingsTable'})">ייצא
-                ל Excel</button>
+            <button mat-button class="settingBtn" (click)="exporter.exportTable('xls',{fileName:'settingsTable'})">ייצא ל Excel</button>
         </div>
 
 
@@ -107,9 +106,9 @@
 
             <!-- ContactPersonMail  Column -->
             <ng-container matColumnDef="nvContactPersonMail">
-                <th class="header" style="width: 1%;" mat-header-cell *matHeaderCellDef> מייל איש קשר
+                <th class="header" style="width: 8%;" mat-header-cell *matHeaderCellDef> מייל איש קשר
                     <br>
-                    <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
+                    <mat-form-field style="width: 90px;" class="filter" floatLabel="never">
 
                         <input matInput value="חפש" [formControl]="ContactPersonMailFilter">
                     </mat-form-field>

@@ -4,7 +4,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   selector: 'mwl-demo-utils-calendar-header',
   styleUrls: ['./calendar.component.css'],
   template: `
-    <div class="row text-center">
+    <div class="row text-center" style="height:40px;background-color: transparent;">
       <div class="col-md-4">
         <div class="btn-group">
           <div
@@ -33,7 +33,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
         </div>
       </div>
       <div class="col-md-4">
-        <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
+        <h3 style="color: white;font-weight: 500;">{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
       </div>
      
       <div class="col-md-4">

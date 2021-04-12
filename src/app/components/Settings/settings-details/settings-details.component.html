@@ -3,13 +3,13 @@
     <div class="form-group row">
         <form class="form" (ngSubmit)="saveSetting()">
             <button class="saveIconBtn" mat-icon-button aria-label="Example icon button with a home icon" title="שמור">
-                <mat-icon>save</mat-icon>
+                <mat-icon class="saveIcon">save</mat-icon>
 
             </button>
-            <h3 class="newObj" *ngIf="newSe"> מסגרת חדשה</h3>
+            <h4 class="newObj" *ngIf="newSe"> מסגרת חדשה</h4>
 
             <div style="height: 170px;margin: auto;width: 50%;padding-top: 25px;">
-                <h3 class="settingColor">פרטי מסגרת</h3>
+                <h4 class="settingColor">פרטי מסגרת</h4>
                 <mat-form-field class="example-form-field">
                     <mat-label>שם מסגרת</mat-label>
                     <input matInput type="text" [(ngModel)]="currentSetting.nvSettingName" name="nvSettingName"
@@ -26,11 +26,12 @@
                     </mat-select>
 
                 </mat-form-field><br>
-                <mat-form-field class="example-form-field">
+
+                <!-- <mat-form-field class="example-form-field">
                     <mat-label>סמל</mat-label>
                     <input matInput type="text" [(ngModel)]="currentSetting.nvSettingCode" name="nvSettingCode" />
 
-                </mat-form-field><br>
+                </mat-form-field><br> -->
                 <mat-form-field class="example-form-field">
                     <mat-label>טלפון</mat-label>
                     <input matInput type="text" [(ngModel)]="currentSetting.nvPhone" name="nvPhone" />
@@ -93,7 +94,7 @@
             </mat-accordion> -->
 
 
-                <h3 class="settingColor">איש קשר</h3>
+                <h4 class="settingColor">איש קשר</h4>
                 <mat-form-field class="example-form-field">
                     <mat-label>שם איש קשר</mat-label>
                     <input matInput type="text" [(ngModel)]="currentSetting.nvContactPerson" name="nvContactPerson" />
@@ -114,27 +115,32 @@
 
                 </mat-form-field><br>
 
-                <h3 class="settingColor">פרטי פעילות</h3>
+                <h4 class="settingColor">פרטי פעילות</h4>
 
                 <div class="col-sm-12" style="margin: auto; display: inline-block;">
-                    <p style="font-size: smaller; color: rgb(109, 108, 108);">קטגורית גילאים</p>
-                    <ng-multiselect-dropdown name="SettingAgegroups" [settings]="dropdownSettingAgegroups"
-                        [data]="lSettingAgegroupsValue" [(ngModel)]="SettingAgegroupsListNg"
-                        [placeholder]="'קטגורית גילאים'" (onSelect)="onItemSelect($event)"
-                        (onSelectAll)="onSelectAll($event)" (onDeSelect)="OnItemDeSelect($event)">
+                    <p style="font-size: smaller; color: rgb(0, 0, 0);">קטגורית גילאים</p>
+                    <ng-multiselect-dropdown name="SettingAgegroups" [(ngModel)]="SettingAgegroupsListNg" 
+                    [settings]="dropdownSettingAgegroups"
+                        [data]="lSettingAgegroupsValue" 
+                        [placeholder]="'קטגורית גילאים'" 
+                    >
+                    <!-- (onSelect)="onItemSelect($event)"
+                    (onSelectAll)="onSelectAll($event)"
+                 (onDeSelect)="OnItemDeSelect($event)"
+                    (onDeSelectAll)="onDeSelectAll($event)"> -->
                     </ng-multiselect-dropdown>
-                </div><br><br>
+                </div><br>
 
-                <mat-form-field class="example-form-field">
+                <!-- <mat-form-field class="example-form-field">
                     <mat-label>מיקום פעילות</mat-label>
                     <input matInput type="text" [(ngModel)]="currentSetting.nvOperatingLocation"
                         name="nvOperatingLocation" />
 
-                </mat-form-field><br>
+                </mat-form-field><br> -->
 
                 <h6 class="settingColor">קיטנה</h6>
                 <input type="checkbox" [(ngModel)]="currentSetting.bSettingMorning" name="bSettingMorning" />
-                <mat-label> מסגרת בוקר </mat-label>
+                <mat-label> מסגרת בוקר </mat-label><br>
                 <input type="checkbox" [(ngModel)]="currentSetting.bSettingNoon" name="bSettingNoon" />
                 <mat-label>מסגרת צהריים </mat-label>
 
@@ -266,10 +272,7 @@
                             <input matInput type="text" [(ngModel)]="addCoordinator.nvPhone" name="nvPhone" />
                             <mat-hint align="end">{{ addCoordinator.nvPhone| phone}}</mat-hint>
 
-                            <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
-                                (click)="value=''">
-                                <mat-icon>close</mat-icon>
-                            </button>
+                         
                         </mat-form-field><br>
                         <mat-form-field class="example-form-field">
                             <mat-label>מייל</mat-label>

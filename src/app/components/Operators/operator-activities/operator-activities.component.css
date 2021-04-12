@@ -1,0 +1,5 @@
+.saveDialog{
+    background-color: var(--operatorClr);
+      border-color: var(--operatorClr);    color: white;
+
+  }

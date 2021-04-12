@@ -37,7 +37,7 @@
     text-align:right;
     width:70%;
     padding-top: 75px;   
-    height: 85%;
+    height: 87.5%;
 }
 h1{
     font-weight: 500;
@@ -59,7 +59,7 @@ h1{
 
 
 .middle{  
-    margin-top: 60px;
+    margin-top: 48px;
     /* padding-top: 5%; */
 }
 
@@ -75,21 +75,22 @@ h1{
 
 .container-fluid{
     background-color:white;
-    height: 120px;
+    height: 100px;
     box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
 
 }
 
-.img{
+/* .img{
 margin-top: 1.5%;
-}
+} */
 img{
     float: right;
 }
 p{
     text-align: center;
-    padding-top: 9%;
+    padding-top: 7%;
     font-size: 130%;
+    margin-bottom: 10px;
 }
 /* ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
     background-color: #398efd;

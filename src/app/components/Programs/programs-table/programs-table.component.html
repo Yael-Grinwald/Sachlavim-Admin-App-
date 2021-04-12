@@ -5,7 +5,7 @@
         </div>
         <div class="col-lg-6">
            
-            <button mat-stroked-button class="programColor" (click)="addProgram()"> הוספת מסגרת</button>
+            <button mat-stroked-button class="programColor" (click)="addProgram()"> הוספת תוכנית</button>
         </div>
         <div class="col-lg-3">
             <button mat-button class="programBtn" (click)="exporter.exportTable('xls',{fileName:'programTable'})">ייצא ל Excel</button>
@@ -20,7 +20,7 @@
 
             <!-- ProgramTypeValue Column -->
             <ng-container matColumnDef="iProgramType">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef>סוג תוכנית
+                <th class="header" style="width: 10%;" mat-header-cell *matHeaderCellDef>סוג תוכנית
                     <!-- <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
                         
                         <input matInput value="חפש" [formControl]="ProgramTypeFilter">
@@ -30,7 +30,7 @@
 
             <!-- ProgramName Column -->
             <ng-container matColumnDef="nvProgramName">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef>שם תוכנית
+                <th class="header" style="width: 10%;" mat-header-cell *matHeaderCellDef>שם תוכנית
                     <br>
                     <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
                         <input value="חפש" matInput value="חפש" [formControl]="ProgramNameFilter">
@@ -42,7 +42,7 @@
 
             <!-- FromDateFormat Column -->
             <ng-container matColumnDef="dFromDateFormat">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef>מתאריך
+                <th class="header" style="width: 10%;" mat-header-cell *matHeaderCellDef>מתאריך
                     <br>
                     <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
                         
@@ -55,7 +55,7 @@
 
             <!-- ToDateFormat Column -->
             <ng-container matColumnDef="dToDateFormat">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef>עד תאריך
+                <th class="header" style="width: 10%;" mat-header-cell *matHeaderCellDef>עד תאריך
                     <br>
                     <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
                         
@@ -67,7 +67,7 @@
 
             <!-- engthProgramSettings Column -->
             <ng-container matColumnDef="lProgramSettings">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef>מספר מסגרות
+                <th class="header" style="width: 10%;" mat-header-cell *matHeaderCellDef>מספר מסגרות
                     <!-- <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
                         
                         <input matInput value="חפש" [formControl]="ProgramSettingsFilter">
@@ -78,7 +78,7 @@
 
             <!-- ProgramAgegroupsValue  Column -->
             <ng-container matColumnDef="lProgramAgegroups">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef> קטגוריות גילאים </th>
+                <th class="header" style="width: 10%;" mat-header-cell *matHeaderCellDef> קטגוריות גילאים </th>
                 <td mat-cell *matCellDef="let row">
                     <div *ngFor="let r of row.lProgramAgegroups" style="display: inline;">
                         {{this.lProgramAgegroupsValue.get(r)}},
@@ -88,7 +88,7 @@
 
             <!-- BudgetItem  Column -->
             <!-- <ng-container matColumnDef="nvBudgetItem">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef> סעיף תקציבי
+                <th class="header" style="width: 10%;" mat-header-cell *matHeaderCellDef> סעיף תקציבי
                     <br>
                     <mat-form-field style="width: 80px;" class="filter" floatLabel="never">
                         
@@ -102,7 +102,7 @@
 
             <!-- Edit Column -->
             <ng-container matColumnDef="edit">
-                <th style="width: 10%;" mat-header-cell *matHeaderCellDef>עריכה </th>
+                <th class="header" style="width: 10%;" mat-header-cell *matHeaderCellDef>עריכה </th>
                 <td mat-cell *matCellDef="let element">
                     <!-- (click)="redirectToDelete(element.id)" -->
                     <button mat-icon-button class="programColor" (click)="EditProgram(element)">

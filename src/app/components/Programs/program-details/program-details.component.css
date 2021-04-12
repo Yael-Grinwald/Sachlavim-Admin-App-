@@ -30,7 +30,7 @@
   }
   form {
     width: 60%;
-    height: 610px;
+    height: 650px;
     margin: auto;
     text-align: center;
     direction: rtl; 
@@ -52,7 +52,3 @@ width: 100%;
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
 border-color: #c01f1f;
 }
-mat-icon{
-    font-size: 40px;
-    text-shadow: 10px 10px 20px #ffffff;
-  }

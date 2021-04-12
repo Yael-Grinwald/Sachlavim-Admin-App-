@@ -5,7 +5,7 @@ export class schedule {
         public iScheduleId: number = -1,
         public iSettingId: number = -1,
         public iProgramId: number = -1,
-        public dtStartTime: string='',
+        public dtStartTime: Date = new Date(),
         public nvProgramValue: string = '',
         public bClosedDay: boolean = false,
         public bLongDay: boolean = false,

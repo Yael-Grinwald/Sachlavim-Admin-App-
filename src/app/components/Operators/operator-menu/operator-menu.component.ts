@@ -21,6 +21,6 @@ export class OperatorMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-
+let t=100;
   }
 }

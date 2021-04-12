@@ -1,18 +1,24 @@
+   
+
+
+
 <div class="container-" style="text-align:right;margin: auto; " dir="rtl">
     <div style="width: 90%;margin: auto;" class="overflow-auto">
 
-        <table mat-table [dataSource]="dataSource" matSort>
+        <table mat-table [dataSource]="dataSource" matSort scrollY="true" maxHeight="200">
+
+           
 
             <!-- Name Column -->
             <ng-container matColumnDef="nvActivityName">
-                <th style="width: 15%;" mat-header-cell *matHeaderCellDef mat-sort-header>שם פעילות</th>
+                <th class="header" style="width: 15%;" mat-header-cell *matHeaderCellDef mat-sort-header>שם פעילות</th>
                 <td mat-cell *matCellDef="let row"> {{row.nvActivityName}} </td>
             </ng-container>
 
 
             <!-- Contact Name Column -->
             <ng-container matColumnDef="iCategoryType">
-                <th style="width: 10%;size: 100px;" mat-header-cell *matHeaderCellDef mat-sort-header>קטגורית פעילות
+                <th class="header" style="width: 10%;size: 100px;" mat-header-cell *matHeaderCellDef mat-sort-header>קטגורית פעילות
                 </th>
                 <td mat-cell *matCellDef="let row"> {{activityCategories.get(row.iCategoryType) }} </td>
             </ng-container>
@@ -20,13 +26,13 @@
 
             <!-- kind Column -->
             <ng-container matColumnDef="nvActivityProduct">
-                <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>תוצר פעילות</th>
+                <th class="header" style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>תוצר פעילות</th>
                 <td mat-cell *matCellDef="let row"> {{row.nvActivityProduct}} </td>
             </ng-container>
 
             <!-- kind Column -->
             <ng-container matColumnDef="lActivityAgegroups">
-                <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>קטגורית גילאים</th>
+                <th class="header" style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>קטגורית גילאים</th>
                 <td mat-cell *matCellDef="let row">
                     <div *ngFor="let age of row.lActivityAgegroups">
                         {{ agesForTable.get(age)}}
@@ -36,48 +42,43 @@
 
             <!-- kind Column -->
             <ng-container matColumnDef="nPrice">
-                <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>מחיר + מע"מ</th>
+                <th class="header" style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>מחיר + מע"מ</th>
                 <td mat-cell *matCellDef="let row"> {{row.nPrice}} ש"ח </td>
             </ng-container>
 
             <!-- kind Column -->
             <ng-container matColumnDef="nShortBreak">
-                <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>הפסקה-גן צמוד</th>
+                <th class="header" style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>הפסקה-גן צמוד</th>
                 <td mat-cell *matCellDef="let row"> {{row.nShortBreak}} דקות </td>
             </ng-container>
             <!-- kind Column -->
             <ng-container matColumnDef="nLongBreak">
-                <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>הפסקה-גן רחוק</th>
+                <th class="header" style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>הפסקה-גן רחוק</th>
                 <td mat-cell *matCellDef="let row"> {{row.nLongBreak}} דקות </td>
             </ng-container>
             <!-- kind Column -->
             <ng-container matColumnDef="bActivityMorning">
-                <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>פעילות בוקר?</th>
+                <th class="header" style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>פעילות בוקר?</th>
                 <td mat-cell *matCellDef="let row"> {{row.bActivityMorning==true?"לא":"כן"}} </td>
             </ng-container> <!-- kind Column -->
             <ng-container matColumnDef="bActivityNoon">
-                <th style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>פעילות צהרים?</th>
+                <th class="header" style="width: 5%;" mat-header-cell *matHeaderCellDef mat-sort-header>פעילות צהרים?</th>
                 <td mat-cell *matCellDef="let row"> {{row.bActivityNoon==true?"לא":"כן"}} </td>
             </ng-container>
-
-            <!-- Update -->
-            <ng-container matColumnDef="update">
-                <th style="width:4%;" mat-header-cell *matHeaderCellDef> עריכה </th>
-                <td mat-cell *matCellDef="let element">
-                    <!-- (click)="redirectToUpdate(element.id)" -->
-                    <button mat-icon-button color="accent" data-toggle="modal" data-target="#EditActiv"
-                        (click)="EditActivity(element)">
-                        <mat-icon matSuffix>create</mat-icon>
-                    </button>
-                </td>
-            </ng-container>
-
-
-
+   <!-- Update -->
+   <ng-container matColumnDef="update">
+    <th class="header" style="width:4%;" mat-header-cell *matHeaderCellDef> עריכה </th>
+    <td mat-cell *matCellDef="let element">
+        <!-- (click)="redirectToUpdate(element.id)" -->
+        <button mat-icon-button class="opColor" data-toggle="modal" data-target="#EditActiv"
+            (click)="EditActivity(element)">
+            <mat-icon matSuffix>create</mat-icon>
+        </button>
+    </td>
+</ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-
+         
         </table>
 
         <mat-paginator [pageSizeOptions]="[7]"></mat-paginator>
@@ -94,7 +95,7 @@
         <div class="modal-content">
             <!--Header-->
             <div class="modal-header">
-                <h4 style="text-align: center;" class="modal-title" id="myModalLabel">עריכת פעילות:
+                <h4 style="text-align: center;" class="modal-title" id="myModalLabel">עריכת פעילות:<br>
                     {{CurrentActivity.nvActivityName}}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
@@ -102,7 +103,6 @@
             </div>
             <!--Body-->
             <div class="modal-body">
-                <form>
 
                     <mat-form-field class="example-form-field" style="direction:rtl;">
                         <mat-label>שם פעילות</mat-label>
@@ -139,21 +139,19 @@
                     </mat-form-field>
                     <br>
 
-                    <mat-form-field appearance="legacy">
+                    <mat-form-field style="width: 20%;"  appearance="legacy">
                         <mat-label>הפסקה גן צמוד</mat-label>
                         <input [(ngModel)]="CurrentActivity.nShortBreak" type="number" matInput name="nShortBreak"
                             placeholder="Placeholder">
-                        <mat-hint>דקות</mat-hint>
-                    </mat-form-field>
+                    </mat-form-field>דקות
 
                     <br>
 
-                    <mat-form-field appearance="legacy">
+                    <mat-form-field style="width: 20%;"  appearance="legacy">
                         <mat-label>הפסקה גן רחוק</mat-label>
                         <input [(ngModel)]="CurrentActivity.nLongBreak" type="number" matInput name="nLongBreak"
                             placeholder="Placeholder">
-                        <mat-hint>דקות</mat-hint>
-                    </mat-form-field>
+                    </mat-form-field>דקות
 
 
                     <section style="direction: rtl;" class="example-section">
@@ -182,16 +180,16 @@
                         </mat-checkbox>
                     </section>
 
-                    <div style="text-align: center;" mat-dialog-actions>
-                        <button (click)="saveActiveChanges()" mat-flat-button mat-dialog-close
-                            color="accent">שמור</button>
-                    </div>
+                 
 
-
-                </form>
 
             </div>
-
+ 
+                
+                    <div style="margin: auto;" class="modal-footer">
+                        <button type="button" aria-label="Close" class="btn saveDialog" data-dismiss="modal"
+                            (click)="saveActiveChanges()">שמור</button>
+                    </div>
         </div>
 
     </div>

@@ -43,7 +43,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --managerClr: rgb(91, 185, 170)
 
   }
-
+.opColor{
+  color: var(--operatorClr);
+}
 mat-sort-header-button{
 display: none;
 }
@@ -74,7 +76,7 @@ a, button{
       position: sticky;
       position: -webkit-sticky;
       height: 100px;
-      top: 20px;
+      top: 0px;
       float: left;
       margin-left: 30px;
       
@@ -85,7 +87,12 @@ a, button{
   .mat-form-field-appearance-legacy .mat-hint{
     color: red;
 }
+.saveIcon{
+  
+  font-size: 48px;
+  text-shadow: 10px 10px 20px #ffffff;
 
+}
 .imageBackground{
     background-color: aquamarine;
     /* url('/assets/Images/two-daisies-in-the-grass.jpg') no-repeat center center fixed; */

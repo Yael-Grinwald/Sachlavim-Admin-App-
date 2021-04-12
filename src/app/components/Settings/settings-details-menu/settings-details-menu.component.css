@@ -1,8 +1,27 @@
-li{
-    margin-left :20px;
-}
-.navbar-nav li a:hover,
-.navbar-nav li a:focus
-{
-    color: rgb(47, 50, 150);
-}
+
+ ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color:rgb(143 160 241);
+    height: 40px;
+  }
+  
+  li {
+    float: right;
+    display: inline-block;
+  }
+  
+ li a {
+    /* display: block; */
+    color: white;
+    font-weight: 600;
+    /* text-align: center;
+    padding: 14px 16px;*/
+    text-decoration: none; 
+  } 
+  
+  li a:hover {
+    background-color: rgba(148, 141, 141, 0.637);
+  }

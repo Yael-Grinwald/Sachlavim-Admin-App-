@@ -3,18 +3,18 @@
     <div class="form-group row">
         <form (ngSubmit)="testDate()">
             <button class="saveIconBtn" mat-icon-button aria-label="Example icon button with a home icon" title="שמור">
-                <mat-icon>save</mat-icon>
+                <mat-icon class="saveIcon">save</mat-icon>
             </button>
             <div style="height: 170px;
-       margin: auto;
-       width: 50%;
-       padding-top: 25px;">
+                      margin: auto;
+                      width: 50%;
+                      padding-top: 25px;">
                 <h3 style="z-index: 20;" class="programColor">פרטי תוכנית</h3>
                 <mat-form-field class="example-form-field">
                     <mat-select [(ngModel)]="currentProgram.iProgramType" required placeholder="סוג תוכנית"
                         name="iProgramType">
-                        <mat-option *ngFor="let s of lProgramTypeValue.keys()" [value]="s">
-                            {{this.lProgramTypeValue.get(s)}}
+                        <mat-option *ngFor="let s of lProgramTypeValue" [value]="s.Key">
+                            {{this.s.Value}}
                         </mat-option>
                     </mat-select>
                     <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
@@ -24,17 +24,18 @@
                 <mat-form-field class="example-form-field">
                     <mat-label>שם תוכנית</mat-label>
                     <input matInput type="text" [(ngModel)]="currentProgram.nvProgramName" name="nvProgramName"
-                        required />
-                        <mat-hint align="end" >{{ currentProgram.nvProgramName| string }}</mat-hint>
+                         />
+                    <mat-hint align="end">{{ currentProgram.nvProgramName| required }}</mat-hint>
 
                 </mat-form-field><br>
                 <mat-form-field class="example-form-field">
                     <mat-label>סעיף תקציבי</mat-label>
                     <input matInput type="text" [(ngModel)]="currentProgram.nvBudgetItem" name="nvBudgetItem" />
                 </mat-form-field><br>
-                
+
+
                 <div class="col-sm-12" style="margin: auto;">
-                    <p style="font-size: smaller;" class="programColor">קטגורית גילאים</p>
+                    <p style="font-size: smaller;">קטגורית גילאים</p>
                     <ng-multiselect-dropdown name="ProgramAgegroups" [settings]="dropdownProgramAgegroups"
                         [data]="lProgramAgegroupsValue" [(ngModel)]="ProgramAgegroupsListNg"
                         [placeholder]="'קטגורית גילאים'" (onSelect)="onItemSelect($event)"
@@ -55,16 +56,16 @@
                 <div>
                     <mat-form-field class="example-form-field">
                         <mat-label>מספר הפעלות מועדפות</mat-label>
-                        <input matInput type="number" required [(ngModel)]="currentProgram.iActivityPreferenceCount"
+                        <input matInput type="number" min="0" min="0" required [(ngModel)]="currentProgram.iActivityPreferenceCount"
                             name="iActivityPreferenceCount" />
-                       
+
                     </mat-form-field><br>
                     <mat-form-field class="example-form-field">
                         <mat-label>מספר הפעלות מועדפות לשבוע</mat-label>
-                        <input matInput type="number" required
+                        <input matInput type="number" min="0" required
                             [(ngModel)]="currentProgram.iActivityPreferenceInWeekCount"
                             name="iActivityPreferenceInWeekCount" />
-                       
+
                     </mat-form-field><br>
                 </div>
 
@@ -73,21 +74,21 @@
 
                     <mat-form-field class="example-form-field">
                         <mat-label>מספר הפעלות בוקר</mat-label>
-                        <input matInput type="number" required [(ngModel)]="currentProgram.iNumActivityMorning"
+                        <input matInput type="number" min="0" required [(ngModel)]="currentProgram.iNumActivityMorning"
                             name="iNumActivityMorning" />
-                       
+
                     </mat-form-field><br>
                     <mat-form-field class="example-form-field">
                         <mat-label>בוקר - משעה</mat-label>
                         <input matInput type="time" [(ngModel)]="currentProgram.tFromTimeMorning"
                             name="tFromTimeMorning" />
-                       
+
                     </mat-form-field><br>
 
                     <mat-form-field class="example-form-field">
                         <mat-label>בוקר - עד שעה</mat-label>
                         <input matInput type="time" [(ngModel)]="currentProgram.tToTimeMorning" name="tToTimeMorning" />
-                       
+
                     </mat-form-field><br>
                 </div>
                 <div>
@@ -95,22 +96,22 @@
 
                     <mat-form-field class="example-form-field">
                         <mat-label>מספר הפעלות צהריים</mat-label>
-                        <input matInput type="number" required [(ngModel)]="currentProgram.iNumActivityAfternoon"
+                        <input matInput type="number" min="0" required [(ngModel)]="currentProgram.iNumActivityAfternoon"
                             name="iNumActivityAfternoon" />
-                       
+
                     </mat-form-field><br>
                     <mat-form-field class="example-form-field">
                         <mat-label>צהריים - משעה</mat-label>
                         <input matInput type="time" [(ngModel)]="currentProgram.tFromTimeAfternoon"
                             name="tFromTimeAfternoon" />
-                       
+
                     </mat-form-field><br>
 
                     <mat-form-field class="example-form-field">
                         <mat-label>צהריים - עד שעה</mat-label>
                         <input matInput type="time" [(ngModel)]="currentProgram.tToTimeAfternoon"
                             name="tToTimeAfternoon" />
-                       
+
                     </mat-form-field><br>
                 </div>
 
@@ -122,7 +123,7 @@
                 </div><br>
                 <div>
                     <!-- Button trigger modal-->
-                    <button type="button" style="background-color:rgb(98, 169, 29); color: white;" class="btn col-sm-4"
+                    <button type="button" style="background-color:rgb(0, 0, 0); color: white;" class="btn col-sm-4"
                         data-toggle="modal" data-target="#modalCart">שיוך
                         מסגרות</button>
 
@@ -184,7 +185,7 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-                 
+
                 </table>
                 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
