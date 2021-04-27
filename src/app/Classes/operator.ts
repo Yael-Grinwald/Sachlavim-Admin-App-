@@ -7,9 +7,9 @@ export class Operator {
  
     public iCreateByUserId: number;
     public CreateDate: Date;
-    public iLastModifyUserId: number;//לבדוק מה זה
-    public iLastModifyDate: number;//לבדוק מה זה
-    public iSysRowStatus: number;//לבדוק מה זה
+    public iLastModifyUserId: number;
+    public iLastModifyDate: number;
+    public iSysRowStatus: number;
     public settings:Setting[]=[];
 
     constructor(
@@ -43,7 +43,7 @@ export class Operator {
 
         public lSchoolsExcude:number[]=[],
  
-        public lActivity:Activity[]=[],
+        public lActivity:Activity[]=[new Activity()],
 
         public iNumBookkeeping: number=0,
 

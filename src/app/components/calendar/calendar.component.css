@@ -30,6 +30,16 @@ mat-form-field {
         font-size: 18px;
     }
     .btn-group .btn{
-        color: white;
+        color: rgb(0, 0, 0);
     }
-    
+
+    .btn-primary {
+        background-color: #ffffff;
+        border-color: #cad2da;
+    }
+
+    .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+        color: #fff;
+        background-color: #000000;
+        border-color: #000000;
+    }

@@ -3,3 +3,30 @@
 {
     color:rgb(240, 236, 20, 0.904);
 }
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color:rgba(228, 226, 105, 0.904);;
+    height: 40px;
+  }
+  
+  li {
+    float: right;
+    display: inline-block;
+  }
+  
+ li a {
+    /* display: block; */
+    color: white;
+    font-weight: 600;
+    /* text-align: center;
+    padding: 14px 16px;*/
+    text-decoration: none; 
+  } 
+  
+  li a:hover {
+    background-color: rgba(148, 141, 141, 0.637);
+  }

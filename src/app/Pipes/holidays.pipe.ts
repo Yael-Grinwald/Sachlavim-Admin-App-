@@ -15,7 +15,7 @@ export class HolidaysPipe implements PipeTransform {
       {
 
         if (day.holidays(true)[0].getDesc('h').includes('שבת') == false) {
-          debugger
+          
           return day.holidays(true)[0].getDesc('h');
 
         }

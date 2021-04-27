@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { DateAdapter, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Program } from 'src/app/Classes/program';
 import { Setting } from 'src/app/Classes/setting';
 import { forSelect, MainServiceService } from 'src/app/services/MainService/main-service.service';
+import { DatePipe } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -22,20 +24,59 @@ export class AfternoonDetailsComponent implements OnInit {
   YearTypeValue: Map<number, string> = new Map<number, string>();
   SemesterTypeValue: Map<number, string> = new Map<number, string>();
 
+
   //מקור הנתונים לטבלה של המסגרות
   dataSource: MatTableDataSource<Setting>;
-  displayedColumns: string[] = ['check', 'nvSettingName', 'nvAddress', 'bActiveAfternoon'];
+  displayedColumns: string[] = ['check', 'nvSettingName', 'nvAddress', 'lSettingAgegroups'];
   settingList: Array<Setting>;
   lProgramAgegroupsValueForTable: Map<number, string> = new Map<number, string>();
 
-  constructor(private mainService: MainServiceService) {
+  constructor(public toastr: ToastrService, public datepipe: DatePipe, private mainService: MainServiceService, private dateAdapter: DateAdapter<any>) {
+    this.dateAdapter.setLocale('he');
+
     this.currentAfternoon = this.mainService.programForDetails;
     this.lProgramAgegroupsValueForTable = mainService.SysTableList[6];
     this.settingList = mainService.settingsList;
     this.dataSource = new MatTableDataSource(this.settingList);
     this.YearTypeValue = mainService.SysTableList[14];
     this.SemesterTypeValue = mainService.SysTableList[16];
+    if (this.currentAfternoon.iProgramId == 0) {
+      this.typeChanged();
+    }
+
+
   }
+
+  maxFromDate: Date;
+  minFromDate: Date;
+  maxToDate: Date;
+  minToDate: Date;
+  checkValidDate() { }
+  typeChanged() {
+    debugger
+    if (this.currentAfternoon.iSemesterType == 94) {    //סמסטר א
+
+      this.currentAfternoon.dFromDate = this.datepipe.transform(new Date(+this.YearTypeValue.get(this.currentAfternoon.iYearType), 9, 1), 'yyyy-MM-dd');
+      this.currentAfternoon.dToDate = this.datepipe.transform(new Date(+this.YearTypeValue.get(this.currentAfternoon.iYearType) + 1, 2, 1), 'yyyy-MM-dd');
+
+      this.minFromDate = new Date(+this.YearTypeValue.get(this.currentAfternoon.iYearType), 9, 1);
+      this.maxFromDate = new Date(+this.YearTypeValue.get(this.currentAfternoon.iYearType) + 1, 2, 14);
+      this.minToDate = new Date(+this.YearTypeValue.get(this.currentAfternoon.iYearType), 9, 1);
+      this.maxToDate = new Date(+this.YearTypeValue.get(this.currentAfternoon.iYearType) + 1, 2, 14);
+    }
+    else {
+      this.currentAfternoon.dFromDate = this.datepipe.transform(new Date(+this.YearTypeValue.get(this.currentAfternoon.iYearType), 2, 1), 'yyyy-MM-dd');
+      this.currentAfternoon.dToDate = this.datepipe.transform(new Date(+this.YearTypeValue.get(this.currentAfternoon.iYearType), 7, 1), 'yyyy-MM-dd');
+
+      this.minFromDate = new Date(+this.YearTypeValue.get(this.currentAfternoon.iYearType), 2, 1);
+      this.maxFromDate = new Date(+this.YearTypeValue.get(this.currentAfternoon.iYearType), 7, 1);
+      this.minToDate = new Date(+this.YearTypeValue.get(this.currentAfternoon.iYearType), 2, 1);
+      this.maxToDate = new Date(+this.YearTypeValue.get(this.currentAfternoon.iYearType), 7, 1);
+    }
+
+
+  }
+
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -54,13 +95,7 @@ export class AfternoonDetailsComponent implements OnInit {
         this.ProgramAgegroupsListNg.push(this.lProgramAgegroupsValue.find(x => x.Key == nlId));
       }
     }
-
-//  this.currentAfternoon.dFromDate;
-//  this.currentAfternoon.dToDate= new Date(this.currentAfternoon.dToDate).toLocaleDateString() ;
-//  alert(  this.currentAfternoon.dToDate)
-    this.currentAfternoon.tFirstActivity = new Date(parseInt(this.currentAfternoon.tFirstActivity.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toLocaleTimeString();
-    this.currentAfternoon.tSecondActivity = new Date(parseInt(this.currentAfternoon.tSecondActivity.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toLocaleTimeString();
-
+ 
     //הגדרות ה multi select
     this.dropdownProgramAgegroups = {
       singleSelection: false,
@@ -75,8 +110,7 @@ export class AfternoonDetailsComponent implements OnInit {
 
   }
 
-  saveAfternoon() {
-    alert(this.currentAfternoon.iProgramId)
+  async saveAfternoon() {
     this.currentAfternoon.lProgramAgegroups.splice(0, this.currentAfternoon.lProgramAgegroups.length)
     //  עידכון רשימת הבתי ספר שלא פעיל לפי הרשימה שנבחרה 
     if (this.ProgramAgegroupsListNg.length > 0) {
@@ -85,68 +119,62 @@ export class AfternoonDetailsComponent implements OnInit {
         this.currentAfternoon.lProgramAgegroups.push(age.Key);
       }
     }
-    // var lSettingMorning: number[];
-    // var lSettingNoon: number[];
 
-    // this.mainService.post("ProgramSettingsInsertUpdate", { 
-    //   iProgramId: this.currentAfternoon.iProgramId, 
-    //   lProgramSettings: this.currentAfternoon.lProgramSettings,
-    //   lSettingMorning: lSettingMorning,
-    //   lSettingNoon: lSettingNoon,
-    //   iUserId: this.mainService.currentUser.iUserId}).then(
-    //   res => {
-    //     alert("suc")
-    //   },
-    //   err => {
-    //     alert("err ProgramSettingsInsertUpdate")
-    //   }
-    // )
-     
-    this.currentAfternoon.tFirstActivity=this.currentAfternoon.tFirstActivity.toString();
-    this.currentAfternoon.tSecondActivity=this.currentAfternoon.tSecondActivity.toString();
 
-    debugger;
-    this.mainService.post("ProgramInsertUpdate", { oProgram: this.currentAfternoon, iUserId: this.mainService.currentUser.iUserId }).then(
+    this.currentAfternoon.nvProgramName = this.YearTypeValue.get(this.currentAfternoon.iYearType)  + " " +this.SemesterTypeValue.get(this.currentAfternoon.iSemesterType) ;
+    this.currentAfternoon.bProgramAfternoon = true;
+    this.currentAfternoon.iProgramType = -1;
+    if(this.currentAfternoon.iProgramId==0)
+    this.currentAfternoon.iProgramId=-1;
+    this.currentAfternoon.dFromDate = "/Date(" + new Date(this.currentAfternoon.dFromDate).getTime() + ")/";
+    this.currentAfternoon.dToDate = "/Date(" + new Date(this.currentAfternoon.dToDate).getTime() + ")/";
+
+    this.currentAfternoon.tFirstActivity = null;
+    this.currentAfternoon.tSecondActivity = null;
+    this.currentAfternoon.tFromTimeMorning = null;
+    this.currentAfternoon.tToTimeMorning = null;
+    this.currentAfternoon.tFromTimeAfternoon = null;
+    this.currentAfternoon.tToTimeAfternoon = null;
+
+    let res = <number>await this.mainService.post(
+      "ProgramInsertUpdate", { oProgram: this.currentAfternoon, iUserId: this.mainService.currentUser.iUserId }
+    );
+    this.currentAfternoon.iProgramId = res;
+    var lSettingMorning: number[];
+    var lSettingNoon: number[];
+
+    this.mainService.post("ProgramSettingsInsertUpdate", {
+      iProgramId: this.currentAfternoon.iProgramId,
+      lProgramSettings: this.currentAfternoon.lProgramSettings,
+      lSettingMorning: lSettingMorning,
+      lSettingNoon: lSettingNoon,
+      iUserId: this.mainService.currentUser.iUserId
+    }).then(
       res => {
-        this.mainService.getAfternoon();
-        alert("update " + this.currentAfternoon.nvProgramName + " done!");
-        this.mainService.serviceNavigate("/header-menu/afternoon/afternoon-table");
+        this.toastr.success('השינויים נשמרו בהצלחה', '', {
+          timeOut: 3000,
+        });
+        this.mainService.serviceNavigate("./header-menu/afternoon/afternoon-table");
       },
       err => {
-        alert("saveAfternoon err\nצריך לסדר את השעה והתאריך");
+        alert("err ProgramSettingsInsertUpdate")
       }
     )
-    //לאחר שעידכנו מיסגרת צריך לישלוף מחדש מהסרויס את המיסגרת המעודכנת.
+    res = <number>await this.mainService.post(
+      "ProgramInsertUpdate", { oProgram: this.currentAfternoon, iUserId: this.mainService.currentUser.iUserId }
+    );
+    // this.currentAfternoon.tFirstActivity=this.currentAfternoon.tFirstActivity.toString();
+    // this.currentAfternoon.tSecondActivity=this.currentAfternoon.tSecondActivity.toString();
     this.mainService.getAfternoon();
+
+
   }
 
   testDate() {
-    // if (this.currentAfternoon.iProgramId > -1 && (this.currentAfternoon.dFromDate > $scope.dFromDate || this.currentAfternoon.dToDate < $scope.dToDate))
-    //   alert("שים לב  <br />בשמירה ימחקו הפעילויות שהוגדרו מחוץ לטווח התאריכים שצומצם <br /> האם בכל אופן הינך מעונין לשמור ?" + "אזהרה")
-    // function () { $scope.saveProgram(); }, function () { return; });
-    // else
+   
     this.saveAfternoon();
   }
 
-  //בינתיים
-  onItemSelect(item: Program) {
-    //this.operator.lSchoolsExcude.push(item.iSettingId);//הוספה לרשימה של האופרטור
-    console.log(item);
-    //console.log(this.ProgramAgegroupsListNg);
-  }
-  OnItemDeSelect(item: Program) {
-    //this.operator.lSchoolsExcude.splice(item.iSettingId, 1);//מחיקה מהרשימה של האופרטור
-
-    console.log(item);
-    //console.log(this.ProgramAgegroupsListNg);
-  }
-  onSelectAll(items: any) {
-
-    console.log(items);
-  }
-  onDeSelectAll(items: any) {
-    console.log(items);
-  }
 
   checkedSettings(settingId: number) {
     //בודק אם כבר קיים
@@ -154,19 +182,15 @@ export class AfternoonDetailsComponent implements OnInit {
 
     if (index != -1) {//אם קיים סימן שרוצה להסיר ולכן מוציא מהמערך
       this.currentAfternoon.lProgramSettings.splice(index, 1);
-      alert(this.currentAfternoon.lProgramSettings.length + " remove")
+      // alert(this.currentAfternoon.lProgramSettings.length + " remove")
     }
     else {  //אם לא קיים סימן שרוצה להוסיף ולכן מכניס למערך
       this.currentAfternoon.lProgramSettings.push(settingId);
-      alert(this.currentAfternoon.lProgramSettings.length + " add")
+      // alert(this.currentAfternoon.lProgramSettings.length + " add")
     }
   }
 
-  removeAlSetting() {
-    //צריך לטפל במקרה הזה
-    if (confirm("שים לב" + "\n" + "באם תשמור שינוי זה ימחקו כל הפעילויות המשובצות למסגרת זו לצהריים בתוכנית זו ובשאר תוכניות" + "\n האם אתה בטוח?"))
-      alert("נמחק")
-  }
+
 
   ifChecked(id: number) {
     if (this.currentAfternoon.lProgramSettings.findIndex(x => x == id) == -1)

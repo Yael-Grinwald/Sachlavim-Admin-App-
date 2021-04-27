@@ -1,14 +1,15 @@
 <div class="form-group col-sm-12" style=" text-align: center;direction: rtl;" class="Details">
     <div class="form-group row">
         <form class="form" (ngSubmit)="checkFormValid()">
-            <button matTooltip="שמור" class="saveIconBtn" mat-icon-button
+            <button matTooltip="שמור שינויים" matTooltipPosition="above"  class="saveIconBtn" mat-icon-button
                 aria-label="Example icon button with a home icon" title="שמור"> <br>
                 
                 <mat-icon class="saveIcon">save</mat-icon>
             </button>
+            <div toastContainer></div>
 
 
-            <h3 class="newObj" *ngIf="newOp"> מפעיל חדש חדשה</h3>
+            <h3 class="newObj" *ngIf="newOp">מפעיל חדש </h3>
 
             <div style="height: 170px;margin: auto;width: 50%;padding-top: 25px;">
                 <mat-form-field style="width: 60%;" class="example-form-field">
@@ -38,8 +39,7 @@
                     </mat-radio-button>
 
                 </mat-radio-group> <br>
-                <mat-hint class="mat-hint" style="font-size: 13px;color: red;" align="end">
-                    {{operator.iOperatorType|required}}</mat-hint>
+                <mat-hint class="mat-hint" style="font-size: 13px;color: red;" align="end">{{operator.iOperatorType|required}}</mat-hint>
 
             </section>
 
@@ -91,8 +91,7 @@
                         (onDeSelectAll)="onDeSelectAll('talanSchool')"
                         (onDeSelect)="OnItemDeSelect($event,'talanSchool')" [disabled]="!operator.bTalan">
                     </ng-multiselect-dropdown>
-                    <mat-hint class="mat-hint" *ngIf="operator.bTalan" align="end">{{ lschool.length| required }}
-                    </mat-hint>
+                    <mat-hint class="mat-hint" *ngIf="operator.bTalan" align="end">{{ lschool.length| required }}</mat-hint>
 
                 </div>
             </div>
@@ -141,7 +140,7 @@
                     <mat-checkbox [(ngModel)]="operator.bActiveAfternoon" [checked]="operator.bActiveAfternoon"
                         name="ActiveAfternoon" class="example-margin">עובד בצהרונים</mat-checkbox>
                 </section>
-                <a [ngClass]="!operator.bActiveAfternoon?'disabled':'a'" (click)="createNoonsArray(28);modelContent=0"
+                <a [ngClass]="!operator.bActiveAfternoon?'disabled':'a'" (click)="createAvailabilityArray(28);modelContent=0"
                     data-toggle="modal" data-target="#Modal"> עריכת
                     לו"ז צהרונים</a><br>
 
@@ -151,7 +150,7 @@
                         name="ActiveChanukahCamp" class="example-margin">עובד בקייטנת חנוכה</mat-checkbox>
                 </section>
                 <a [ngClass]="!operator.bActiveChanukahCamp?'disabled':'a'" data-toggle="modal" data-target="#Modal"
-                    (click)="createNoonsArray(30);modelContent=2 ">
+                    (click)="createAvailabilityArray(30);modelContent=2 ">
                     עריכת לו"ז קייטנת חנוכה</a><br>
 
                 <section style="direction: rtl;" class="example-section">
@@ -160,7 +159,7 @@
                 </section>
 
                 <a [ngClass]="!operator.bActivePassoverCamp?'disabled':'a'" data-toggle="modal" data-target="#Modal"
-                    (click)="createNoonsArray(31);modelContent=3 ">
+                    (click)="createAvailabilityArray(31);modelContent=3 ">
                     עריכת לו"ז קייטנת פסח</a><br>
 
 
@@ -168,7 +167,7 @@
                     <mat-checkbox [(ngModel)]="operator.bActiveSummerCamp" [checked]="operator.bActiveSummerCamp"
                         name="ActiveSummerCamp" class="example-margin">עובד בקייטנת קיץ</mat-checkbox>
                 </section>
-                <a (click)="createNoonsArray(32);modelContent=1 " [ngClass]="!operator.bActiveSummerCamp?'disabled':'a'"
+                <a (click)="createAvailabilityArray(32);modelContent=1 " [ngClass]="!operator.bActiveSummerCamp?'disabled':'a'"
                     data-toggle="modal" data-target="#Modal">עריכת
                     לו"ז קייטנת קיץ</a>
             </div>
@@ -204,18 +203,6 @@
                 <mat-hint class="mat-hint" align="end">{{ iCategory| required }}</mat-hint>
 
             </mat-form-field><br>
-
-            <section class="example-section s">
-                <mat-checkbox [(ngModel)]="operator.bActivityPriority" [checked]="operator.bActivityPriority"
-                    name="ActivityPriority" class="example-margin">עדיפות בשיבוץ</mat-checkbox>
-            </section>
-
-            <section class="example-section s">
-                <mat-checkbox [checked]="operator.bInProgramPool" class="example-margin">קיים במאגר התוכניות
-                </mat-checkbox>
-            </section>
-
-
         </form>
     </div>
 
@@ -233,11 +220,9 @@
                 </button>
             </div>
 
+
             <!--Body-->
-
             <div class="modal-body" style="text-align:center;" dir="rtl">
-
-
                 <ng-container [ngSwitch]="modelContent">
                     <div *ngSwitchCase="0">
                         <div id="day" *ngFor="let a of availability;index as i">
@@ -251,9 +236,7 @@
                                 <mat-label>מספר מדריכים</mat-label>
                                 <input type="number" [(ngModel)]="availability[i].iNumLeaders" min="0" matInput
                                     placeholder="הכנס מיספר">
-                                <!-- <p>{{availability[i].iNumLeaders}}</p> -->
-                                <!-- <mat-hint class="mat-hint" align="end">{{ availability[i].iNumLeaders| required }}</mat-hint> -->
-
+                               
                             </mat-form-field>
                         </div>
 
@@ -334,13 +317,10 @@
 
                 </ng-container>
 
-
-
-
             </div>
             <div style="margin: auto;" class="modal-footer">
                 <button type="button" aria-label="Close" class="btn saveDialog" data-dismiss="modal"
-                    (click)="abilitySave()">שמור</button>
+                    (click)="Saveability=true">שמור</button>
             </div>
         </div>
     </div>

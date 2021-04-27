@@ -15,6 +15,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import * as XLSX from 'XLSX';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Item } from 'angular2-multiselect-dropdown';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-managers-table',
@@ -37,12 +38,14 @@ export class ManagersTableComponent implements OnInit {
   //מערך מפעילים לטבלה
   usersList: Array<User>;
   editUser: User = new User();
-  lUserTypeValue: Map<number, string> = new Map<number, string>();
-  constructor(private mainService: MainServiceService) {
-    this.usersList=mainService.usersList;
+  lUserTypeValue: forSelect[];
+  constructor(private mainService: MainServiceService,public toastr: ToastrService) {
+    this.usersList = mainService.usersList;
     this.dataSource = new MatTableDataSource(this.usersList);
     //מילוי הרשימה בצורה של MAP
-    this.lUserTypeValue = mainService.SysTableList[0];
+  //  this.lUserTypeValue = mainService.SysTableList[0];
+    this.lUserTypeValue = this.mainService.gItems[0].dParams;
+
     this.dataSource.filterPredicate = this.createFilter();
   }
   LastNameFilter = new FormControl('');
@@ -91,7 +94,10 @@ export class ManagersTableComponent implements OnInit {
       }
     )
   }
-
+  iUserType(type:number)
+  {
+return this.lUserTypeValue.find(x=>x.Key==type).Value;
+  }
   createFilter(): (data: any, filter: string) => boolean {
     let filterFunction = function (data, filter): boolean {
       let searchTerms = JSON.parse(filter); debugger
@@ -116,16 +122,16 @@ export class ManagersTableComponent implements OnInit {
   }
 
   saveUser() {
+    debugger
     this.mainService.post("AddUpdateUser", { oUser: this.editUser }).then(
       res => {
         if (res) {
           this.mainService.getUsers();
-          alert("update " + this.editUser.nvUserName + " done!");
-
+          this.toastr.success('השינויים נשמרו בהצלחה', '', {
+            timeOut: 3000,
+          });
         }
-        else {
-          alert("err AddUpdateUser")
-        }
+    
       },
       err => {
         alert("err AddUpdateUser")
@@ -133,45 +139,63 @@ export class ManagersTableComponent implements OnInit {
     )
   }
 
-emailAddress:Array<string>=new Array<string>();
-emailContent:string;
-emailSubject:string;
+  emailAddress: Array<string> = new Array<string>();
+  emailContent: string;
+  emailSubject: string;
 
-//for multi select
-selection = new SelectionModel<User>(true, []);
+  //for multi select
+  selection = new SelectionModel<User>(true, []);
 
-isAllSelected() {
-  
-  this.selection.selected
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
-}
+  isAllSelected() {
 
-/** Selects all rows if they are not all selected; otherwise clear selection. */
-masterToggle() {
-  
-  this.isAllSelected() ?
+    this.selection.selected
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+
+    this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
-}
-emailList()
-{
-
-this.emailAddress=this.selection.selected.map(obj=>obj.nvMail);
-}
-
-sendEmail()
-{
-this.mainService.post("SendMailsMessage", { nvSubject: this.emailSubject, nvBody:this.emailContent,emailAddressesList:this.emailAddress ,filePath:""}).then(
-  res => {
-    
-    let r = res;
-    alert(res);
-  },
-  err => {
-    alert(err);
   }
-);
-}
+  // emailList() {
+
+  //   this.emailAddress = this.selection.selected.map(obj => obj.nvMail);
+  // }
+
+  sendEmail() {
+    this.mainService.post("SendMailsMessage", { nvSubject: this.emailSubject, nvBody: this.emailContent, emailAddressesList: this.emailAddress, filePath: "" }).then(
+      res => {
+
+        let r = res;
+        alert("נשלח בהצלחה!");
+      },
+      err => {
+        alert(err);
+      }
+    );
+  }
+  h: boolean = false;
+
+  checkFormValid() {
+    //check if no mat-hint with context 
+    const list = document.querySelectorAll<HTMLInputElement>("mat-hint");
+
+    list.forEach(function (Item) {
+      if (Item.innerHTML != '') {
+        alert('נא שים לב לתוכן תקין');
+        this.h = true;
+        return false
+      }
+    });
+
+    debugger
+
+    if (this.h == false) {
+      this.saveUser()
+    }
+  }
 }

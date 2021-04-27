@@ -10,8 +10,8 @@
 .header {
     padding: 5px;
     font-size: 14px;
-  
-}
+
+  }
 
 mat-form-field {
     font-size: 14px;
@@ -22,11 +22,16 @@ mat-form-field {
   background-image:url(src\Images\CBGOrchidsMarch2018-4323-Edit-550x367.jpg) ;
 } */
 
-.example-form {
+ .example-form {
   min-width: 150px;
   max-width: 500px;
   width: 100%;
+} 
+
+td{
+  width: 140px;
 }
+
 
 .example-full-width {
   width: 80%;
@@ -39,4 +44,58 @@ element.style {
   text-align: center;
   margin-top: 0%;
   direction: rtl;
+}
+
+.mat-table {
+  width: 100%;
+}
+
+.mat-row.example-detail-row {
+  min-height: 0;
+}
+
+.mat-row.example-element-row:not(.example-expanded-row):hover {
+  background: rgb(214, 207, 207);
+}
+
+.mat-row.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row .mat-cell {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.saveDialog{
+  background-color: var(--settingClr);
+    border-color: var(--settingClr);
+    color: white;
 }

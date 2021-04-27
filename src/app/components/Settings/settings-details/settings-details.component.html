@@ -1,7 +1,7 @@
 <div class="form-group col-sm-12" style=" text-align: center;direction: rtl;" class="Details">
 
     <div class="form-group row">
-        <form class="form" (ngSubmit)="saveSetting()">
+        <form class="form" (ngSubmit)="checkFormValid()">
             <button class="saveIconBtn" mat-icon-button aria-label="Example icon button with a home icon" title="שמור">
                 <mat-icon class="saveIcon">save</mat-icon>
 
@@ -14,9 +14,10 @@
                     <mat-label>שם מסגרת</mat-label>
                     <input matInput type="text" [(ngModel)]="currentSetting.nvSettingName" name="nvSettingName"
                         required />
-                    <mat-hint align="end">{{ currentSetting.nvSettingName| string }}</mat-hint>
+                    <mat-hint align="end" *ngIf="currentSetting.nvSettingName">{{ currentSetting.nvSettingName| string }}</mat-hint>
 
                 </mat-form-field><br>
+
                 <mat-form-field class="example-form-field">
                     <mat-select [(ngModel)]="currentSetting.iSettingType" required placeholder="סוג מסגרת"
                         name="iSettingType">
@@ -24,6 +25,7 @@
                             {{this.lSettingTypeValue.get(s)}}
                         </mat-option>
                     </mat-select>
+                <mat-hint class="mat-hint" style="font-size: 13px;color: red;" align="end">{{currentSetting.iSettingType|required}}</mat-hint>
 
                 </mat-form-field><br>
 
@@ -35,14 +37,16 @@
                 <mat-form-field class="example-form-field">
                     <mat-label>טלפון</mat-label>
                     <input matInput type="text" [(ngModel)]="currentSetting.nvPhone" name="nvPhone" />
-                    <mat-hint align="end" #matHint>{{currentSetting.nvPhone|phone}} </mat-hint>
+                    <mat-hint *ngIf="currentSetting.nvPhone" align="end" >{{currentSetting.nvPhone|phone}}</mat-hint>
 
                 </mat-form-field><br>
                 <mat-form-field class="example-form-field">
                     <mat-label>כתובת</mat-label>
-                    <input matInput type="text" [(ngModel)]="currentSetting.nvAddress" name="nvAddress" required />
+                    <input matInput type="text" [(ngModel)]="currentSetting.nvAddress" name="nvAddress"  />
+                    <mat-hint align="end">{{ currentSetting.nvAddress| required }}</mat-hint>
 
                 </mat-form-field><br>
+
                 <mat-form-field class="example-form-field">
                     <mat-label>שכונה</mat-label>
                     <mat-select [(ngModel)]="currentSetting.iNeighborhoodType" required placeholder="שכונה"
@@ -50,6 +54,7 @@
                         <mat-option *ngFor="let s of lNeighborhoodTypeValue.keys()" [value]="s">
                             {{this.lNeighborhoodTypeValue.get(s)}}</mat-option>
                     </mat-select>
+                    <mat-hint align="end">{{ currentSetting.iNeighborhoodType| required }}</mat-hint>
 
                 </mat-form-field><br>
 
@@ -98,6 +103,7 @@
                 <mat-form-field class="example-form-field">
                     <mat-label>שם איש קשר</mat-label>
                     <input matInput type="text" [(ngModel)]="currentSetting.nvContactPerson" name="nvContactPerson" />
+                    <mat-hint align="end">{{ currentSetting.nvContactPerson| required }}</mat-hint>
 
                 </mat-form-field><br>
                 <mat-form-field class="example-form-field">
@@ -183,7 +189,7 @@
                     <mat-icon>check</mat-icon>
                 </button>
                 <button style="background-color: rgb(47, 50, 150); color:white;" class="btn" type="button"
-                    data-toggle="modal" (click)="updateCoordinatorToEdit(-1)" data-target="#mmm">הוספת רכזת</button>
+                    data-toggle="modal" (click)="updateCoordinatorToEdit(-1,c=true)" data-target="#mmm">הוספת רכזת</button>
             </div>
             <!--Body-->
             <div class="modal-body" style="text-align:right;" dir="rtl">
@@ -241,7 +247,7 @@
 </div>
 
 <!-- הוספה\עריכה של רכזת -->
-<div class="modal fade" id="mmm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div *ngIf="c" class="modal fade" id="mmm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!--Header-->
@@ -258,26 +264,26 @@
                         <mat-form-field class="example-form-field">
                             <mat-label>שם פרטי</mat-label>
                             <input matInput type="text" [(ngModel)]="addCoordinator.nvFirstName" name="nvFirstName" />
-                            <mat-hint align="end">{{ addCoordinator.nvFirstName| string}}</mat-hint>
+                            <mat-hint align="end" *ngIf="addCoordinator.nvFirstName">{{ addCoordinator.nvFirstName| string}}</mat-hint>
 
                         </mat-form-field><br>
                         <mat-form-field class="example-form-field">
                             <mat-label>שם משפחה</mat-label>
                             <input matInput type="text" [(ngModel)]="addCoordinator.nvLastName" name="nvLastName" />
-                            <mat-hint align="end">{{ addCoordinator.nvLastName| string}}</mat-hint>
+                            <mat-hint align="end" *ngIf="addCoordinator.nvLastName">{{ addCoordinator.nvLastName| string}}</mat-hint>
 
                         </mat-form-field><br>
                         <mat-form-field class="example-form-field">
                             <mat-label>פלאפון</mat-label>
                             <input matInput type="text" [(ngModel)]="addCoordinator.nvPhone" name="nvPhone" />
-                            <mat-hint align="end">{{ addCoordinator.nvPhone| phone}}</mat-hint>
+                            <mat-hint align="end" *ngIf="addCoordinator.nvPhone">{{ addCoordinator.nvPhone| phone}}</mat-hint>
 
                          
                         </mat-form-field><br>
                         <mat-form-field class="example-form-field">
                             <mat-label>מייל</mat-label>
                             <input matInput type="text" [(ngModel)]="addCoordinator.nvMail" name="nvMail" />
-                            <mat-hint align="end">{{ addCoordinator.nvMail| email}}</mat-hint>
+                            <mat-hint align="end" *ngIf=" addCoordinator.nvMail">{{ addCoordinator.nvMail| email}}</mat-hint>
 
                         </mat-form-field><br>
                         <button mat-icon-button data-dismiss="modal" aria-label="Close" class="close settingColor" aria-label="Example icon button with a home icon">

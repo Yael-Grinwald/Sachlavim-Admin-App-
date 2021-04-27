@@ -147,7 +147,7 @@ export class CalendarComponent implements OnInit {
   // constructor(private mainService: MainServiceService, private calendar: NgbCalendar, public i18n: NgbDatepickerI18n) {
   //   this.dayTemplateData = this.dayTemplateData.bind(this);
   // }
-  constructor(private router: Router, private route: ActivatedRoute,private mainService: MainServiceService) {
+  constructor(private router: Router, private route: ActivatedRoute, private mainService: MainServiceService) {
   }
 
   // dayTemplateData(date: NgbDate) {
@@ -159,36 +159,52 @@ export class CalendarComponent implements OnInit {
   // selectToday() {
   //   this.model = this.calendar.getToday();
   // }
+  color:string="";
+  // --operatorClr:rgb(192, 31, 31);;
+  // --settingClr: rgb(47, 50, 150);
+  // --programClr:  rgb(98, 169, 29);
+  // --afternoonClr: rgb(219 182 0 / 90%);
+  // --managerClr: rgb(91, 185, 170)
 
   async ngOnInit() {
     this.operatorList = this.mainService.operatorsList;
     this.programsList = this.mainService.programsList;
     this.settingsList = this.mainService.settingsList;
-
+    debugger
     if (this.type == 'iOperatorId') {//import the operator by the id
       this.operator = this.mainService.operatorForDetails;
       this.objName = this.operator.nvOperatorName;
       this.types['iOperatorId'] = this.mainService.operatorForDetails.iOperatorId;
+      debugger
+      this.eventToEdit.iOperatorId = this.types['iOperatorId'];
+      this.color='rgb(197 94 94)';
     }
     if (this.type == "iSettingId") {//import the setting by the id
       this.currentSetting = this.mainService.settingForDetails;
       this.types['iSettingId'] = this.mainService.settingForDetails.iSettingId;
       this.objName = 'מסגרת ' + this.currentSetting.nvSettingName;
+      this.eventToEdit.iSettingId = this.currentSetting.iSettingId;
+this.color='rgb(150 170 241)';
     }
     if (this.type == "iProgramId") {//import the program by the id
       this.currentProgram = this.mainService.programForDetails;
+      this.eventToEdit.iProgramId = this.currentProgram.iProgramId;
+
       this.types['iProgramId'] = this.mainService.programForDetails.iProgramId;
       this.objName = 'תוכנית ' + this.currentProgram.nvProgramName;
+      this.eventToEdit.iProgramId = this.currentProgram.iProgramId;
 
+this.color='rgb(177 218 175)';
     }
+
     //אם לא מפעיל/מסגרת/תוכנית חדשה
     //אז לקבל את האירועים ליומן 
     if (!(this.types['iSettingId'] == -1 && this.types['iProgramId'] == -1 && this.types['iOperatorId'] == -1)) {
 
       this.eventsFromSer = <schedule[]>await this.mainService.post("SchedulesGet", this.types);
-debugger
+      debugger
 
-    this.updateEventsL();
+      this.updateEventsL();
       console.log(this.events);
 
     }
@@ -201,32 +217,44 @@ debugger
 
   }
 
-  updateEventsL(){
-    this.eventsFromSer.forEach(element => {
-if(element.dtStartTime!=null)
-{
-        element.dtStartTime = new Date(parseInt((element.dtStartTime).toString().substr(6)));
 
-}
-else
-{
-  element.dtStartTime=new Date();
-}
+
+
+  checkValidDate()
+  {
+
+  }
+  updateEventsL() {
+    this.eventsFromSer.forEach(element => {
+      if (element.dtStartTime != null) {
+        element.dtStartTime = new Date(parseInt((element.dtStartTime).toString().substr(6)));
+      }
+      else {
+        element.dtStartTime = new Date();
+      }
       this.events.push({
-        id:element.iScheduleId,
+        id: element.iScheduleId,
         title: element.nvProgramValue,
         start: element.dtStartTime,
       });
     });
 
   }
-  watch(date: any) {
-  }
+
   flag: number = 0;
   ps: Setting;
 
-  fillLists(str: string) {
+ maxDate: Date;
+  minDate: Date;
 
+  fillLists(str: string) {
+    debugger
+if(str=='program')
+{
+  let p:Program=this.programsList.find(x=>x.iProgramId==this.eventToEdit.iProgramId);
+this.minDate=new Date(p.dFromDate);
+this.maxDate=new Date(p.dToDate);
+}
     //מופעל רק בתוכניות וצהרונים
     //מילוי רשימת מפעילים שעובדים במיסגרת מסוימת שנבחרה לתוכנית
     if (this.eventToEdit.iSettingId != 0 && this.types["iOperatorId"] == -1) {
@@ -266,9 +294,6 @@ else
     }
   }
 
-  // resetArray() {
-  //   this.eventsArrayByDate = new Array<schedule>();
-  // }
 
   eventsArrayByDate: schedule[] = [];
   eventToEdit: schedule = new schedule();
@@ -280,6 +305,7 @@ else
       day = ("0" + date.getDate()).slice(-2);
     return [date.getFullYear(), mnth, day].join("-");
   }
+
   createArrayForDetails(date: Date)//יצירת מערך להצגת פרטי אירועים ליום מסויים שנבחר
   {
     this.dayDetails = this.getShortDate(date);
@@ -308,33 +334,53 @@ else
   dTime: string;
   editEvent(e: schedule) {
     // this.dTime = e.dtStartTime.substr(16, 5);
-    this.eventToEdit = this.eventsFromSer.find(x=>x.iScheduleId==e.iScheduleId);
-debugger
-
-  }
-  //new Date(2015, 10, 10, 14, 57, 0)
-
-  async addEditEvent(t: NgModel) {
-
-    this.eventToEdit.dtStartTime.setHours(+t.viewModel.substr(0, 2));
-    this.eventToEdit.dtStartTime.setMinutes(+t.viewModel.substr(3, 2));
+    this.eventToEdit = this.eventsFromSer.find(x => x.iScheduleId == e.iScheduleId);
     debugger
 
-let res=<boolean> await this.mainService.post("ScheduleUpdate",{ iScheduleId: this.eventToEdit.iScheduleId,
- iOperatorId: this.eventToEdit.iOperatorId,
- iActivityId: this.eventToEdit.iActivityId,
- iSettingId: this.eventToEdit.iSettingId,
-iProgramId: this.eventToEdit.iProgramId,
- dtStartTime: this.eventToEdit.dtStartTime
-// bCopyAllWeeks: false,
-// iUserId: this.mainService.currentUser.iUserId
-});
-  debugger
-//  this.router.navigate(['./calendar'], { relativeTo: this.route });
+  }
+
+  async addEditEvent(t: NgModel) {
+    debugger
+    // this.eventToEdit.dtStartTime.setHours(+t.viewModel.substr(0, 2));
+    // this.eventToEdit.dtStartTime.setMinutes(+t.viewModel.substr(3, 2));
+    // console.log(this.eventToEdit.iOperatorId,
+    //   this.eventToEdit.iActivityId,
+    //   this.eventToEdit.iSettingId,
+    //   this.eventToEdit.iProgramId,
+    //   //this.eventToEdit.dtStartTime
+    // );
+    debugger
+    // alert("/Date(" + new Date(this.eventToEdit.dtStartTime).getTime() + ")/");
+    let res = <boolean>await this.mainService.post("ScheduleUpdate", {
+      iScheduleId: this.eventToEdit.iScheduleId,
+
+      iOperatorId: this.eventToEdit.iOperatorId,
+      iActivityId: this.eventToEdit.iActivityId,
+      iSettingId: this.eventToEdit.iSettingId,
+      iProgramId: this.eventToEdit.iProgramId,
+      // dtStartTime: this.eventToEdit.dtStartTime,
+      dtStartTime: "/Date(" + new Date(this.eventToEdit.dtStartTime).getTime() + ")/",
+      bCopyAllWeeks: false,
+      iUserId: this.mainService.currentUser.iUserId
+    });
+    debugger
+
+
+    this.updateEventsL();
 
 
   }
   resetEventToEdit() {
     this.eventToEdit = new schedule();
+    if (this.type == 'iOperatorId') {
+      this.eventToEdit.iOperatorId = this.types['iOperatorId'];
+    }
+    if (this.type == "iSettingId") {
+      this.eventToEdit.iSettingId = this.currentSetting.iSettingId;
+    }
+    if (this.type == "iProgramId") {
+      this.eventToEdit.iProgramId = this.currentProgram.iProgramId;
+    }
+
   }
 }

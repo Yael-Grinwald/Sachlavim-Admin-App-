@@ -65,7 +65,8 @@
             <!--Body-->
             <div class="modal-body" style="text-align:right;" dir="rtl">
                 <dl *ngFor="let event of eventsArrayByDate">
-                    <dt> {{event.dtStartTime| date:'hh:mm'}} | מסגרת: {{event.nvSettingName}} </dt>
+                    <!-- <dt> {{event.dtStartTime| date:'hh:mm'}} | מסגרת: {{event.nvSettingName}} </dt> -->
+                    <dt> מסגרת: {{event.nvSettingName}} </dt>
                     <p>כתובת: {{event.nvAddress}}</p>
                     <p>טלפון איש קשר: {{event.nvPhone}}</p>
                     <p>פעילות: {{event.nvActivityName}}</p>
@@ -73,34 +74,6 @@
                     <button (click)="editEvent(event)" data-toggle="modal" data-target="#addEditEvent"
                         style="cursor: pointer; text-align: center;  text-decoration: underline;">עריכה</button>
 
-
-
-                    <!-- <dd>תוכנית: {{event.nvProgramValue}}</dd> -->
-
-                    <!-- public iOperatorId: number = -1,
-                    public iActivityId: number = -1,
-                    public iScheduleId: number = -1,
-                    public iSettingId: number = -1,
-                    public iProgramId: number = -1,
-                    public dtStartTime: string='',
-                    public nvProgramValue: string = '',
-                    public bClosedDay: boolean = false,
-                    public bLongDay: boolean = false,
-                    public dtDoneDate: Date = new Date(),
-                    public iActivityDetailsId: number = -1,
-                    public iCategoryType: number = -1,
-                    public iClusterId: number = -1,
-                    public iDayInWeek: number = -1,
-                    public iLeaderNumber: number = -1,
-                    public nvActivityName: string = '',
-                    public nvAddress: string = '',
-                    public nvCategoryValue: string = '',
-                    public nvComment: string='',
-                    public nvCompanyName: string='',
-                    public nvOperatingLocation: string='',
-                    public nvOperatorName: string='',
-                    public nvPhone: string='',
-                    public nvSettingName: string='' -->
                 </dl>
             </div>
         </div>
@@ -140,7 +113,7 @@
                     <label class="example-margin">למסגרת:</label><br>
                     <mat-form-field>
                         <mat-label>בחר מיסגרת</mat-label>
-                        <mat-select name="settingId" [(ngModel)]="eventToEdit.iSettingId"
+                        <mat-select [(ngModel)]="eventToEdit.iSettingId" name="settingId"
                             (ngModelChange)="fillLists('setting')">
                             <mat-option *ngFor="let s of settingsList" [value]="s.iSettingId">
                                 {{s.nvSettingName}}
@@ -174,29 +147,24 @@
                     </mat-form-field>
                 </section>
 
-                <mat-form-field>
-                    <mat-label>שעה:</mat-label>
-                    <input matInput #time="ngModel" [ngModel]="eventToEdit.dtStartTime |date:'hh:mm'"  matInput type="time">
-                </mat-form-field><br>
-
-                <!-- <mat-form-field class="example-form-field col-sm-12">
-                    <mat-label>שעה:</mat-label>
-                    <input [(ngModel)]="dTime" matInput type="time" placeholder="00:00">
-                </mat-form-field> -->
 
                 <mat-form-field>
                     <mat-label>תאריך:</mat-label>
-                    <input [(ngModel)]="eventToEdit.dtStartTime" matInput [matDatepicker]="picker">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
+                    <input matInput #input="ngModel"
+                        [(ngModel)]="eventToEdit.dtStartTime" 
+                        [min]="minDate"  [max]="maxDate"
+                        [matDatepicker]="picker2" name="dtStartTime">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                    <mat-hint align="end">{{eventToEdit.dtStartTime | required}}</mat-hint>
 
+                </mat-form-field>
             </div>
 
 
 
             <div style="margin: auto;" class="modal-footer">
-                <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal"
+                <button type="button" aria-label="Close" [ngStyle]="{'background-color':color }" class="btn btn-primary" data-dismiss="modal"
                     (click)="addEditEvent(time)">שמור</button>
             </div>
 

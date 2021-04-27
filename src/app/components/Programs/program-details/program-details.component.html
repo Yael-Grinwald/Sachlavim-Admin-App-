@@ -1,7 +1,7 @@
 <div class="form-group col-sm-12" style=" text-align: center;direction: rtl;" class="Details">
 
     <div class="form-group row">
-        <form (ngSubmit)="testDate()">
+        <form style="height: 590px;" (ngSubmit)="checkFormValid()">
             <button class="saveIconBtn" mat-icon-button aria-label="Example icon button with a home icon" title="שמור">
                 <mat-icon class="saveIcon">save</mat-icon>
             </button>
@@ -10,28 +10,34 @@
                       width: 50%;
                       padding-top: 25px;">
                 <h3 style="z-index: 20;" class="programColor">פרטי תוכנית</h3>
-                <mat-form-field class="example-form-field">
-                    <mat-select [(ngModel)]="currentProgram.iProgramType" required placeholder="סוג תוכנית"
-                        name="iProgramType">
-                        <mat-option *ngFor="let s of lProgramTypeValue" [value]="s.Key">
-                            {{this.s.Value}}
-                        </mat-option>
-                    </mat-select>
-                    <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-            <mat-icon>close</mat-icon>
-        </button> -->
-                </mat-form-field><br>
+             
+             
+                <section class="example-section" style="padding-top: 3%;padding-bottom: 3%;">
+                    <label class="example-margin">קייטנה: </label>
+    
+                    <mat-radio-group (change)="typeChanged()" [(ngModel)]="currentProgram.iProgramType" name="iProgramType">
+                        <mat-radio-button style="margin-right: 17px;" class="example-margin" [value]="30">קייטנת חנוכה
+                        </mat-radio-button>
+                        <mat-radio-button style="margin-right: 17px;" class="example-margin" [value]="31">קייטנת פסח
+                        </mat-radio-button>
+                        <mat-radio-button style="margin-right: 17px;" class="example-margin" [value]="32">קייטנת קיץ
+                        </mat-radio-button>   
+                    </mat-radio-group> <br>
+                    <mat-hint class="mat-hint" style="font-size: 13px;color: red;" align="end">{{currentProgram.iProgramType|required}}</mat-hint>
+
+                </section>
+             
+               
                 <mat-form-field class="example-form-field">
                     <mat-label>שם תוכנית</mat-label>
-                    <input matInput type="text" [(ngModel)]="currentProgram.nvProgramName" name="nvProgramName"
-                         />
+                    <input matInput type="text" [(ngModel)]="currentProgram.nvProgramName" name="nvProgramName" />
                     <mat-hint align="end">{{ currentProgram.nvProgramName| required }}</mat-hint>
 
                 </mat-form-field><br>
-                <mat-form-field class="example-form-field">
+                <!-- <mat-form-field class="example-form-field">
                     <mat-label>סעיף תקציבי</mat-label>
                     <input matInput type="text" [(ngModel)]="currentProgram.nvBudgetItem" name="nvBudgetItem" />
-                </mat-form-field><br>
+                </mat-form-field><br> -->
 
 
                 <div class="col-sm-12" style="margin: auto;">
@@ -41,23 +47,54 @@
                         [placeholder]="'קטגורית גילאים'" (onSelect)="onItemSelect($event)"
                         (onSelectAll)="onSelectAll($event)" (onDeSelect)="OnItemDeSelect($event)">
                     </ng-multiselect-dropdown>
+                    <mat-hint align="end">{{ currentProgram.iProgramType| required }}</mat-hint>
                 </div><br>
 
-                <mat-form-field class="example-form-field">
-                    <mat-label>מתאריך</mat-label>
-                    <input matInput type="date" [(ngModel)]="currentProgram.dFromDate" name="dFromDate" />
-                </mat-form-field><br>
 
-                <mat-form-field class="example-form-field">
+                <mat-form-field>
+                    <mat-label>מתאריך</mat-label>
+                    <input matInput #input="ngModel"
+                        [(ngModel)]="currentProgram.dFromDate" [min]="minFromDate" [max]="maxFromDate"
+                        [matDatepicker]="picker2" (change)="checkValidDate(1,currentProgram.dFromDate)" name="dFromDate"
+                        placeholder="בחר תאריך">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                    <mat-hint align="end">{{currentProgram.dFromDate | required}}</mat-hint>
+
+                </mat-form-field>
+
+                <br>
+
+                <!-- <mat-form-field>
+                    <mat-label>מתאריך</mat-label>
+                    <input (change)="checkValidDate(1,currentProgram.dFromDate)" [(ngModel)]="currentProgram.dFromDate" matInput name="dFromDate" [matDatepicker]="picker" placeholder="בחר תאריך" [formControl]="datePickerCtrl2">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-hint  align="end">{{rightFromDate}}</mat-hint>
+                  </mat-form-field> -->
+                <!-- (change)="checkValidDate(2,currentProgram.dToDate)"  -->
+                <mat-form-field>
                     <mat-label>עד תאריך</mat-label>
-                    <input matInput type="date" [(ngModel)]="currentProgram.dToDate" name="dToDate" />
-                </mat-form-field><br>
+                    <input [min]="minToDate" [max]="maxToDate" [(ngModel)]="currentProgram.dToDate" matInput
+                        name="dToDate" [matDatepicker]="picker" placeholder="בחר תאריך">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-hint align="end">{{currentProgram.dToDate| required}}</mat-hint>
+                </mat-form-field>
+
+                <!-- <mat-form-field class="example-form-field">
+                    <mat-label>עד תאריך</mat-label>
+                    <input (change)="checkValidDate(2,currentProgram.dToDate)" matInput type="date" [(ngModel)]="currentProgram.dToDate" name="dToDate" />
+                    <mat-hint  align="end">{{rightToDate}}</mat-hint>
+
+                </mat-form-field> -->
+                <br>
 
                 <div>
                     <mat-form-field class="example-form-field">
                         <mat-label>מספר הפעלות מועדפות</mat-label>
-                        <input matInput type="number" min="0" min="0" required [(ngModel)]="currentProgram.iActivityPreferenceCount"
-                            name="iActivityPreferenceCount" />
+                        <input matInput type="number" min="0" required
+                            [(ngModel)]="currentProgram.iActivityPreferenceCount" name="iActivityPreferenceCount" />
 
                     </mat-form-field><br>
                     <mat-form-field class="example-form-field">
@@ -70,40 +107,43 @@
                 </div>
 
                 <div>
-                    <h6 class="programColor">בוקר</h6>
+                    <!-- <h6 class="programColor">בוקר</h6>
 
                     <mat-form-field class="example-form-field">
                         <mat-label>מספר הפעלות בוקר</mat-label>
                         <input matInput type="number" min="0" required [(ngModel)]="currentProgram.iNumActivityMorning"
                             name="iNumActivityMorning" />
 
-                    </mat-form-field><br>
-                    <mat-form-field class="example-form-field">
+                    </mat-form-field><br> -->
+                    <!-- <mat-form-field class="example-form-field">
                         <mat-label>בוקר - משעה</mat-label>
                         <input matInput type="time" [(ngModel)]="currentProgram.tFromTimeMorning"
                             name="tFromTimeMorning" />
+                        <mat-hint class="mat-hint" align="end">{{ currentProgram.tFromTimeMorning| required }}</mat-hint>
 
                     </mat-form-field><br>
 
                     <mat-form-field class="example-form-field">
                         <mat-label>בוקר - עד שעה</mat-label>
                         <input matInput type="time" [(ngModel)]="currentProgram.tToTimeMorning" name="tToTimeMorning" />
+                        <mat-hint class="mat-hint" align="end">{{ currentProgram.tToTimeMorning| required }}</mat-hint>
 
-                    </mat-form-field><br>
+                    </mat-form-field><br> -->
                 </div>
                 <div>
-                    <h6 class="programColor">צהריים</h6>
+                    <!-- <h6 class="programColor">צהריים</h6>
 
                     <mat-form-field class="example-form-field">
                         <mat-label>מספר הפעלות צהריים</mat-label>
-                        <input matInput type="number" min="0" required [(ngModel)]="currentProgram.iNumActivityAfternoon"
-                            name="iNumActivityAfternoon" />
+                        <input matInput type="number" min="0" required
+                            [(ngModel)]="currentProgram.iNumActivityAfternoon" name="iNumActivityAfternoon" />
 
-                    </mat-form-field><br>
-                    <mat-form-field class="example-form-field">
+                    </mat-form-field><br> -->
+                    <!-- <mat-form-field class="example-form-field">
                         <mat-label>צהריים - משעה</mat-label>
                         <input matInput type="time" [(ngModel)]="currentProgram.tFromTimeAfternoon"
                             name="tFromTimeAfternoon" />
+                        <mat-hint class="mat-hint" align="end">{{ currentProgram.tFromTimeAfternoon| required }}</mat-hint>
 
                     </mat-form-field><br>
 
@@ -111,16 +151,17 @@
                         <mat-label>צהריים - עד שעה</mat-label>
                         <input matInput type="time" [(ngModel)]="currentProgram.tToTimeAfternoon"
                             name="tToTimeAfternoon" />
+                        <mat-hint class="mat-hint" align="end">{{ currentProgram.tToTimeAfternoon| required }}</mat-hint>
 
-                    </mat-form-field><br>
+                    </mat-form-field><br> -->
                 </div>
 
-                <div class="col-sm-12">
+                <!-- <div class="col-sm-12">
                     <input type="checkbox" [(ngModel)]="currentProgram.bTwoActivitiesThatDay"
                         name="bTwoActivitiesThatDay" />
 
                     <mat-label>האם לאפשר מספר פעילויות ליום</mat-label>
-                </div><br>
+                </div><br> -->
                 <div>
                     <!-- Button trigger modal-->
                     <button type="button" style="background-color:rgb(0, 0, 0); color: white;" class="btn col-sm-4"
@@ -139,9 +180,9 @@
 <div class="modal fade" style="width:100%;" id="modalCart" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="width: 70%;margin: auto;">
             <!--Header-->
-            <div class="modal-header">
+            <div class="modal-header" style="text-align:center;">
                 <h4 class="programColor modal-title" id="myModalLabel">שיוך מסגרות</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>

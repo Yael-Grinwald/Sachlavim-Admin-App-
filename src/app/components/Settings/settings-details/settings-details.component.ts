@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { ToastrService } from 'ngx-toastr';
 import { coordinator } from 'src/app/Classes/coordinator';
 import { Setting } from 'src/app/Classes/setting';
 import { MainServiceService, forSelect } from 'src/app/services/MainService/main-service.service';
@@ -35,7 +36,7 @@ export class SettingsDetailsComponent implements OnInit {
 
   newSe:boolean=true;
 
-  constructor(private mainService: MainServiceService) {
+  constructor(public toastr: ToastrService,private mainService: MainServiceService) {
     this.lNeighborhoodTypeValue = mainService.SysTableList[4];
     this.lSettingTypeValue = mainService.SysTableList[5];
   }
@@ -113,6 +114,13 @@ export class SettingsDetailsComponent implements OnInit {
         //קבלה מהשרת את רשימת מפעילים המעודכנת
         this.mainService.getSettings();
 
+        
+        this.toastr.success('השינויים נשמרו בהצלחה', '', {
+          timeOut: 3000,
+        });
+        // alert("הנתונים של  " + this.currentSetting.nvSettingName + " נשמרו בהצלחה!");
+        this.mainService.serviceNavigate("./header-menu/settings/setting-table");
+
       },
       err => {
         alert("saveSetting err");
@@ -137,6 +145,8 @@ export class SettingsDetailsComponent implements OnInit {
         this.currentCoordinator = res;
         this.currentSetting.iCoordinatorId = this.currentCoordinator.iCoordinatorId;
         this.CoordinatorsGet();
+        alert("הנתונים של  " + this.currentCoordinator.nvFirstName+" "+this.currentCoordinator.nvLastName  + " נשמרו בהצלחה!");
+
       }
       ,
       err => {
@@ -154,6 +164,28 @@ export class SettingsDetailsComponent implements OnInit {
   validation(){
     
   }
+  //להציג את הוספת רכזת, גורם לטעויות ב mat-hint
+  c:boolean=false;
+  h:boolean=false;
 
+  checkFormValid() {
+    //check if no mat-hint with context 
+    const list = document.querySelectorAll<HTMLInputElement>("mat-hint");
+debugger
+list.forEach(function(Item) {
+  if(Item.innerHTML != '')
+  {
+    debugger
+    alert('נא שים לב לתוכן תקין');
+    this.h = true;
+    return false
+  }
+});
+     
+    debugger
 
+    if (this.h == false) {
+      this.saveSetting()
+    }
+  }
 }

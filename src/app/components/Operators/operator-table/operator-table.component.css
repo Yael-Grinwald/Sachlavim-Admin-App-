@@ -21,7 +21,11 @@ input.matInput{
 .operatorColor{
   color:var(--operatorClr);
 }
-
+.saveDialog{
+  background-color: var(--operatorClr);
+    border-color: var(--operatorClr);
+    color: white;
+}
 
 .example-form {
   min-width: 150px;

@@ -99,7 +99,11 @@ import { MatTableExporterModule } from 'mat-table-exporter';
 import { ParashaPipe } from './Pipes/parasha.pipe';
 import { HolidaysPipe } from './Pipes/holidays.pipe';
 import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
+import { CheckValidDatePipe } from './Pipes/Validation/check-valid-date.pipe';
+import { DatePipe } from '@angular/common'
 
+
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -146,10 +150,12 @@ import { MessageDialogComponent } from './components/message-dialog/message-dial
     ParashaPipe,
     HolidaysPipe,
     MessageDialogComponent,
+    CheckValidDatePipe,
   ],
   imports: [
-
-    NgbModalModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(),
+             NgbModalModule,
     FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,
@@ -158,9 +164,7 @@ import { MessageDialogComponent } from './components/message-dialog/message-dial
 
     CommonModule,
     ScheduleModule,
-    BrowserModule, 
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     MatSelectModule,
     MatFormFieldModule,
     NgxMatSelectSearchModule,
@@ -170,7 +174,6 @@ import { MessageDialogComponent } from './components/message-dialog/message-dial
     NgMultiSelectDropDownModule.forRoot(),
     AngularMultiSelectModule,
     BrowserModule,
-    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
@@ -207,10 +210,11 @@ import { MessageDialogComponent } from './components/message-dialog/message-dial
   ],
   providers: [
 
-
+DatePipe,
       {provide: MAT_DATE_LOCALE, useValue: 'he-IL'},
   
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },DayService,WeekService,WorkWeekService,MonthService,MonthAgendaService],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }

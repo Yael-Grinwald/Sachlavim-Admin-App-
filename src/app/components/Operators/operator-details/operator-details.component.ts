@@ -10,6 +10,9 @@ import { operatorsAvailability } from 'src/app/Classes/operatorsAvailability';
 import { Activity } from 'src/app/classes/activity';
 import { MessageDialogComponent } from '../../message-dialog/message-dialog.component';
 import { de } from 'date-fns/locale';
+import { NotificationService } from 'src/app/services/notification.service';
+import { ToastContainerDirective } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 export class ItimesArray {
   fromTimeMorning: Date = new Date();
@@ -51,7 +54,8 @@ export class OperatorDetailsComponent implements OnInit {
   mat: ElementRef;
   isValid: boolean = false;
   Activities: Activity[] = [];
-  constructor(private route: ActivatedRoute, private mainService: MainServiceService, private elementRef: ElementRef, public dialog: MatDialog) {
+  
+  constructor(public toastr: ToastrService,private route: ActivatedRoute, private mainService: MainServiceService, private elementRef: ElementRef, public dialog: MatDialog) {
   }
 
   openDialog() {
@@ -64,7 +68,7 @@ export class OperatorDetailsComponent implements OnInit {
     this.operator = this.mainService.operatorForDetails;//פרטי המפעיל לטופס עריכה
     this.settingsList = this.mainService.settingsList;
     this.activityCategories = this.mainService.gItems[7].dParams;
-
+ 
     //find id category of operator activities
     if (this.operator.lActivity.length > 0) {
       this.iCategory = this.operator.lActivity[0].iCategoryType;
@@ -75,8 +79,6 @@ export class OperatorDetailsComponent implements OnInit {
         this.iCategory = this.operator.nvActivityies.includes(element.Value) ? element.Key : this.iCategory;
       });
     }
-
-
 
     //אתחול רשימת איזורים
     this.NeighborhoodsList = this.mainService.gItems[4].dParams;
@@ -91,7 +93,6 @@ export class OperatorDetailsComponent implements OnInit {
       this.mainService.post("OperatorsAvailabilityGet", { iOperatorId: this.operator.iOperatorId }).then(
         res => {
           this.operatorsAvailability = res;
-          debugger
 
         },
         err => {
@@ -123,6 +124,7 @@ export class OperatorDetailsComponent implements OnInit {
         }
       }
     }
+ 
 
     //הגדרות ה multi select
     this.dropdownSettings = {
@@ -155,42 +157,54 @@ export class OperatorDetailsComponent implements OnInit {
     'חמישי'
   ];
   availability: operatorsAvailability[] = [];
-  createNoonsArray(type: number) {
-    this.availability = this.operatorsAvailability.filter(x => x.iOperatorId == this.operator.iOperatorId && x.iOperatorAvailabilityType == type);
-    debugger
-    this.availability.forEach((element) => {
-      element.tMorningToTime = element.tMorningToTime.replace('.', ':');
-      element.tMorningFromTime = element.tMorningFromTime.replace('.', ':');
-      element.tAfternoonFromTime = element.tAfternoonFromTime.replace('.', ':');
-      element.tAfternoonToTime = element.tAfternoonToTime.replace('.', ':');
-      //set time to 00:00 template
-      if (element.tMorningFromTime[1] == ':') {
-        element.tMorningFromTime = '0' + element.tMorningFromTime;
-      }
-      if (element.tMorningToTime[1] == ':') {
-        element.tMorningToTime = '0' + element.tMorningToTime;
-      }
-      if (element.tAfternoonFromTime[1] == ':') {
-        element.tAfternoonFromTime = '0' + element.tAfternoonFromTime;
-      }
-      if (element.tAfternoonToTime[1] == ':') {
-        element.tAfternoonToTime = '0' + element.tAfternoonToTime;
-      }
 
-      if (element.tMorningFromTime.length == 4) {
-        element.tMorningFromTime += '0';
+  createAvailabilityArray(type: number) {
+    //if new operator, create new operatorAvailability object
+    if (this.newOp == true) {
+      for (let i = 0; i < 5; i++) {
+        this.availability[i] = new operatorsAvailability();
       }
-      if (element.tMorningToTime.length == 4) {
-        element.tMorningToTime += '0';
-      }
-      if (element.tAfternoonFromTime.length == 4) {
-        element.tAfternoonFromTime += '0';
-      }
-      if (element.tAfternoonToTime.length == 4) {
-        element.tAfternoonToTime += '0';
-      }
-    });
-    debugger
+       
+    }
+
+    else {
+      this.availability = this.operatorsAvailability.filter(x => x.iOperatorId == this.operator.iOperatorId && x.iOperatorAvailabilityType == type);
+       
+      this.availability.forEach((element) => {
+        element.tMorningToTime = element.tMorningToTime.replace('.', ':');
+        element.tMorningFromTime = element.tMorningFromTime.replace('.', ':');
+        element.tAfternoonFromTime = element.tAfternoonFromTime.replace('.', ':');
+        element.tAfternoonToTime = element.tAfternoonToTime.replace('.', ':');
+        //set time to 00:00 template
+        if (element.tMorningFromTime[1] == ':') {
+          element.tMorningFromTime = '0' + element.tMorningFromTime;
+        }
+        if (element.tMorningToTime[1] == ':') {
+          element.tMorningToTime = '0' + element.tMorningToTime;
+        }
+        if (element.tAfternoonFromTime[1] == ':') {
+          element.tAfternoonFromTime = '0' + element.tAfternoonFromTime;
+        }
+        if (element.tAfternoonToTime[1] == ':') {
+          element.tAfternoonToTime = '0' + element.tAfternoonToTime;
+        }
+
+        if (element.tMorningFromTime.length == 4) {
+          element.tMorningFromTime += '0';
+        }
+        if (element.tMorningToTime.length == 4) {
+          element.tMorningToTime += '0';
+        }
+        if (element.tAfternoonFromTime.length == 4) {
+          element.tAfternoonFromTime += '0';
+        }
+        if (element.tAfternoonToTime.length == 4) {
+          element.tAfternoonToTime += '0';
+        }
+      });
+    }
+
+     
   }
 
   modal: boolean = true;
@@ -208,58 +222,66 @@ export class OperatorDetailsComponent implements OnInit {
 
     list.forEach(function (Item) {
       if (Item.innerHTML != '') {
-        debugger
+         
         alert('נא שים לב לתוכן תקין');
         this.h = true;
         return false
       }
     });
-
-
-
     if (this.h == false) {
       this.save()
     }
   }
+  
 
   abilitySave() {
-    debugger
+     
+    console.log(this.operator.iOperatorId, this.availability, this.mainService.currentUser.iUserId);
     this.mainService.post("OperatorsAvailabilityUpdt", { iOperatorId: this.operator.iOperatorId, lOperatorsAvailability: this.availability, iUserId: this.mainService.currentUser.iUserId })
       .then(
         res => {
           let o = res;
-          alert(o);
         }
         , err => {
           alert("err");
         }
       );
   }
-  saved=false;
+//help to know if call to abilitySave()
+  Saveability=false;
   save() {
-
     //update active category at all activities
     this.operator.nvActivityies = this.activityCategories.find(x => x.Key == this.iCategory).Value;
-
     if (this.operator.lActivity.length > 0) {
       this.operator.lActivity.forEach(element => {
         element.iCategoryType = this.iCategory;
       });
     }
-
+ 
     //save operator details changes
     let func = this.newOp == true ? 'AddOperator' : 'UpdateOperator';
     this.mainService.post(func, { oOperator: this.operator })
       .then(
-        res => {
+        async res => {
           let o = res;
-          if(o)
+
+                 
+          if(this.Saveability)
           {
-            this.saved=true;
-          }
-          debugger
+            this.operator.iOperatorId=o;
+          this.abilitySave();
+          } 
+
           //קבלה מהשרת את רשימת מפעילים המעודכנת
-          this.mainService.getAllOperators();
+         await this.mainService.getAllOperators();
+ 
+         
+         this.toastr.success('השינויים נשמרו בהצלחה', '', {
+          timeOut: 3000,
+        });
+         
+          // alert("הנתונים של  " + this.operator.nvOperatorName + " נשמרו בהצלחה!");
+           this.mainService.serviceNavigate("./header-menu/operators/operator-table");
 
         }
         , err => {

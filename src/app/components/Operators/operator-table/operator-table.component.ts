@@ -153,14 +153,19 @@ export class OperatorTableComponent implements OnInit {
   //מחיקת מפעיל
   DeleteOperator(oper: Operator) {
 
-    if (confirm("Are you sure to delete " + oper.nvOperatorName + "?")) {
+    if (confirm("האם אתה בטוח שברצונך למחוק את  " + oper.nvOperatorName + "?")) {
       this.mainService.post("DeleteOperator", { iOperatorId: oper.iOperatorId, iUserId: this.mainService.currentUser.iUserId }).then(
-        res => {
+     async   res => {
           this.mainService.operatorsList = res;
+          await  this.mainService.getAllOperators(); 
+          await location.reload();
+          this.mainService.serviceNavigate('./header-menu/operators/operator-table');
+          alert("המחיקה הושלמה")
+
           debugger
         },
         err => {
-          alert(err);
+          alert(err +'DeleteOperator');
         }
       );
     }
@@ -175,6 +180,7 @@ export class OperatorTableComponent implements OnInit {
   //עריכת מפעיל
   async EditOperator(op: Operator) {
 
+    //update the service the current operator
     this.mainService.operatorForDetails= <Operator> await this.mainService.post("GetOperator",{iOperatorId: op.iOperatorId });
 
 debugger
@@ -194,7 +200,7 @@ sendEmail()
     res => {
 
       let r = res;
-      alert(res);
+      alert("נשלח בהצלחה!");
     },
     err => {
       alert(err);

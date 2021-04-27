@@ -23,24 +23,24 @@ export class ProgramsTableComponent implements OnInit {
 
   ngOnInit() {
     this.ngAfterViewInit();
-    this.ProgramNameFilter.valueChanges.subscribe(
-      name => {
-        this.filterValues.nvProgramName = name;
-        this.dataSource.filter = JSON.stringify(this.filterValues);
-      }
-    )
-    this.FromDateFormatFilter.valueChanges.subscribe(
-      name => {
-        this.filterValues.dFromDateFormat = name;
-        this.dataSource.filter = JSON.stringify(this.filterValues);
-      }
-    )
-    this.ToDateFormatFilter.valueChanges.subscribe(
-      name => {
-        this.filterValues.dToDateFormat = name;
-        this.dataSource.filter = JSON.stringify(this.filterValues);
-      }
-    )
+    // this.ProgramNameFilter.valueChanges.subscribe(
+    //   name => {
+    //     this.filterValues.nvProgramName = name;
+    //     this.dataSource.filter = JSON.stringify(this.filterValues);
+    //   }
+    // )
+    // this.FromDateFormatFilter.valueChanges.subscribe(
+    //   name => {
+    //     this.filterValues.dFromDateFormat = name;
+    //     this.dataSource.filter = JSON.stringify(this.filterValues);
+    //   }
+    // )
+    // this.ToDateFormatFilter.valueChanges.subscribe(
+    //   name => {
+    //     this.filterValues.dToDateFormat = name;
+    //     this.dataSource.filter = JSON.stringify(this.filterValues);
+    //   }
+    // )
     // this.BudgetItemFilter.valueChanges.subscribe(
     //   name => {
     //     this.filterValues.nvBudgetItem = name;

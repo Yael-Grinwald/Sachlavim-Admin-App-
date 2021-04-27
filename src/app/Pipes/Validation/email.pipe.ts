@@ -6,9 +6,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class EmailPipe implements PipeTransform {
 
   transform(value: string) {
+
+    debugger
     var mail = /[A-Za-z0-9-]+@+[A-Za-z]+\.+[A-Za-z]/;
+    debugger
     if (mail.test(value) == false) {
-      return ('ערך לא תקין')
+      return ('כתובת מייל לא תקינה')
     }
   }
 

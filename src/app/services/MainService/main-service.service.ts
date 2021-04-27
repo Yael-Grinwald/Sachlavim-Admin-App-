@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, observable } from 'rxjs';
+import {  observable } from 'rxjs';
 import { Operator } from 'src/app/classes/operator';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/classes/user';
 import { Setting } from 'src/app/Classes/setting';
 import { Program } from 'src/app/Classes/program';
 import { promise } from 'protractor';
+import * as moment from 'moment';
+import {Observable} from 'rxjs/Observable';
 
 
 export class forSelect {
@@ -32,6 +34,7 @@ export class MainServiceService {
     this.getSettings();
     
     this.getAllOperators();
+    
     this.getPrograms();
     this.getAfternoon();
     this.getUsers();
@@ -54,7 +57,7 @@ export class MainServiceService {
   settingForDetails: Setting = new Setting();
 
   //לעריכת תוכנית
-  programForDetails: Program;
+  programForDetails: Program=new Program();
 
   //מערך של כל הטבלאות
   SysTableList: Array<Map<number, string>> = new Array<Map<number, string>>();
@@ -122,6 +125,8 @@ export class MainServiceService {
     return await this.http.get(`${this.sahlavimUrl}${url}`).toPromise();
   }
 
+
+
   getPrograms() {
     //פונקציה המחזירה לתוך אובייקט את נתוני טבלת SysTable
     this.post("ProgramsGet", { bProgramAfternoon: false || null }).then(
@@ -129,10 +134,15 @@ export class MainServiceService {
         if (res) {
           this.programsList = res;
           for (let p of this.programsList) {
+            // p.dFromDate=moment(p.dFromDate).format('DD/MM/YYYY');
+            // p.dToDate=moment(p.dToDate).format('DD/MM/YYYY');
+  
             p.dFromDate = new Date(parseInt(p.dFromDate.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toJSON().slice(0, 10);
             p.dToDate = new Date(parseInt(p.dToDate.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toJSON().slice(0, 10);
+
             // p.tFromTimeAfternoon=new Date(parseInt(p.tFromTimeAfternoon.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toDateString();
           }
+            
         }
       },
       err => {
@@ -147,14 +157,11 @@ export class MainServiceService {
         if (res) {
           this.afternoonsList = res;
           for (let p of this.afternoonsList) {
+            // p.dFromDate=moment(p.dFromDate).format('DD/MM/YYYY');
+            // p.dToDate=moment(p.dToDate).format('DD/MM/YYYY');
             p.dFromDate = new Date(parseInt(p.dFromDate.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toJSON().slice(0, 10);
             p.dToDate = new Date(parseInt(p.dToDate.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toJSON().slice(0, 10);
-            //  alert(p.dToDate[1])
-            //   if (this.YearTypeValue.get(p.iYearType) != p.dToDate[3]) {
-
-            //   }
-            // p.tFromTimeAfternoon=new Date(parseInt(p.tFromTimeAfternoon.replace(/\/+Date\(([\d+-]+)\)\/+/, '$1'))).toDateString();
-          }
+         }
 
         }
       },
@@ -165,13 +172,13 @@ export class MainServiceService {
 
   }
   //get operator list from server
-  getAllOperators() {
+async  getAllOperators() {
 
     this.post("GetOperators", {})
       .then(
         res => {
           this.operatorsList = res;
-          debugger
+            
           //Delete duplicates valus from schollexcude list in each operator
           this.operatorsList.forEach(element => {
             element.lSchoolsExcude = element.lSchoolsExcude.filter(
@@ -216,16 +223,7 @@ export class MainServiceService {
         res => {
           //if (res) {
             this.usersList = res;
-             
-            // this.usersList.forEach(element => {
-            //   switch(element.iUserType)
-            //   {
-            //     case 1:
-            //   }
-            // });
-          //}
-          // else
-          //   alert("GetUsers management error");
+       
         },
         err => {
           alert("error");

@@ -19,8 +19,8 @@ export class Setting {
         public iCoordinatorId: number=-1,
         public iCreateByUserId: number=-1,
         public dCreateDate: Date=new Date(),
-        public iLastModifyUserId: number=-1,//קוד מישתמש שינוי אחרון
-        public iLastModifyDate: number=-1,//לבדוק מה זה
+        public iLastModifyUserId: number=-1,
+        public iLastModifyDate: number=-1,
         public iSysRowStatus: number=-1,
         public bSettingMorning: boolean=false,
         public bSettingNoon: boolean=false,

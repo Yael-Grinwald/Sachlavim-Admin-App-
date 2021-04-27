@@ -38,13 +38,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
      
       <div class="col-md-4">
         <div class="btn-group">
-          <div
+          <!-- <div
             class="btn btn-primary"
             (click)="viewChange.emit('month')"
             [class.active]="view === 'month'">
             חודש
-          </div>
-          <div
+          </div> -->
+          <!-- <div
             class="btn btn-primary"
             (click)="viewChange.emit('week')"
             [class.active]="view === 'week'">
@@ -55,7 +55,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
             (click)="viewChange.emit('day')"
             [class.active]="view === 'day'">
             יום
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

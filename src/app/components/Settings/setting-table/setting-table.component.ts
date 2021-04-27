@@ -14,12 +14,20 @@ import { from } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Item } from 'angular2-multiselect-dropdown';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 
 @Component({
   selector: 'app-setting-table',
   templateUrl: './setting-table.component.html',
-  styleUrls: ['./setting-table.component.css']
+  styleUrls: ['./setting-table.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
+      state('expanded', style({ height: '*', visibility: 'visible' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class SettingTableComponent implements OnInit {
 
@@ -46,7 +54,8 @@ export class SettingTableComponent implements OnInit {
   emailAddress: Array<string> = new Array<string>();
   emailContent: string;
   emailSubject: string;
-
+  isExpansionDetailRow = (i: number, row: Object) => row.hasOwnProperty('detailRow');
+  expandedElement: Setting | null;
 
   constructor(private mainService: MainServiceService) {
     //this.lSettingAgegroups = this.lSysTable[7-1].dParams;
@@ -169,15 +178,15 @@ export class SettingTableComponent implements OnInit {
   }
 
   CoordinatorDetails(sett: Setting, CoordinatorId: number) {
-    this.currentSetting = sett;
-    if (this.openDetails == true)
-      this.openDetails = false;
-    else
-      this.openDetails = true;
+    // this.currentSetting = sett;
+    // if (this.openDetails == true)
+    //   this.openDetails = false;
+    // else
+    //   this.openDetails = true;
 
-    if (CoordinatorId) {
+    // if (CoordinatorId) {
       this.coordinator = this.coordinatorList.find(c => c.iCoordinatorId == CoordinatorId);
-    }
+      debugger
   }
   EditSetting(setting: Setting) {
     this.mainService.settingForDetails = setting;
@@ -207,7 +216,7 @@ export class SettingTableComponent implements OnInit {
       res => {
 
         let r = res;
-        alert(res);
+        alert("נשלח בהצלחה!");
       },
       err => {
         alert(err);
